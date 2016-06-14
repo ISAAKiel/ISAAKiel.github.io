@@ -243,3 +243,35 @@ a {
 @media screen and (max-width: 42em) {
   .site-footer {
     font-size: 0.9rem; } }
+
+.card {
+border: 2px solid #159957;
+box-sizing: border-box;
+color: rgb(0, 0, 0);
+display: block;
+font-family: Verdana, sans-serif;
+font-size: 15px;
+min-height: 100px;
+line-height: 22.5px;
+width: 25%;
+}
+
+.card header {
+padding:1em;
+background: #159957;
+
+}
+
+.card header h1 {
+  color: #fff;
+  font-size: 1.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.card header h1 a{
+  color: #fff;
+}
+
+.card div.descr {
+padding:1em;
+}

@@ -19,7 +19,13 @@ If you prefer to not use the automatic generator, push a branch named <code>gh-p
 
 ### Repositories
 {% for repository in site.github.public_repositories %}
-  * [{{ repository.name }}]({{ repository.html_url }})
+<section class="card">
+<header>
+  <h1>
+  [{{ repository.name }}]({{ repository.html_url }})</h1>
+</header>
+<div class="descr">{{ repository.description }}</div>
+</section>
 {% endfor %}
 
 ### Authors and Contributors
