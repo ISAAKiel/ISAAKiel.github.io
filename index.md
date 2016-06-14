@@ -23,7 +23,7 @@ If you prefer to not use the automatic generator, push a branch named <code>gh-p
 {% endfor %}
 
 ### Authors and Contributors
-{% for member in site.github.orgs %}
+{% for member in site.github.organization_members %}
   * {{ member.login }}
 {% endfor %}
 
