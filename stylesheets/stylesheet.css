@@ -254,6 +254,7 @@ font-size: 15px;
 min-height: 100px;
 line-height: 22.5px;
 width: 25%;
+float:left;
 }
 
 .card header {
@@ -274,4 +275,8 @@ background: #159957;
 
 .card div.descr {
 padding:1em;
+}
+
+.clear {
+    clear: both;
 }

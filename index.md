@@ -21,12 +21,13 @@ If you prefer to not use the automatic generator, push a branch named <code>gh-p
 {% for repository in site.github.public_repositories %}
 <section class="card">
 <header>
-  <h1>
-  [{{ repository.name }}]({{ repository.html_url }})</h1>
+  #[{{ repository.name }}]({{ repository.html_url }})
 </header>
 <div class="descr">{{ repository.description }}</div>
 </section>
 {% endfor %}
+
+<div class="clear"></div>
 
 ### Authors and Contributors
 {% for member in site.github.organization_members %}
