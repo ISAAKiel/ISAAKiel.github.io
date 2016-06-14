@@ -23,8 +23,8 @@ If you prefer to not use the automatic generator, push a branch named <code>gh-p
 {% endfor %}
 
 ### Authors and Contributors
-{% for collaborator in site.github.collaborators %}
-  * {{ collaborator.login }}
+{% for member in site.github.members %}
+  * {{ member.login }}
 {% endfor %}
 
 You can <a href="https://help.github.com/articles/basic-writing-and-formatting-syntax/#mentioning-users-and-teams" class="user-mention">@mention</a> a GitHub username to generate a link to their profile. The resulting <code>&lt;a&gt;</code> element will link to the contributor’s GitHub Profile. For example: In 2007, Chris Wanstrath (<a href="https://github.com/defunkt" class="user-mention">@defunkt</a>), PJ Hyett (<a href="https://github.com/pjhyett" class="user-mention">@pjhyett</a>), and Tom Preston-Werner (<a href="https://github.com/mojombo" class="user-mention">@mojombo</a>) founded GitHub.
