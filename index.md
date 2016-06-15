@@ -43,4 +43,3 @@ Having trouble with Pages? Check out our <a href="https://help.github.com/pages"
 
 
 subscribe <a href="{{ "/feed.xml" | prepend: site.baseurl }}">via RSS</a>
-

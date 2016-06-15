@@ -257,7 +257,9 @@ color:rgb(51, 51, 51);
 display:block;
 margin:0px;
 padding:0px;
-vertical-align:baseline; }
+vertical-align:baseline;
+display: flex;
+flex-wrap: wrap}
 
 .project {
 background-clip:border-box;
@@ -271,7 +273,6 @@ border-top-style:solid;
 color:rgb(51, 51, 51);
 display:block;
 float:left;
-height:200px;
 margin-bottom:24px;
 margin-left:0px;
 margin-right:20px;
@@ -283,10 +284,10 @@ width:20%;
 }
 
 .project-item {
+display:cell;
 color:rgb(51, 51, 51);
 display:block;
 font-size:12px;
-height:109px;
 padding:11px;
 width:100%;
 }
