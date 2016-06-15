@@ -22,7 +22,7 @@ If you prefer to not use the automatic generator, push a branch named <code>gh-p
 {% for repository in site.github.public_repositories %}
 <div class="project">
 <div class="project-item">
-  <h3>[{{ repository.name }}]({{ repository.html_url }})</h3>
+  <h3><a href="{{ repository.html_url }}">{{ repository.name }}</a></h3>
   <p>Automatically source and unsource a project's environment</p>
 </div>
 </div>
