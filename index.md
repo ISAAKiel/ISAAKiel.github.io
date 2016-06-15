@@ -18,12 +18,12 @@ We’ve crafted some handsome templates for you to use. Go ahead and click 'Cont
 If you prefer to not use the automatic generator, push a branch named <code>gh-pages</code> to your repository to create a page manually. In addition to supporting regular HTML content, GitHub Pages support Jekyll, a simple, blog aware static site generator. Jekyll makes it easy to create site-wide headers and footers without having to copy them across every page. It also offers intelligent blog support and other advanced templating features.
 
 ### Repositories
-<div class="projects container">
+<div class="projects clearfix">
 {% for repository in site.github.public_repositories %}
 <div class="project">
 <div class="project-item">
   <h3><a href="{{ repository.html_url }}">{{ repository.name }}</a></h3>
-  <p>Automatically source and unsource a project's environment</p>
+  <p>{{ repository.description }}</p>
 </div>
 </div>
 {% endfor %}

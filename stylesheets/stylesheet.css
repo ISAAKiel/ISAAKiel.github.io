@@ -290,3 +290,11 @@ height:109px;
 padding:11px;
 width:196px;
 }
+
+.clearfix:after {
+    content: ".";
+    clear: both;
+    display: block;
+    visibility: hidden;
+    height: 0px;
+}
