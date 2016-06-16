@@ -10,6 +10,6 @@ Below a test of the embedding of an existing course document...
 
 {% for repository in site.github.public_repositories %}
   {% if repository.name == "R-Tutorial_CAA2016"%}
-    {{repository.contents}}
+    {{repository.html_url}}
   {%endif%}
 {% endfor %}
