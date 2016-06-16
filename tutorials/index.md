@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Tutorials
-permalink: /
+permalink: /tutorials/
 ---
 
 Here will be accessible tutorials in near future ...
