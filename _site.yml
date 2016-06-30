@@ -15,3 +15,4 @@ navbar:
   right:
     - icon: fa-question fa-lg
       href: https://example.com
+output_dir: "."
