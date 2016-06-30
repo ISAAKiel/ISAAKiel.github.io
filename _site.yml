@@ -12,7 +12,4 @@ navbar:
     - text: "Projects"
       icon: fa-gear
       href: projects.html
-  right:
-    - icon: fa-question fa-lg
-      href: https://example.com
 output_dir: "."
