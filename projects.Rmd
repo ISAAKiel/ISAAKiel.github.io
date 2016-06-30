@@ -13,7 +13,7 @@ library(httr)
 repo_info <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"))
 
 for (i in 1:length(repo_info)){
-  title_string <- paste('## [',repo_info[[i]]$name,'](',repo_info[[i]]$html_url,'")',sep="")
+  title_string <- paste('## [',repo_info[[i]]$name,'](',repo_info[[i]]$html_url,')',sep="")
   cat(title_string)
   cat("\n")
   cat(repo_info[[i]]$description)
