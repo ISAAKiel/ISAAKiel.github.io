@@ -1,5 +1,4 @@
 ---
-title: "ISAAKiel"
 output:
   html_document:
     theme: "spacelab"
@@ -9,7 +8,12 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Section 1
+<div class="jumbotron" style="background: #446e9b; color: #FFF; margin-top: 1em;">
+<center>
+# ISAAKiel
 
+Adding number crunching to archaeology.
+</center>
+</div>
 
 
