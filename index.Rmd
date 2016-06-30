@@ -1,6 +1,8 @@
 ---
-title: "R Markdown Website"
-output: html_document
+title: "ISAAKiel"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
 ```{r setup, include=FALSE}

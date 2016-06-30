@@ -1,6 +1,8 @@
 ---
 title: "Projects"
-output: html_document
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
 ```{r setup, include=FALSE}

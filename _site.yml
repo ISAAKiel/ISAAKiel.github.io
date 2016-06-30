@@ -1,7 +1,6 @@
 name: "ISAAKiel"
 navbar:
   title: "ISAAKiel"
-  theme: "flatly"
   type: inverse
   left:
     - text: "Home"
