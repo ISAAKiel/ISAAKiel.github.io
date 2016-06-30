@@ -7,29 +7,20 @@ output: html_document
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Section 1
-
-```{r echo = FALSE}
+```{r results='asis', echo = FALSE}
 library(httr)
-library(rjson)
-test <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"), as = "text")
-json_data <- fromJSON(test)
+#test <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"), as = "text")
+repo_info <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"))
 
-for (i in 1:length(json_data)){
-  print(json_data[[i]]$name)
+for (i in 1:length(repo_info)){
+  title_string <- paste('## [',repo_info[[i]]$name,'](',repo_info[[i]]$html_url,'")',sep="")
+  cat(title_string)
+  cat("\n")
+  cat(repo_info[[i]]$description)
+  cat("\n\n")
+  cat("\n\n")
 }
 ```
-
-## Section 2
-
-Hallo, Käsebrot,
-```{r results='asis', echo=FALSE}
-a <- 1
-cat(a)
-```
-, hununu
-
-## Section 3
 
 
 
