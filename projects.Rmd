@@ -9,16 +9,37 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-```{r results='asis', echo = FALSE}
+```{r echo = FALSE}
+#### call github api ####
 library(httr)
-#test <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"), as = "text")
 repo_info <- content(GET("https://api.github.com/orgs/ISAAKiel/repos"))
 
-for (i in 1:length(repo_info)){
-  title_string <- paste('## [',repo_info[[i]]$name,'](',repo_info[[i]]$html_url,')',sep="")
+#### transform results to a clean format ####
+repo_info_s1 <- lapply(repo_info, function(x){
+  res <- data.frame(str = unlist(x), stringsAsFactors = FALSE)
+  res <- data.frame(id = row.names(res), res)
+  colnames(res) <- c("id", paste(x$name))
+  return(res)
+  })
+
+repo_info_s2 <- Reduce(function(...) merge(..., all=T), repo_info_s1)
+
+repo_info_s3 <- as.data.frame(t(repo_info_s2)[-1,], stringsAsFactors = FALSE)
+colnames(repo_info_s3) <- repo_info_s2$id
+
+repo_info <- repo_info_s3
+
+#### sort results ####
+repo_info <- repo_info_s3[order(repo_info$name), ]
+```
+
+```{r results = 'asis', echo = FALSE}
+#### textoutput ####
+for (i in 1:nrow(repo_info)){
+  title_string <- paste('## [',repo_info$name[i],'](',repo_info$html_url[i],')',sep="")
   cat(title_string)
   cat("\n")
-  cat(repo_info[[i]]$description)
+  cat(repo_info$description[i])
   cat("\n\n")
   cat("\n\n")
 }
