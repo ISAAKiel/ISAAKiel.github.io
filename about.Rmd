@@ -9,16 +9,67 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
-## Section 1
+## Members
 
-Lorem ipsum dolor sit amet, consectetur adipiscing elit. Quisque sapien nisl, egestas ut erat eu, egestas porttitor tellus. Pellentesque habitant morbi tristique senectus et netus et malesuada fames ac turpis egestas. Sed pellentesque volutpat justo, et cursus lorem pulvinar luctus. Curabitur porta, diam a pretium egestas, dui dolor tempus sem, non facilisis turpis tortor a lectus. Morbi nec enim aliquam, eleifend libero eget, efficitur quam. Fusce dapibus elit vitae tellus hendrerit tristique. Donec felis elit, gravida non orci consectetur, finibus sollicitudin justo. Curabitur imperdiet pellentesque elit ac ultricies. Vestibulum erat leo, tristique non felis a, fringilla pellentesque dolor. Vivamus sem justo, commodo sit amet ultrices in, lobortis sit amet lacus. Donec feugiat sem vel arcu feugiat, sed maximus elit aliquam. Pellentesque justo leo, pellentesque a mollis eget, suscipit ac turpis. Duis ornare dui quis nisi dictum, at consequat justo auctor.
+Currently involved are: 
 
-## Section 2
+```{r echo = FALSE}
+#### call github api ####
+library(httr)
+repo_info <- content(GET("https://api.github.com/orgs/ISAAKiel/public_members"))
 
-Nullam ullamcorper ac nunc sed tempus. Suspendisse sagittis tortor auctor magna aliquam, eu porta libero pretium. Vestibulum placerat feugiat mattis. Nulla ornare luctus quam vel iaculis. Nulla ornare justo venenatis viverra mollis. Aliquam pretium dui sed sem accumsan blandit. Integer aliquam posuere odio, ac interdum lorem egestas in. Vivamus sed est dolor. Nulla cursus blandit elit nec porta. Etiam dictum libero vel magna pulvinar convallis. Proin lacinia elementum ligula a malesuada. Ut rhoncus tortor vitae lorem ultrices luctus. Aenean sit amet libero non metus fringilla lacinia id quis massa. Nulla sollicitudin tortor non turpis suscipit, in imperdiet ex finibus.
+#### transform results to a clean format ####
+repo_info_s1 <- lapply(repo_info, function(x){
+  res <- data.frame(str = unlist(x), stringsAsFactors = FALSE)
+  res <- data.frame(id = row.names(res), res)
+  colnames(res) <- c("id", paste(x$login))
+  return(res)
+  })
 
-## Section 3
+repo_info_s2 <- Reduce(function(...) merge(..., all=T), repo_info_s1)
 
-Sed leo tortor, sagittis sit amet lacus eu, tincidunt ornare lacus. Integer lorem lacus, facilisis nec turpis et, fermentum scelerisque felis. Pellentesque ultrices nibh lacus, ut tincidunt metus finibus quis. Nunc tincidunt eget urna a lacinia. Sed auctor lorem eu ultrices interdum. Aliquam vehicula ornare massa, ut placerat mi imperdiet et. Sed facilisis eleifend tortor, id semper nisl congue eu. Donec malesuada dolor eget ex rutrum, nec consequat erat ultrices. Maecenas iaculis leo id est lacinia laoreet. Donec tempor cursus orci. Suspendisse potenti. Etiam cursus iaculis tincidunt.
+repo_info_s3 <- as.data.frame(t(repo_info_s2)[-1,], stringsAsFactors = FALSE)
+colnames(repo_info_s3) <- repo_info_s2$id
 
+repo_info <- repo_info_s3
+
+#### call single users ####
+user_info <- list()
+for (i in 1:nrow(repo_info)){
+  user_res <- content(GET(paste("https://api.github.com/users/", repo_info$login[i], sep = "")))
+  user_info[[i]] <- user_res
+}
+
+#### transform results to a clean format ####
+user_info_s1 <- lapply(user_info, function(x){
+  res <- data.frame(str = unlist(x), stringsAsFactors = FALSE)
+  res <- data.frame(id = row.names(res), res)
+  colnames(res) <- c("id", paste(x$login))
+  return(res)
+  })
+
+user_info_s2 <- Reduce(function(...) merge(..., all=T), user_info_s1)
+
+user_info_s3 <- as.data.frame(t(user_info_s2)[-1,], stringsAsFactors = FALSE)
+colnames(user_info_s3) <- user_info_s2$id
+
+user_info <- user_info_s3[order(user_info_s3$login), ]
+```
+
+```{r results = 'asis', echo = FALSE}
+#### textoutput ####
+for (i in 1:nrow(repo_info)){
+  if (!is.na(user_info$name[i])){
+    name_string <- paste('[',user_info$name[i],'](',user_info$html_url[i],')',sep="")
+  } else {
+    name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
+  }
+  cat(name_string)
+  if (i == nrow(user_info)-1){
+    cat(" and ") 
+  } else if (i != nrow(user_info)){
+    cat(", ") 
+  } 
+}
+```
 
