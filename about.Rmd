@@ -14,57 +14,37 @@ knitr::opts_chunk$set(echo = TRUE)
 Currently involved are: 
 
 ```{r echo = FALSE}
-#### call github api ####
-library(httr)
-repo_info <- content(GET("https://api.github.com/orgs/ISAAKiel/public_members"))
+#### load api functions ####
+source("R/github_api_conv.R")
 
-#### transform results to a clean format ####
-repo_info_s1 <- lapply(repo_info, function(x){
-  res <- data.frame(str = unlist(x), stringsAsFactors = FALSE)
-  res <- data.frame(id = row.names(res), res)
-  colnames(res) <- c("id", paste(x$login))
-  return(res)
-  })
-
-repo_info_s2 <- Reduce(function(...) merge(..., all=T), repo_info_s1)
-
-repo_info_s3 <- as.data.frame(t(repo_info_s2)[-1,], stringsAsFactors = FALSE)
-colnames(repo_info_s3) <- repo_info_s2$id
-
-repo_info <- repo_info_s3
+#### get org members info from github api ####
+members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", "login")
 
 #### call single users ####
 user_info <- list()
-for (i in 1:nrow(repo_info)){
-  user_res <- content(GET(paste("https://api.github.com/users/", repo_info$login[i], sep = "")))
+for (i in 1:nrow(members_info)){
+  user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
   user_info[[i]] <- user_res
 }
 
-#### transform results to a clean format ####
-user_info_s1 <- lapply(user_info, function(x){
-  res <- data.frame(str = unlist(x), stringsAsFactors = FALSE)
-  res <- data.frame(id = row.names(res), res)
-  colnames(res) <- c("id", paste(x$login))
-  return(res)
-  })
+#### transform single users list to a nice data.frame ####
+user_info <- api_trans(user_info, "login")
 
-user_info_s2 <- Reduce(function(...) merge(..., all=T), user_info_s1)
-
-user_info_s3 <- as.data.frame(t(user_info_s2)[-1,], stringsAsFactors = FALSE)
-colnames(user_info_s3) <- user_info_s2$id
-
-user_info <- user_info_s3[order(user_info_s3$login), ]
+#### sort users data.frame ####
+user_info <- user_info[order(user_info$login), ]
 ```
 
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
-for (i in 1:nrow(repo_info)){
+for (i in 1:nrow(user_info)){
+  # show real name if available - otherwise show login
   if (!is.na(user_info$name[i])){
     name_string <- paste('[',user_info$name[i],'](',user_info$html_url[i],')',sep="")
   } else {
     name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
   }
   cat(name_string)
+  # link by "," or "and" depending on position
   if (i == nrow(user_info)-1){
     cat(" and ") 
   } else if (i != nrow(user_info)){
