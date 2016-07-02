@@ -1,0 +1,47 @@
+---
+title: "R-Tutorialz"
+output:
+  html_document:
+    theme: "spacelab"
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+```{r echo = FALSE}
+#### create folder for the R-Tutorial texts ####
+system("rm -r downloads/r-tut/ ; mkdir downloads/r-tut")
+
+#### download scripts and data from github ####
+system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/data/")
+system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/presentation/")
+
+#### delete all non *.Rmd-files ####
+system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xargs -0 rm --")
+```
+
+```{r echo = FALSE}
+Rmd_bind <- function(dir = ".", book_header = "test"){
+  old <- setwd(dir)
+  if(length(grep("book.Rmd", list.files())) > 0){
+  warning("book.Rmd already exists")
+  }
+  
+  write(book_header, file = "book.Rmd")
+  cfiles <- list.files(pattern = "*.Rmd")
+  ttext <- NULL
+
+  for(i in 1:length(cfiles)){
+    text <- readLines(cfiles[i])
+    hspan <- grep("---", text)
+    text <- text[-c(hspan[1]:hspan[2])]
+    write(text, sep = "\n", file = "book.Rmd", append = T)
+  }
+
+  render("book.Rmd", output_format = "html_document")
+  setwd(old)
+}
+
+Rmd_bind("downloads/r-tut/presentation")
+```
