@@ -13,35 +13,51 @@ knitr::opts_chunk$set(echo = TRUE)
 #### create folder for the R-Tutorial texts ####
 system("rm -r downloads/r-tut/ ; mkdir downloads/r-tut")
 
-#### download scripts and data from github ####
-system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/data/")
+#### download scripts, data and images from github ####
 system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/presentation/")
+system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/data/")
+system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/img/")
 
 #### delete all non *.Rmd-files ####
 system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xargs -0 rm --")
 ```
 
 ```{r echo = FALSE}
-Rmd_bind <- function(dir = ".", book_header = "test"){
-  old <- setwd(dir)
-  if(length(grep("book.Rmd", list.files())) > 0){
-  warning("book.Rmd already exists")
-  }
+library(rmarkdown)
   
-  write(book_header, file = "book.Rmd")
-  cfiles <- list.files(pattern = "*.Rmd")
-  ttext <- NULL
+cfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd", full.names = TRUE)
 
-  for(i in 1:length(cfiles)){
-    text <- readLines(cfiles[i])
-    hspan <- grep("---", text)
-    text <- text[-c(hspan[1]:hspan[2])]
-    write(text, sep = "\n", file = "book.Rmd", append = T)
-  }
-
-  render("book.Rmd", output_format = "html_document")
-  setwd(old)
+for(i in 1:length(cfiles)){
+  text <- readLines(cfiles[i])
+  title <- grep("title:", text)[1]
+  author <- grep("author:", text)[1]
+  date <- grep("date:", text)[1]
+  hspan <- grep("---", text)
+  head <- c((hspan[1]+1):(hspan[2]-1))
+  headkeep <- c(title, author, date)
+  text <- text[-head[!(head %in% headkeep)]]
+  write(text, sep = "\n", file = cfiles[i])
+  
+  render(cfiles[i], output_format = "html_document")
 }
+```
 
-Rmd_bind("downloads/r-tut/presentation")
+```{r echo = FALSE}
+system("find downloads/r-tut/presentation -type f -name '*.html' -print | xargs -i mv {} downloads/r-tut-res")
+
+system("rm -r downloads/r-tut/")
+```
+
+```{r echo = FALSE}
+# resfiles <- list.files(path = "downloads/r-tut-res/", pattern = "*.html", full.names = TRUE)
+# 
+# yml <- readLines("_site.yml")
+# menu <- grep("menu:", yml)[1]
+# yml[menu] <- "
+#       menu:
+#         - text: \"Heading 1\"
+#         - text: \"Page A\"
+#           href: downloads/r-tut-res//1-1_Motivation.html
+# "
+# writeLines(yml, "_site.yml")
 ```
