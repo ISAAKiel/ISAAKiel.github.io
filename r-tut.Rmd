@@ -24,7 +24,6 @@ system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xa
 
 ```{r echo = FALSE}
 library(rmarkdown)
-<<<<<<< HEAD
   
 cfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd", full.names = TRUE)
 
@@ -43,7 +42,6 @@ for(i in 1:length(cfiles)){
     text[tp] <- gsub("../data/", "downloads/r-tut/data/", text[tp])
   }
   
-  
   write(text, sep = "\n", file = cfiles[i])
   
   #render(cfiles[i], output_format = "html_document")
@@ -53,29 +51,6 @@ for(i in 1:length(cfiles)){
 ```{r echo = FALSE}
 system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -i mv {} .")
 
-=======
-  
-cfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd", full.names = TRUE)
-
-for(i in 1:length(cfiles)){
-  text <- readLines(cfiles[i])
-  title <- grep("title:", text)[1]
-  author <- grep("author:", text)[1]
-  date <- grep("date:", text)[1]
-  hspan <- grep("---", text)
-  head <- c((hspan[1]+1):(hspan[2]-1))
-  headkeep <- c(title, author, date)
-  text <- text[-head[!(head %in% headkeep)]]
-  write(text, sep = "\n", file = cfiles[i])
-  
-  render(cfiles[i], output_format = "html_document")
-}
-```
-
-```{r echo = FALSE}
-system("find downloads/r-tut/presentation -type f -name '*.html' -print | xargs -i mv {} downloads/r-tut-res")
-
->>>>>>> 82dde27f83cd4959ada8fdc791dc9b29e8a469bf
 system("rm -r downloads/r-tut/")
 ```
 
