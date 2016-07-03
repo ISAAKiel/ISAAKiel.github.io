@@ -1,0 +1,50 @@
+---
+title: "Analyse und Visualisierung archäologischer Daten mit R"
+author: "Dirk Seidensticker/Clemens Schmid"
+date: "6. Februar 2016"
+---
+
+
+
+# Einleitung
+
+## About us
+
+|**Dirk Seidensticker**|**Clemens Schmid**|
+|------------------------------------|------------------------------------|
+|seit 2015: Wiss. Mitarbeiter der Forschungsstelle Afrika (Universität zu Köln)|seit 2015: Masterstudium CAU Kiel|
+|seit 2012: Promotion an der Universität zu Köln||
+|**Python, R, SQL**|**R, SQL, Java, C++**|
+
+## Daten in der Archäologie
+
+![Fotos: K. Jungnickel 2015](downloads/r-tut/img/motivation01.png)
+
+## Reproduzierbarkeit
+
+![A. Azam, The first rule of data science. The Berkeley Science Review. http://berkeleysciencereview.com/article/first-rule-data-science/](http://i0.wp.com/sciencereview.berkeley.edu/wp-content/uploads/2014/04/spring_2014_azam_05.jpg)
+
+## Vor- und Nachteile von R
+
+|**Vorteile**|**Nachteile**|
+|------------------------------------|------------------------------------|
+|Reproduzierbarkeit und hohe Nachnutzbarkeit|Hohe Einstiegs-/Lernschwelle|
+|Skalierbarkeit|Teilweise 'krude' Syntax|
+|Erweiterbarkeit||
+
+
+
+# Exkurs Datenniveaus
+
+## Daten in der Statistik
+
+* Datentypen:
+    * **ordinal skalierte Daten** haben eine festgelegte Reihenfolge
+        * Ganze Zahlen und Natürliche Zahlen
+        * (Boolean)
+    * **nominale Daten** sind diskret und zeigen eine qualitative Ausprägung eines Merkmals
+
+
+## Skalenniveaus
+
+![https://de.wikipedia.org/wiki/Datei:Skalenniveau.png](https://upload.wikimedia.org/wikipedia/commons/e/e3/Skalenniveau.png)

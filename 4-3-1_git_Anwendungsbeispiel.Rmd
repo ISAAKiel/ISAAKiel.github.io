@@ -1,0 +1,336 @@
+---
+title: "Modellentwicklung mit R und git"
+author: "Clemens Schmid"
+date: "26. Juni 2016"
+---
+
+# git -- Ausgangssituation
+
+## status
+
+Wir befinden uns in einem Subverzeichnis *nnmodel* im von git überwachten Verzeichnis *somethings*.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ pwd
+/home/clemens/Rstats/somethings/nnmodel
+```
+
+**git status** ermöglicht es uns, den aktuellen Zustand von *somethings* aus der Perspektive von git abzufragen.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+nothing to commit, working directory clean
+```
+
+Wir befinden uns im Master-Zweig, der auf dem selben Stand wie das externe Repository git@github.com:nevrome/somethings.git ist. Bisher wurden keine Änderungen am letzten aktuellen Zustand vorgenommen.
+
+# R -- Datenvorbereitung
+
+## Bibliotheken
+
+Zunächst legen wir eine Datei data_prep.R an. Sie enthält folgendes R-Skript:
+
+```{R, message = FALSE}
+library(nnet)
+library(dplyr)
+library(quantaar)
+```
+
+- **nnet**: Feed-Forward Neural Networks and Multinomial Log-Linear Models
+    - Sammlung verschiedener machine learning Algorithmen. Wir werden einen Algorithmus zur Konstruktion eines Neuronalen Netzes nutzen.
+- **dplyr**: A Grammar of Data Manipulation
+    - Umfassende data wrangling Funktionssammlung. Wir brauchen hier nur eine Filter- und eine Sample Funktion.
+- **quantaar**: R Library for Quantitative Analysis in Archaeology
+    - Sammlung von für bestimmte archäologische Anwendungen vorgesehene Methoden. Wir nutzen nur einen Testdatensatz daraus. 
+
+## Datenvorbereitung
+
+Der Datensatz *bs1* enthält eine Datentabelle für ein fiktives Gräberfeld. Das Gräberfeld umfasst 50 Bestattungen, für die jeweils Informationen zu Geschlecht, Bestattungssitte und Beigaben vorliegen. 
+
+```{R}
+graves <- bs1
+
+colnames(graves)
+```
+
+## Datenvorbereitung
+
+Wir wollen uns nur auf die Relation von Geschlecht und Beigaben konzentrieren und entfernen alle anderen Attribute aus der Tabelle.
+
+```{R}
+graves <- data.frame(graves[,-c(3,4,5,6)])
+
+colnames(graves)
+```
+
+## Datenvorbereitung
+
+Für die weitere Auswertung, muss die Datentabelle geringfügig umgeformt werden. Statt den Spalten *sex_male* und *sex_female*, die die fiktive anthropologische Ansprache binär kodiert enthalten **(int)**, benötigen wir eine Spalte, die die Informationen bündelt **(factor)**.
+
+```{R}
+sex <- as.factor(rep(0, nrow(graves)))
+levels(sex) <- c("male", "female", "unknown")
+for (i in 1:nrow(graves)){
+  if (graves$sex_male[i] == 1){
+    sex[i] <- "male"
+  }
+  if(graves$sex_female[i] == 1){
+    sex[i] <- "female"
+  } 
+  if((graves$sex_male[i] == 1 && graves$sex_female[i] == 1) ||
+     (graves$sex_male[i] == 0 && graves$sex_female[i] == 0)){
+    sex[i] <- "unknown"
+  } 
+}
+```
+
+## Datenvorbereitung
+```{R}
+sex
+```
+
+Der erzeugte Vektor soll die ursprünglichen Spalten ersetzen. 
+
+```{R}
+graves <- data.frame(sex, graves[,-c(1,2)])
+```
+
+## Datenvorbereitung
+
+Der Trainingsdatensatz für den Algorithmus, der unser Modell konstruieren soll, darf keine unklaren Werte enthalten. 
+
+```{R}
+graves <- filter(
+  graves,
+  sex != "unknown"  
+)
+```
+
+Außerdem möchten wir **bootstrapping** zur Anwendung bringen, um unser Modell später validieren und kalibrieren zu können. Der Trainingsdatensatz soll also nur 20 der 40 geschlechtsbestimmten Gräber umfassen.
+
+```{R}
+graves.training <- sample_n(graves, 20)
+```
+
+## Export
+
+Speichern der vorbereiteten Daten ins Dateisystem.
+
+```{R, eval=FALSE}
+save(
+  graves, 
+  file = "/home/clemens/Rstats/somethings/nnmodel/graves.RData"
+)
+
+save(
+  graves.training, 
+  file = "/home/clemens/Rstats/somethings/nnmodel/graves-training.RData"
+)
+```
+
+Blick ins Dateisystem:
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ ls
+data_prep.R  graves.RData  graves-training.RData
+```
+
+# git -- commit
+
+## status
+
+git hat das Anlegen des neuen Verzeichnisses und der Dateien darin bemerkt.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Untracked files:
+  (use "git add <file>..." to include in what will be committed)
+
+	./
+
+nothing added to commit but untracked files present (use "git add" to track)
+```
+
+## add
+
+Um den erarbeiteten Zustand zu speichern, müssen wir die Änderungen mit **git add** bestätigen.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git add --all
+
+[clemens@clemens_asus nnmodel]$ git status
+On branch master
+Your branch is up-to-date with 'origin/master'.
+Changes to be committed:
+  (use "git reset HEAD <file>..." to unstage)
+
+	new file:   data_prep.R
+	new file:   graves-training.RData
+	new file:   graves.RData
+```
+
+## commit
+
+Die Änderung wird nun in Form eines Commits über **git commit** dokumentiert und archiviert. 
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git commit -m 
+"Datenvorbereitung für das NN-Modell"
+Warning: commit message did not conform to UTF-8.
+You may want to amend it after fixing the message, or set the config
+variable i18n.commitencoding to the encoding your project uses.
+[master 58d1991] Datenvorbereitung fÃ¼r das NN-Modell
+ 3 files changed, 40 insertions(+)
+ create mode 100644 nnmodel/data_prep.R
+ create mode 100644 nnmodel/graves-training.RData
+ create mode 100644 nnmodel/graves.RData
+```
+
+## push
+
+Gegebenenfalls können wir die Änderung mit **git push** auch in ein externes Archiv überführen. 
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git push origin master
+Counting objects: 6, done.
+Delta compression using up to 4 threads.
+Compressing objects: 100% (6/6), done.
+Writing objects: 100% (6/6), 1.79 KiB | 0 bytes/s, done.
+Total 6 (delta 1), reused 0 (delta 0)
+To git@github.com:nevrome/somethings.git
+   52dd0f2..58d1991  master -> master
+```
+
+# R -- Modellentwicklung
+
+## Modellentwicklung
+
+Wir legen ein neues R-Skript model.R an, um die Arbeit am Modell von der Datenvorbereitung zu trennen.
+
+Zur Modellentwicklung kommt ein Algorithmus zur Konstruktion eines sehr simplen **Neuronalen Netzwerks** zum Einsatz. 
+
+```{R}
+sex.nnet <- nnet(sex~., data = graves.training, size = 1, decay = 0)
+```
+
+Wichtig: Der Algorithmus ist **nondeterministisch**.
+
+## Modell
+
+```{R}
+summary(sex.nnet)
+```
+
+## Validierung
+
+Durch Vergleich der Modellvorhersage mit den Ausgangsdaten können wir eine Abschätzung über die Güte unseres Modells treffen. 
+
+```{r}
+table(
+  actual = graves$sex,
+  predict = predict(sex.nnet, newdata = graves, type = "class")
+)
+```
+
+## Export
+
+Speichern des Modells ins Dateisystem.
+
+```{R, eval=FALSE}
+save(sex.nnet, file = "/home/clemens/Rstats/somethings/nnmodel/model.RData")
+```
+
+Blick ins Dateisystem:
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ ls
+data_prep.R  graves.RData  graves-training.RData  model.R  model.RData
+```
+
+## git -- commit
+
+Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git status
+[clemens@clemens_asus nnmodel]$ git add --all
+[clemens@clemens_asus nnmodel]$ git commit -m "Modellentwicklung"
+[clemens@clemens_asus nnmodel]$ git push origin master
+```
+
+# R -- Kalibration
+
+## Modellentwicklung
+
+Neuberechnung des Modells mit veränderten Parametern. 
+
+```{R}
+sex.nnet <- nnet(sex~., data = graves.training, size = 10, decay = 0.1)
+```
+
+Da die potentielle Komplexität des Neuronalen Netzes gegenüber dem ersten Versuch oben vergrößert wurde, ist das Ergebnismodell wahrscheinlich etwas besser. Aber: Nondeterminismus!
+
+## Modell
+
+```{R}
+summary(sex.nnet)
+```
+
+## Validierung
+
+```{r}
+table(
+  actual = graves$sex,
+  predict = predict(sex.nnet, newdata = graves, type = "class")
+)
+```
+
+## Export
+
+Gegebenenfalls Speichern des Modells ins Dateisystem
+
+```{R, eval=FALSE}
+save(sex.nnet, file = "/home/clemens/Rstats/somethings/nnmodel/model.RData")
+```
+
+## git -- commit
+
+Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git status
+[clemens@clemens_asus nnmodel]$ git add --all
+[clemens@clemens_asus nnmodel]$ git commit -m "Modellkalibration"
+[clemens@clemens_asus nnmodel]$ git push origin master
+```
+
+# git -- Geschichte
+
+## log
+
+git hat alle Änderungen archiviert. Wir können uns die Versionsgeschichte mit **git log** ansehen und mit **git revert** zu jedem beliebigen Arbeitsstand zurückspringen.
+
+```{R, engine = 'bash', eval = FALSE}
+[clemens@clemens_asus nnmodel]$ git log
+commit 20668fa758698d610d7a8c4f2a19f5286dc74e0b
+Author: nevrome <clemens@nevrome.de>
+Date:   Mon Jun 27 08:48:53 2016 +0200
+
+    Modellkalibration
+
+commit 6ad3a276e6f6d770594ee59b2a49be9bff57641d
+Author: nevrome <clemens@nevrome.de>
+Date:   Mon Jun 27 08:40:17 2016 +0200
+
+    Modellentwicklung
+
+commit 58d1991dd3e2fb2a59030e48767a7784c7ba9e6e
+Author: nevrome <clemens@nevrome.de>
+Date:   Mon Jun 27 08:09:58 2016 +0200
+
+    Datenvorbereitung fÃ¼r das NN-Modell
+```

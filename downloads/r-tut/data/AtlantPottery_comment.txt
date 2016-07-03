@@ -1,0 +1,3 @@
+AtlantPottery.csv
+
+Tabulator-getrennt		sep = '\t'

@@ -1,3 +1,4 @@
+
 name: "ISAAKiel"
 navbar:
   title: "ISAAKiel"
@@ -12,4 +13,36 @@ navbar:
     - text: "Projects"
       icon: fa-gear
       href: projects.html
+
+
+    - text: "R-Tutorial"
+      icon: fa-gear
+      menu: 
+
+        - text: "1-1_Motivation.html"
+          href: 1-1_Motivation.html
+        - text: "1-2_R_Sprache.html"
+          href: 1-2_R_Sprache.html
+        - text: "1-3_Einfache_Objekte.html"
+          href: 1-3_Einfache_Objekte.html
+        - text: "1-4_Einfache_Funktionen.html"
+          href: 1-4_Einfache_Funktionen.html
+        - text: "2-1_Datenhaltung.html"
+          href: 2-1_Datenhaltung.html
+        - text: "2-2_Daten_laden_und_speichern.html"
+          href: 2-2_Daten_laden_und_speichern.html
+        - text: "2-3_Datenverarbeitung.html"
+          href: 2-3_Datenverarbeitung.html
+        - text: "2-4_Deskriptive_Statistik.html"
+          href: 2-4_Deskriptive_Statistik.html
+        - text: "3-1_ggplot2_Theorie.html"
+          href: 3-1_ggplot2_Theorie.html
+        - text: "3-2-1_ggplot2_histogram.html"
+          href: 3-2-1_ggplot2_histogram.html
+        - text: "3-2-2_ggplot2_scatter.html"
+          href: 3-2-2_ggplot2_scatter.html
+        - text: "3-2-3_ggplot2_barplot.html"
+          href: 3-2-3_ggplot2_barplot.html
+        - text: "4-3-1_git_Anwendungsbeispiel.html"
+          href: 4-3-1_git_Anwendungsbeispiel.html
 output_dir: "."

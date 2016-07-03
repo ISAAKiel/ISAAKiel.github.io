@@ -1,0 +1,65 @@
+---
+title: "Daten laden und speichern"
+author: "Dirk Seidensticker/Clemens Schmid"
+date: "6. Februar 2016"
+---
+
+# Daten aus dem Dateisystem laden
+
+## Daten aus dem Dateisystem laden
+
+```{r, eval=FALSE} 
+# nicht lauffähig
+df <- read.csv("downloads/r-tut/data/AtlantPottery.csv")
+```
+
+Fehlermeldung:
+
+```r
+Error in read.table(
+  file = file, 
+  header = header, 
+  sep = sep, 
+  quote = quote,  : 
+  doppelte 'row.names' sind nicht zulässig
+```
+
+## Daten aus dem Dateisystem laden
+
+```{r} 
+df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = '\t')
+```
+
+```{r, echo=FALSE} 
+# df <- read.csv(
+# "C:/Users/DirkSeidenticker/Dropbox/dev/R-Tutorial_CAA20downloads/r-tut/data/AtlantPottery.csv", 
+# sep = '\t'
+#)
+```
+
+## Daten aus dem Dateisystem laden
+
+```{r} 
+head(df)
+```
+
+
+
+# Andere Datenquellen
+
+## Datenbanken und XML
+
+* **SQLite**: library(RSQLite)
+* **PostGreSQL**: library(RPostgreSQL) 
+* MySQL, Oracle, ODBC (library(RODBC)), MongoDB, ...
+* XML, JSON
+
+```{r, eval=FALSE} 
+# nicht lauffähig
+library(RSQLite)
+drv <- dbDriver("SQLite")
+con <- dbConnect(drv, "downloads/r-tut/data/DB.sqlite")
+
+df = dbGetQuery(con, "SELECT * FROM ...")
+head(df)
+```

@@ -1,0 +1,232 @@
+---
+title: "ggplot2 - Theoretische Einführung"
+author: "Dirk Seidensticker/Clemens Schmid"
+date: "6. Februar 2016"
+---
+
+# Geschichte, Einordnung und Philosophie
+
+## Hadley Wickham
+
+![Hadley Wickham](downloads/r-tut/img/HadleyWickham_small.jpg)
+
+* **Hadley Wickham** 
+    * Chief Scientist von **RStudio** und Adjunct Professor of Statistics an der **Rice University** (Houston, Texas)
+    * Entwickler etlicher zentraler Pakete für R (dplyr, tidyr, stringr, readr, devtools, DBI, ...) 
+    * http://had.co.nz/
+
+## ggplot2
+
+* Kontinuierliche Entwicklung **seit 2005** 
+
+* **github-Repository** (3400 commits bis zum 04.02.16)
+
+* Kontext
+    * Vergangenheit
+        * --> **base graphics** (Ross Ihaka in den 90ern)
+        * -----> "grid"-graphics (Paul Murrell 2000)
+        * ------> lattice (Deepayan Sarkar)
+    * Gegenwart
+        * --------> **ggplot2** (Hadley Wickham 2005)
+        * --------> **htmlwidgets**
+    * Zukunft
+        * --------> ggvis (Hadley Wickham 2014) + htmlwidgets
+        * ?
+
+## ggplot2
+
+* **Philosophie**
+    * Einfachere, schnellere und bessere Grafiken
+    * Didaktisches Konzept:
+        * Leichter Einstieg durch Anwendung 
+        * Verbesserung der eigenen Fähigkeiten durch Begreifen der Theorie
+        * Erweitern des Systems durch Einbringen eigener Konstrukte
+    * **Standardisierte "Grammatik" zur Konstruktion von Abbildungen**
+
+> ggplot2 is a plotting system for R, based on the **grammar of graphics**, which tries to take the good parts of base and lattice graphics and avoid bad parts. It takes care of many of the fiddly details that make plotting a hassle (like drawing legends) as well as providing a powerful model of graphics that makes it easy to produce complex multi-layered graphics.  
+> - https://github.com/hadley/ggplot2
+
+* “The Grammar of Graphics” von Leland Wilkinson 2005: Elemente, die jeder statistischen Grafik zugrunde liegen
+
+
+
+# "Grammatik" und Elemente
+
+```{r, message=FALSE, echo=FALSE} 
+library(ggplot2)
+```
+
+## data - data
+
+**data**: Daten, die visualisiert werden sollen
+
+```{r} 
+R <- data.frame(
+  V1 = c(1,2,3,4), 
+  V2 = c(3.5,4.3,5.6,6.5), 
+  V3 = c("A","A","B","A")
+  )
+
+R
+```
+
+```{r, eval = FALSE} 
+# noch nicht lauffähig
+ggplot(data = R)
+```
+
+## data - aes
+
+**aes**thetic mappings: Zuweisung, wie einzelne Variablen aus dem Datenbestand in der Grafik veranschaulicht werden sollen - z.B. durch Farbe, Form, Größe etc.  
+
+```{r} 
+R
+```
+
+```{r, eval = FALSE} 
+# immer noch nicht lauffähig
+ggplot(data = R, aes(x = V1, y = V2, colour = V3))
+```
+
+## layers - geoms
+
+**geom**etric objects: Elemente, aus denen sich der Plot zusammen setzt - z.B. Punkte, Balken, Linien etc. (definiert den Plottyp)
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
+  geom_point()
+```
+
+## layers - stats
+
+**stat**istical transformations: Stats fassen Daten je nach Bedarf zusammen - z.B. kann man mit ihnen einen Spline einpassen oder die Häufigkeit des Auftretens für ein Histogramm zählen
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
+  geom_point() +
+  stat_smooth(method = "lm")
+```
+
+## layers - stats
+
+**stat**istical transformations: Stats fassen Daten je nach Bedarf zusammen - z.B. kann man mit ihnen einen Spline einpassen oder die Häufigkeit des Auftretens für ein Histogramm zählen
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V3, fill = V3)) +
+  geom_bar(stat = "count")
+```
+
+## scales
+
+**scales**: Spezifizierung der Zuordnung von Daten zu grafischer Veranschaulichung (data -> aes). Scales steuert auch Legenden und Achsenskalierung
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V3, fill = V3)) +
+  geom_bar(stat = "count") +
+  scale_fill_manual( 
+    values = c('A' = '#EB811B', 'B' = '#23373B'),
+    guide = FALSE                    
+  )
+```
+
+## faceting
+
+**faceting**: Aufteilen von Daten nach Kategorien (subsets) und getrennte Visualisierung der Kategorien
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
+  geom_point() +
+  facet_wrap(~V3)
+```
+
+## theme
+
+**theme**: Steuerung der nicht oder nicht unmittelbar datenbezogenen, visuellen Qualitäten eines Plots - z.B. Hintergrundfarbe, Gridlines, Titel, Beschriftungen
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
+  geom_point() +
+  theme_bw()
+```
+
+## theme
+
+**theme**: Steuerung der nicht oder nicht unmittelbar datenbezogenen, visuellen Qualitäten eines Plots - z.B. Hintergrundfarbe, Gridlines, Titel, Beschriftungen
+
+```{r, fig.width=6, fig.height=2.5} 
+ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
+  geom_point() +
+  theme(
+    panel.grid.minor = element_line(colour = '#23373B'),
+    panel.grid.major = element_line(colour = '#EB811B')
+  )
+```
+
+## coord
+
+**coord**inate system: Beschreibt, wie Koordinaten auf die Plotfläche projiziert werden und stellt Achsen und Gridlines bereit. Neben dem normalen Karthesischen Koordinatenysstem stehen z.B. auch geographische Koordinatensysteme zur Verfügung
+
+```{r, message = FALSE} 
+library(maps)
+```
+
+```{r, fig.width=2, fig.height=2, eval = FALSE} 
+world <- map_data("world")
+
+worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") + 
+  coord_map("ortho", orientation = c(48, 9, 0))
+
+worldmap +
+  geom_point(aes(x = 10, y = 53.33), colour = "red", size = 7)
+```
+
+## coord
+
+```{r, fig.width=8, fig.height=8, echo = FALSE, fig.align='center'} 
+world <- map_data("world")
+
+worldmap <- ggplot(world, aes(x = long, y = lat, group = group)) +
+  geom_polygon(fill = "white", colour = "black") + 
+  coord_map("ortho", orientation = c(48, 9, 0))
+
+worldmap +
+  geom_point(aes(x = 10, y = 53.33), colour = "red", size = 7)
+```
+
+## Zusammenfassung
+
+**data**: Ausgangsdaten  
+**aes**: Zuweisung Variablen -> Visualisierung. Spezifizierung mit **scales**  
+**geom**: Plottyp/Elemente  
+**stats**: Zusammenfassungsoperationen  
+**faceting**: Mehrere Teilplots erstellen  
+**theme**: Plotlayout/Design  
+**coord**: Koordinatensystem  
+
+* ggplot(**data**, **aes**()) +  
+    * **geom**_...() +  
+    * **geom**_...(**aes**(), **stat**) +  
+    * **scale**\_..._...() +  
+    * **facet**_...(~) +  
+    * **theme**_...() +  
+    * **coord**_...()
+
+
+
+# Quellen und Empfehlungen
+
+## Weblinks und Literatur
+
+**Web**  
+
+* http://ggplot2.org/ - ggplot-Homepage 
+* https://github.com/hadley/ggplot2 - Github-Repository zu ggplot2
+* http://docs.ggplot2.org/current/index.html - Online Dokumentation und Hilfe
+* http://had.co.nz/ - Hadley Wickhams Homepage
+
+**Literatur**  
+
+* W. Chang, R graphics cookbook: practical recipes for visualizing data (Sebastopol 2013) 
+* H. Wickham, ggplot2: elegant graphics for data analysis (New York 2009) und neuere Versionen des Buchs (https://github.com/hadley/ggplot2-book)
+* L. Wilkinson/G. Wills, The grammar of graphics (New York 2005)

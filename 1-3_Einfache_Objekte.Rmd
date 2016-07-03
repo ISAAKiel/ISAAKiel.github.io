@@ -1,0 +1,300 @@
+---
+title: "Einfache Objekte"
+author: "Dirk Seidensticker/Clemens Schmid"
+date: "6. Februar 2016"
+---
+
+# Einführung
+
+## Objekte
+
+* R speichert Daten, Zwischenergebnisse, Funktionen etc. in verschiedenen Strukturen im **Hauptspeicher**
+
+* Kategorien primitiver Objekttypen: **Basic Vector** (Vektor mit einem Datentyp), **Compound objects** (Listen und S4-Objekte), Special objects, R language, **Functions**, Internal, Bytecode Objects 
+
+* Datentypen in der praktischen Anwendung: **vectors**, lists, matrices, arrays, factors, **data.frames**, timeseries, formulas, shingles, connections
+
+* vectors (dazu gehören auch einzelne Variablen) und data.frames genügen für viele Anwendungen mit R 
+
+* Objekte haben Eigenschaften (**attributes**), die auch entscheiden, wie R mit den Objekten umgeht: **class**, dim, dimnames, row.names, levels etc. 
+
+# vectors und data.frames anlegen
+
+## Zuweisung von einzelnen Objekten
+
+> x <- ...  
+> y -> ...  
+> z = ...
+
+**Beschreibung**
+
+Variablen einfach mit Werten verknüpfen. Variablen können aber alle möglichen R-Objekte referenzieren.
+
+**Beispiel**
+
+```{r}
+a <- 5
+b <- "Glockenbecher"
+a -> c
+d = 5 
+
+b
+```
+
+## base::c()
+
+> c(..., recursive = FALSE)
+
+**Beschreibung**
+
+Mehrere Objekte eines Datentyps in einem Vektor (Liste mit Reihenfolge) anordnen. Der Datentyp wird automatisch zugeordnet.
+
+**Beispiel**
+
+```{r}
+a <- c(1,2,3,4,5,10,15,35,55)
+b <- c("Dechsel", "Axt", "Axt", "Beil", "Dechsel")
+
+a
+b
+# Achtung: 
+c <- c(1, "Dechsel", 4)
+```
+
+## base::data.frame
+
+> data.frame(**...**, **row.names** = NULL, check.rows = FALSE, **check.names** = TRUE, **stringsAsFactors** = default.stringsAsFactors())
+
+**Beschreibung**
+
+Mehrere Vektoren einer Klasse in einer Kreuztabelle anordnen.
+
+**Beispiel**
+
+```{r, results='hide'}
+a <- c("Grube 1", "Grube 2", "Grube 3", "Grube 4", "Grube 5")
+b <- c("Dechsel 1", "Axt 1", "Axt 2", "Beil 1", "Dechsel 2")
+c <- c(5,3,2,5,5)
+
+Grabung1 <- data.frame(
+  Objekt = b, 
+  Anzahl = c, 
+  row.names = a, 
+  stringsAsFactors = FALSE
+  )
+```
+
+## base::data.frame
+
+> data.frame(**...**, **row.names** = NULL, check.rows = FALSE, **check.names** = TRUE, **stringsAsFactors** = default.stringsAsFactors())
+
+**Beschreibung**
+
+Mehrere Vektoren einer Klasse in einer Kreuztabelle anordnen.
+
+**Beispiel**
+
+```{r}
+Grabung1
+```
+
+# vectors und data.frames adressieren
+
+## Daten aus vectors und data.frames ansprechen/abrufen
+
+> [...] und ...$...
+
+**Beschreibung**
+
+Adressieren von Objekten in Vektoren, data.frames und Matrizen.
+
+**Beispiel**
+
+```{r}
+a[1]
+a[1:3]
+a[c(1,2,5)]
+```
+
+## Daten aus vectors und data.frames ansprechen/abrufen
+
+> [...] und ...$...
+
+**Beschreibung**
+
+Adressieren von Objekten in Vektoren, data.frames und Matrizen.
+
+**Beispiel**
+
+```{r}
+Grabung1$Objekt
+Grabung1$Objekt[3]
+```
+
+## Daten aus vectors und data.frames ansprechen/abrufen
+
+> [...] und ...$...
+
+**Beschreibung**
+
+Adressieren von Objekten in Vektoren, data.frames und Matrizen.
+
+**Beispiel**
+
+```{r}
+Grabung1[3,1]
+Grabung1[c(1,2),]
+Grabung1[,1]
+```
+
+# vectors und data.frames manipulieren
+
+## Löschen
+
+```{r}
+# Werte aus vector löschen
+a[-2]
+a[c(-1,-3)]
+a[c(2,4,5)]
+
+# Werte aus data.frame löschen
+Grabung1[3,1] <- NA
+```
+
+## Löschen
+
+```{r}
+# Spalten/Zeilen nach Index aus data.frame löschen
+Grabung1[c(-2,-3,-4),]
+
+# Spalten nach Namen aus data.frame löschen
+Grabung.dest <- Grabung1
+Grabung.dest$Objekt <- NULL
+Grabung.dest
+```
+
+## Trennen
+```{r}
+# data.frame nach Zeilen trennen
+Grabung1.A <- Grabung1[c(1:2),]
+Grabung1.A
+Grabung1.B <- Grabung1[c(3:5),]
+Grabung1.B
+```
+
+## Trennen
+```{r}
+# data.frame nach Spalten trennen
+Grabung1.C <- Grabung1[,1]
+Grabung1.C
+Grabung1.D <- Grabung1[,2]
+Grabung1.D
+```
+
+## Zusammenfügen/Hinzufügen
+```{r}
+# vector zusammenfügen
+e <- c(1,2,3)
+f <- c(4,5,6)
+g <- c(7,8,9)
+
+h <- c(e,f,g,10)
+h
+```
+
+## Zusammenfügen/Hinzufügen
+```{r}
+# data.frame nach Zeilen zusammenfügen
+Grabung1.A[1,]
+Grabung1.B[1,]
+rbind(Grabung1.A, Grabung1.B)
+```
+
+## Zusammenfügen/Hinzufügen
+```{r}
+# data.frame nach Spalten zusammenfügen
+Grabung1.C
+Grabung1.D
+data.frame(Grabung1.C, Grabung1.D)
+```
+
+## Verändern
+```{r}
+# Werte ändern: adressieren + neu zuweisen
+i <- c(1,2,3,4,5,6,7,8)
+i[5] <- 155
+i
+
+Grabung1[,2] <- c(133,244,355,466,577)
+Grabung1
+```
+
+## Umbennen
+```{r}
+# Namen ändern: Namen adressieren + neu zuweisen
+k <- c(1,2,3,4)
+names(k) <- c("Dechsel", "Landschnecke", "Bronzeobjekt", "Goldring")
+k
+
+colnames(Grabung1)
+row.names(Grabung1)
+```
+
+# Informationen zu Objekten anfragen
+
+## base::attributes()
+
+> attributes(**x**)  
+> attributes(**x**) <- value
+
+**Beschreibung**
+
+Gibt die Attribute eines Objekts an und erlaubt deren Manipulation
+
+**Beispiel**
+
+```{r}
+attributes(Grabung1)
+```
+
+## base::class()
+
+> class(**x**)
+
+**Beschreibung**
+
+Gibt die Klasse eines Objekts an.
+
+**Beispiel**
+
+```{r}
+class(Grabung1)
+```
+
+## utils::str()
+
+> str(**x**, ...)
+
+**Beschreibung**
+
+Gibt eine strukturelle Zusammenfassung zu einem Objekt aus.
+
+**Beispiel**
+
+```{r}
+str(Grabung1)
+```
+
+## base:summary()
+
+> summary(**x**, ...)
+
+**Beschreibung**
+
+Gibt eine statistische Zusammenfassung zu einem Objekt aus.
+
+**Beispiel**
+
+```{r}
+summary(Grabung1)
+```
