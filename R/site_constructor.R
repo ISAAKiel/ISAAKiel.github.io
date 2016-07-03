@@ -1,32 +1,21 @@
----
-title: "R-Tutorialz"
-output:
-  html_document:
-    theme: "spacelab"
----
+#### setup for the R-Tutorial ####
 
-```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
-```
-
-```{r echo = FALSE}
-#### create folder for the R-Tutorial texts ####
+# create folder for the R-Tutorial texts
 system("rm -r downloads/r-tut/ ; mkdir downloads/r-tut")
 
-#### download scripts, data and images from github ####
+# download scripts, data and images from github 
 system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/presentation/")
 system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/data/")
 system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/img/")
 
-#### delete all non *.Rmd-files ####
+# delete all non *.Rmd-files 
 system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xargs -0 rm --")
-```
 
-```{r echo = FALSE}
-library(rmarkdown)
-  
+# get lists of the downloaded *.Rmd-files
 cfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd", full.names = TRUE)
+rtutfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd")
 
+# change header and paths in the *.Rmd-files
 for(i in 1:length(cfiles)){
   text <- readLines(cfiles[i])
   title <- grep("title:", text)[1]
@@ -43,27 +32,49 @@ for(i in 1:length(cfiles)){
   }
   
   write(text, sep = "\n", file = cfiles[i])
-  
-  #render(cfiles[i], output_format = "html_document")
 }
-```
 
-```{r echo = FALSE}
+# move *.Rmd-files to root path 
 system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -i mv {} .")
 
-system("rm -r downloads/r-tut/")
-```
 
-```{r echo = FALSE}
-# resfiles <- list.files(path = "downloads/r-tut-res/", pattern = "*.html", full.names = TRUE)
-# 
-# yml <- readLines("_site.yml")
-# menu <- grep("menu:", yml)[1]
-# yml[menu] <- "
-#       menu:
-#         - text: \"Heading 1\"
-#         - text: \"Page A\"
-#           href: downloads/r-tut-res//1-1_Motivation.html
-# "
-# writeLines(yml, "_site.yml")
-```
+
+#### construct _site.yml ####
+
+yml1 <- "
+name: \"ISAAKiel\"
+navbar:
+  title: \"ISAAKiel\"
+  type: inverse
+  left:
+    - text: \"Home\"
+      icon: fa-home
+      href: index.html
+    - text: \"About\"
+      icon: fa-info
+      href: about.html
+    - text: \"Projects\"
+      icon: fa-gear
+      href: projects.html
+"
+writeLines(yml1, "_site.yml")
+
+yml2 <-"
+    - text: \"R-Tutorial\"
+      icon: fa-gear
+      menu: 
+" 
+write(yml2, "_site.yml", append = TRUE)
+
+for (fp in 1:length(rtutfiles)){
+  rtutfiles[fp] <- gsub(".Rmd", ".html", rtutfiles[fp])
+  yml3 <- paste(
+    paste("        - text: \"", rtutfiles[fp], "\"", sep = ""), 
+    paste("          href: ", rtutfiles[fp], sep = ""), 
+    sep = "\n"
+  )
+  write(yml3, "_site.yml", append = TRUE)
+}
+
+yml4 <- "output_dir: \".\""
+write(yml4, "_site.yml", append = TRUE)
