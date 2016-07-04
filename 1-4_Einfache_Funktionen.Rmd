@@ -2,11 +2,14 @@
 title: "Einfache Funktionen"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Einfache Funktionen
-
 ## Einfache Funktionen
+
+#### Einfache Funktionen
 
 > *Eine **Funktion** ist ein Programmkonstrukt, innerhalb dessen Quellcode strukturiert eingebaut ist um ihn an anderer Stelle und mehrfach wiederverwenden zu können. Die Funktion gibt das Resultat direkt zurück und kann daher innerhalb anderer Ausdrücke verwendet werden* 
 >
@@ -14,10 +17,10 @@ date: "6. Februar 2016"
 
 Kurz: ein Programm innerhalb eines Programms.
 
-## Funktionen in R
+#### Funktionen in R
 
 ```{r, eval=FALSE} 
-# nicht lauffähig
+## nicht lauffähig
 function(Parameter1, Parameter2, ...) {
         Anweisungen;
         }
@@ -26,7 +29,7 @@ function(Parameter1, Parameter2, ...) {
 * Funktionen in R beschreiben in ihrer Signatur keine Rückgabewerte! (Unterschied zu anderen Programmiersprachen)
 * siehe auch https://de.wikibooks.org/wiki/GNU_R:_Eigene_Funktionen_programmieren
 
-## Funktionen in R
+#### Funktionen in R
 
 ```{r} 
 myfunc <- function(x,y){ # Funktion mit den Parametern x und y

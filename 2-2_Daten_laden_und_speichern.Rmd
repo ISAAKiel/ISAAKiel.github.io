@@ -2,14 +2,17 @@
 title: "Daten laden und speichern"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
-
-# Daten aus dem Dateisystem laden
 
 ## Daten aus dem Dateisystem laden
 
+#### Daten aus dem Dateisystem laden
+
 ```{r, eval=FALSE} 
-# nicht lauffähig
+## nicht lauffähig
 df <- read.csv("downloads/r-tut/data/AtlantPottery.csv")
 ```
 
@@ -24,20 +27,20 @@ Error in read.table(
   doppelte 'row.names' sind nicht zulässig
 ```
 
-## Daten aus dem Dateisystem laden
+#### Daten aus dem Dateisystem laden
 
 ```{r} 
 df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = '\t')
 ```
 
 ```{r, echo=FALSE} 
-# df <- read.csv(
-# "C:/Users/DirkSeidenticker/Dropbox/dev/R-Tutorial_CAA20downloads/r-tut/data/AtlantPottery.csv", 
-# sep = '\t'
+## df <- read.csv(
+## "C:/Users/DirkSeidenticker/Dropbox/dev/R-Tutorial_CAA20downloads/r-tut/data/AtlantPottery.csv", 
+## sep = '\t'
 #)
 ```
 
-## Daten aus dem Dateisystem laden
+#### Daten aus dem Dateisystem laden
 
 ```{r} 
 head(df)
@@ -45,9 +48,9 @@ head(df)
 
 
 
-# Andere Datenquellen
+## Andere Datenquellen
 
-## Datenbanken und XML
+#### Datenbanken und XML
 
 * **SQLite**: library(RSQLite)
 * **PostGreSQL**: library(RPostgreSQL) 
@@ -55,7 +58,7 @@ head(df)
 * XML, JSON
 
 ```{r, eval=FALSE} 
-# nicht lauffähig
+## nicht lauffähig
 library(RSQLite)
 drv <- dbDriver("SQLite")
 con <- dbConnect(drv, "downloads/r-tut/data/DB.sqlite")

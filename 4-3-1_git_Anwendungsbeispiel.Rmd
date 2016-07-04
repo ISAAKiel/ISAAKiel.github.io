@@ -2,11 +2,14 @@
 title: "Modellentwicklung mit R und git"
 author: "Clemens Schmid"
 date: "26. Juni 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# git -- Ausgangssituation
+## git -- Ausgangssituation
 
-## status
+#### status
 
 Wir befinden uns in einem Subverzeichnis *nnmodel* im von git überwachten Verzeichnis *somethings*.
 
@@ -26,9 +29,9 @@ nothing to commit, working directory clean
 
 Wir befinden uns im Master-Zweig, der auf dem selben Stand wie das externe Repository git@github.com:nevrome/somethings.git ist. Bisher wurden keine Änderungen am letzten aktuellen Zustand vorgenommen.
 
-# R -- Datenvorbereitung
+## R -- Datenvorbereitung
 
-## Bibliotheken
+#### Bibliotheken
 
 Zunächst legen wir eine Datei data_prep.R an. Sie enthält folgendes R-Skript:
 
@@ -45,7 +48,7 @@ library(quantaar)
 - **quantaar**: R Library for Quantitative Analysis in Archaeology
     - Sammlung von für bestimmte archäologische Anwendungen vorgesehene Methoden. Wir nutzen nur einen Testdatensatz daraus. 
 
-## Datenvorbereitung
+#### Datenvorbereitung
 
 Der Datensatz *bs1* enthält eine Datentabelle für ein fiktives Gräberfeld. Das Gräberfeld umfasst 50 Bestattungen, für die jeweils Informationen zu Geschlecht, Bestattungssitte und Beigaben vorliegen. 
 
@@ -55,7 +58,7 @@ graves <- bs1
 colnames(graves)
 ```
 
-## Datenvorbereitung
+#### Datenvorbereitung
 
 Wir wollen uns nur auf die Relation von Geschlecht und Beigaben konzentrieren und entfernen alle anderen Attribute aus der Tabelle.
 
@@ -65,7 +68,7 @@ graves <- data.frame(graves[,-c(3,4,5,6)])
 colnames(graves)
 ```
 
-## Datenvorbereitung
+#### Datenvorbereitung
 
 Für die weitere Auswertung, muss die Datentabelle geringfügig umgeformt werden. Statt den Spalten *sex_male* und *sex_female*, die die fiktive anthropologische Ansprache binär kodiert enthalten **(int)**, benötigen wir eine Spalte, die die Informationen bündelt **(factor)**.
 
@@ -86,7 +89,7 @@ for (i in 1:nrow(graves)){
 }
 ```
 
-## Datenvorbereitung
+#### Datenvorbereitung
 ```{R}
 sex
 ```
@@ -97,7 +100,7 @@ Der erzeugte Vektor soll die ursprünglichen Spalten ersetzen.
 graves <- data.frame(sex, graves[,-c(1,2)])
 ```
 
-## Datenvorbereitung
+#### Datenvorbereitung
 
 Der Trainingsdatensatz für den Algorithmus, der unser Modell konstruieren soll, darf keine unklaren Werte enthalten. 
 
@@ -114,7 +117,7 @@ Außerdem möchten wir **bootstrapping** zur Anwendung bringen, um unser Modell 
 graves.training <- sample_n(graves, 20)
 ```
 
-## Export
+#### Export
 
 Speichern der vorbereiteten Daten ins Dateisystem.
 
@@ -137,9 +140,9 @@ Blick ins Dateisystem:
 data_prep.R  graves.RData  graves-training.RData
 ```
 
-# git -- commit
+## git -- commit
 
-## status
+#### status
 
 git hat das Anlegen des neuen Verzeichnisses und der Dateien darin bemerkt.
 
@@ -155,7 +158,7 @@ Untracked files:
 nothing added to commit but untracked files present (use "git add" to track)
 ```
 
-## add
+#### add
 
 Um den erarbeiteten Zustand zu speichern, müssen wir die Änderungen mit **git add** bestätigen.
 
@@ -173,7 +176,7 @@ Changes to be committed:
 	new file:   graves.RData
 ```
 
-## commit
+#### commit
 
 Die Änderung wird nun in Form eines Commits über **git commit** dokumentiert und archiviert. 
 
@@ -190,7 +193,7 @@ variable i18n.commitencoding to the encoding your project uses.
  create mode 100644 nnmodel/graves.RData
 ```
 
-## push
+#### push
 
 Gegebenenfalls können wir die Änderung mit **git push** auch in ein externes Archiv überführen. 
 
@@ -205,9 +208,9 @@ To git@github.com:nevrome/somethings.git
    52dd0f2..58d1991  master -> master
 ```
 
-# R -- Modellentwicklung
+## R -- Modellentwicklung
 
-## Modellentwicklung
+#### Modellentwicklung
 
 Wir legen ein neues R-Skript model.R an, um die Arbeit am Modell von der Datenvorbereitung zu trennen.
 
@@ -219,13 +222,13 @@ sex.nnet <- nnet(sex~., data = graves.training, size = 1, decay = 0)
 
 Wichtig: Der Algorithmus ist **nondeterministisch**.
 
-## Modell
+#### Modell
 
 ```{R}
 summary(sex.nnet)
 ```
 
-## Validierung
+#### Validierung
 
 Durch Vergleich der Modellvorhersage mit den Ausgangsdaten können wir eine Abschätzung über die Güte unseres Modells treffen. 
 
@@ -236,7 +239,7 @@ table(
 )
 ```
 
-## Export
+#### Export
 
 Speichern des Modells ins Dateisystem.
 
@@ -251,7 +254,7 @@ Blick ins Dateisystem:
 data_prep.R  graves.RData  graves-training.RData  model.R  model.RData
 ```
 
-## git -- commit
+#### git -- commit
 
 Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
 
@@ -262,9 +265,9 @@ Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
 [clemens@clemens_asus nnmodel]$ git push origin master
 ```
 
-# R -- Kalibration
+## R -- Kalibration
 
-## Modellentwicklung
+#### Modellentwicklung
 
 Neuberechnung des Modells mit veränderten Parametern. 
 
@@ -274,13 +277,13 @@ sex.nnet <- nnet(sex~., data = graves.training, size = 10, decay = 0.1)
 
 Da die potentielle Komplexität des Neuronalen Netzes gegenüber dem ersten Versuch oben vergrößert wurde, ist das Ergebnismodell wahrscheinlich etwas besser. Aber: Nondeterminismus!
 
-## Modell
+#### Modell
 
 ```{R}
 summary(sex.nnet)
 ```
 
-## Validierung
+#### Validierung
 
 ```{r}
 table(
@@ -289,7 +292,7 @@ table(
 )
 ```
 
-## Export
+#### Export
 
 Gegebenenfalls Speichern des Modells ins Dateisystem
 
@@ -297,7 +300,7 @@ Gegebenenfalls Speichern des Modells ins Dateisystem
 save(sex.nnet, file = "/home/clemens/Rstats/somethings/nnmodel/model.RData")
 ```
 
-## git -- commit
+#### git -- commit
 
 Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
 
@@ -308,9 +311,9 @@ Archivieren und Dokumentieren des Arbeitsfortschritts mit git.
 [clemens@clemens_asus nnmodel]$ git push origin master
 ```
 
-# git -- Geschichte
+## git -- Geschichte
 
-## log
+#### log
 
 git hat alle Änderungen archiviert. Wir können uns die Versionsgeschichte mit **git log** ansehen und mit **git revert** zu jedem beliebigen Arbeitsstand zurückspringen.
 

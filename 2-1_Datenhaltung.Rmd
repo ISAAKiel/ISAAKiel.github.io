@@ -2,11 +2,14 @@
 title: "Analyse und Visualisierung archäologischer Daten mit R"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Daten verstehen und beschreiben mit R
+## Daten verstehen und beschreiben mit R
 
-## Umgang mit den Daten
+#### Umgang mit den Daten
 
 * Grundsätze
     * Behandle deine Roh-Daten als read-only!
@@ -15,6 +18,6 @@ date: "6. Februar 2016"
 
 siehe http://nicercode.github.io/blog/2013-04-05-projects/
 
-## Datenhaltung
+#### Datenhaltung
 
 ![M. Diaz 2013 http://nicercode.github.io/blog/2013-05-17-organising-my-project/](downloads/r-tut/img/2-1_Bildschirmfoto2014-03-04um23.52.04.png)

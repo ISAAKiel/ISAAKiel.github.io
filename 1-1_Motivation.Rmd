@@ -2,13 +2,16 @@
 title: "Analyse und Visualisierung archäologischer Daten mit R"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
 
 
-# Einleitung
+## Einleitung
 
-## About us
+#### About us
 
 |**Dirk Seidensticker**|**Clemens Schmid**|
 |------------------------------------|------------------------------------|
@@ -16,15 +19,15 @@ date: "6. Februar 2016"
 |seit 2012: Promotion an der Universität zu Köln||
 |**Python, R, SQL**|**R, SQL, Java, C++**|
 
-## Daten in der Archäologie
+#### Daten in der Archäologie
 
 ![Fotos: K. Jungnickel 2015](downloads/r-tut/img/motivation01.png)
 
-## Reproduzierbarkeit
+#### Reproduzierbarkeit
 
 ![A. Azam, The first rule of data science. The Berkeley Science Review. http://berkeleysciencereview.com/article/first-rule-data-science/](http://i0.wp.com/sciencereview.berkeley.edu/wp-content/uploads/2014/04/spring_2014_azam_05.jpg)
 
-## Vor- und Nachteile von R
+#### Vor- und Nachteile von R
 
 |**Vorteile**|**Nachteile**|
 |------------------------------------|------------------------------------|
@@ -34,9 +37,9 @@ date: "6. Februar 2016"
 
 
 
-# Exkurs Datenniveaus
+## Exkurs Datenniveaus
 
-## Daten in der Statistik
+#### Daten in der Statistik
 
 * Datentypen:
     * **ordinal skalierte Daten** haben eine festgelegte Reihenfolge
@@ -45,6 +48,6 @@ date: "6. Februar 2016"
     * **nominale Daten** sind diskret und zeigen eine qualitative Ausprägung eines Merkmals
 
 
-## Skalenniveaus
+#### Skalenniveaus
 
 ![https://de.wikipedia.org/wiki/Datei:Skalenniveau.png](https://upload.wikimedia.org/wikipedia/commons/e/e3/Skalenniveau.png)

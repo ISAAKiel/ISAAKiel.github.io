@@ -2,11 +2,14 @@
 title: "R als Programmiersprache"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Grundlagen
-
 ## Grundlagen
+
+#### Grundlagen
 
 ![R Logo](downloads/r-tut/img/Rlogo_wide.png)
 
@@ -19,7 +22,7 @@ date: "6. Februar 2016"
 
 * R kann mit anderen Programmiersprachen wie **Python**, **C**, **Ruby**, **Fortran** und **JavaScript** etc. verbunden werden
 
-## Grundlagen
+#### Grundlagen
 
 * R ist eine **Interpretersprache**, die nicht kompiliert werden muss 
     * R muss installiert sein, um ein Skript ausführen zu können 
@@ -35,9 +38,9 @@ date: "6. Februar 2016"
 
 
 
-# Geschichte
+## Geschichte
 
-## Geschichte - S
+#### Geschichte - S
 
 ![John Chambers](downloads/r-tut/img/JohnChambers_wide.png)
 
@@ -45,7 +48,7 @@ date: "6. Februar 2016"
 
 * *1975-1976/1980/1988:* Entwicklung von S1, S2 und schließlich S3 (kommerzielle Variante S-PLUS)
 
-## Geschichte - R 
+#### Geschichte - R 
 
 ![Ross Ihaka und Robert Gentleman](downloads/r-tut/img/RI_RG_wide.png)
 
@@ -61,9 +64,9 @@ date: "6. Februar 2016"
 
 * Aktuelle Version: **R 3.2.3** "Wooden Christmas-Tree"  
 
-# Hilfefunktionen
+## Hilfefunktionen
 
-## Hilfe - Zu einer Funktion oder einem Paket
+#### Hilfe - Zu einer Funktion oder einem Paket
 
 > ?..., ??... und help(...)
 
@@ -74,18 +77,18 @@ Zeigt eine Beschreibung für Pakete, Funktionen und Datensätze an oder durchsuc
 **Beispiel**
 
 ```{r, results='hide', eval=FALSE}
-# Zeige die Beschreibung für eine bestimmte Funktion,
-# ein Paket oder einen Datensatz
+## Zeige die Beschreibung für eine bestimmte Funktion,
+## ein Paket oder einen Datensatz
 help(plot)
 ?plot
 ?graphics::plot
 ?graphics
 
-# Durchsuche alle Beschreibungen nach diesem Stichwort
+## Durchsuche alle Beschreibungen nach diesem Stichwort
 ??plot
 ```
 
-## Hilfe - Ich möchte mich in etwas einarbeiten
+#### Hilfe - Ich möchte mich in etwas einarbeiten
 
 > vignette() und browseVignettes()
 
@@ -96,17 +99,17 @@ Zeigt eine oder alle vorhandenen Einführungsdokumentationen (Vignettes) an.
 **Beispiel**
 
 ```{r, results='hide', eval=FALSE}
-# Eine spezielle Vignette, deren Namen ich kenne, aufrufen
+## Eine spezielle Vignette, deren Namen ich kenne, aufrufen
 vignette(topic = "tidy-data", package = "tidyr")
 
-# Zeige alle vorhandenen Vignettes
+## Zeige alle vorhandenen Vignettes
 vignette()
 browseVignettes()
 ```
 
-# Quellen und Empfehlungen
+## Quellen und Empfehlungen
 
-## Weblinks und Literatur
+#### Weblinks und Literatur
 
 **Web**  
 

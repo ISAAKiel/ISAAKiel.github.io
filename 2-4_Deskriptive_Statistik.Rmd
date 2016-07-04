@@ -2,11 +2,14 @@
 title: "Statistik in R"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Deskriptive Statistik
+## Deskriptive Statistik
 
-## Daten laden
+#### Daten laden
 
 ```{r} 
 atlant <- read.csv(
@@ -19,7 +22,7 @@ atlant <- read.csv(
 head(atlant)
 ```
 
-## Standardfunktionen
+#### Standardfunktionen
 
 ```{r} 
 min(atlant$muendungsD)
@@ -35,7 +38,7 @@ min(atlant$muendungsD, na.rm = TRUE)
 max(atlant$muendungsD, na.rm = TRUE)
 ```
 
-## Lageparameter
+#### Lageparameter
 
 ```{r} 
 mean(atlant$wt)
@@ -51,7 +54,7 @@ median(atlant$wt)
 summary(atlant$wt)
 ```
 
-## Streuungsparameter
+#### Streuungsparameter
 
 **Spannweite**
 
@@ -71,7 +74,7 @@ var(atlant$wt)
 sd(atlant$wt)
 ```
 
-## Streuungsparameter
+#### Streuungsparameter
 
 > !!!  R Funktionen beruhen auf der korrigierten Stichprobenvarianz !!!
 
@@ -87,12 +90,12 @@ $$ var(x) = \frac{\sum_{i = 1}^n (x_{i} - \bar{x})^2}{n}$$
 (sum( (atlant$wt - mean(atlant$wt) ) ^2) )/(length(atlant$wt) )
 ```
 
-## Konzentrationsparameter
+#### Konzentrationsparameter
 
 **Gini-Koeffizient** aus der Lorenz-Kurve (Paket: ineq)
 
 ```{r, echo=FALSE} 
-# install.packages("ineq")
+## install.packages("ineq")
 library(ineq)
 ```
 
@@ -108,16 +111,16 @@ plot(Lc(atlant$wt))
 
 
 
-# Schließende Statistik
+## Schließende Statistik
 
-## Tests auf Lageparameter
+#### Tests auf Lageparameter
 
 ```{r} 
 t.test(atlant$wt)
 ```
 
 
-##  Hypothesentests
+####  Hypothesentests
 
 ```{r, echo=FALSE} 
 a <- tapply(atlant$qty, list(atlant$site, atlant$size), length)

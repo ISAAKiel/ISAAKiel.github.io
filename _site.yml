@@ -19,30 +19,34 @@ navbar:
       icon: fa-gear
       menu: 
 
-        - text: "1-1_Motivation.html"
+        - text: "Abschnitt 1"
+        - text: "1-1_Motivation"
           href: 1-1_Motivation.html
-        - text: "1-2_R_Sprache.html"
+        - text: "1-2_R_Sprache"
           href: 1-2_R_Sprache.html
-        - text: "1-3_Einfache_Objekte.html"
+        - text: "1-3_Einfache_Objekte"
           href: 1-3_Einfache_Objekte.html
-        - text: "1-4_Einfache_Funktionen.html"
+        - text: "1-4_Einfache_Funktionen"
           href: 1-4_Einfache_Funktionen.html
-        - text: "2-1_Datenhaltung.html"
+        - text: "Abschnitt 2"
+        - text: "2-1_Datenhaltung"
           href: 2-1_Datenhaltung.html
-        - text: "2-2_Daten_laden_und_speichern.html"
+        - text: "2-2_Daten_laden_und_speichern"
           href: 2-2_Daten_laden_und_speichern.html
-        - text: "2-3_Datenverarbeitung.html"
+        - text: "2-3_Datenverarbeitung"
           href: 2-3_Datenverarbeitung.html
-        - text: "2-4_Deskriptive_Statistik.html"
+        - text: "2-4_Deskriptive_Statistik"
           href: 2-4_Deskriptive_Statistik.html
-        - text: "3-1_ggplot2_Theorie.html"
+        - text: "Abschnitt 3"
+        - text: "3-1_ggplot2_Theorie"
           href: 3-1_ggplot2_Theorie.html
-        - text: "3-2-1_ggplot2_histogram.html"
+        - text: "3-2-1_ggplot2_histogram"
           href: 3-2-1_ggplot2_histogram.html
-        - text: "3-2-2_ggplot2_scatter.html"
+        - text: "3-2-2_ggplot2_scatter"
           href: 3-2-2_ggplot2_scatter.html
-        - text: "3-2-3_ggplot2_barplot.html"
+        - text: "3-2-3_ggplot2_barplot"
           href: 3-2-3_ggplot2_barplot.html
-        - text: "4-3-1_git_Anwendungsbeispiel.html"
+        - text: "Abschnitt 4"
+        - text: "4-3-1_git_Anwendungsbeispiel"
           href: 4-3-1_git_Anwendungsbeispiel.html
 output_dir: "."

@@ -2,9 +2,12 @@
 title: "Anwendung 3: Barplot" 
 author: "Dirk Seidensticker/Clemens Schmid" 
 date: "6. Februar 2016" 
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Anwendung 3: Barplot
+## Anwendung 3: Barplot
 
 ggplot2 und die Daten laden:
 ```{r} 
@@ -21,7 +24,7 @@ as.factor(df$vesselShape) -> df$vesselShape
 df$feature_simple <- as.factor(ifelse(df$feature != "surface", "excavation", "surface"))
 ```
 
-# Anwendung 3: Barplot
+## Anwendung 3: Barplot
 
 Einfacher Barplot
 
@@ -30,7 +33,7 @@ ggplot(df, aes(vesselShape)) +
   geom_bar()
 ```
 
-# Anwendung 3: Barplot
+## Anwendung 3: Barplot
 
 Facet
 
@@ -40,7 +43,7 @@ ggplot(df, aes(vesselShape)) +
   facet_wrap(~ feature_simple)
 ```
 
-# Anwendung 3: Barplot
+## Anwendung 3: Barplot
 
 Facet-Grid
 

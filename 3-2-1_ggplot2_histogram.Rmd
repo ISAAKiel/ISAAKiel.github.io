@@ -2,9 +2,12 @@
 title: "Anwendung 1: Histogramm" 
 author: "Dirk Seidensticker/Clemens Schmid" 
 date: "6. Februar 2016" 
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 ggplot2 und die Daten laden:
 ```{r} 
@@ -21,7 +24,7 @@ as.factor(df$vesselShape) -> df$vesselShape
 df$feature_simple <- as.factor(ifelse(df$feature != "surface", "excavation", "surface"))
 ```
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Einfaches Histogramm
 
@@ -30,7 +33,7 @@ ggplot(df, aes(wt)) +
   geom_histogram()
 ```
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Kategoriebreite anpassen
 
@@ -40,7 +43,7 @@ ggplot(df, aes(wt)) +
 ```
 
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Bildausschnitt anpassen
 
@@ -50,7 +53,7 @@ ggplot(df, aes(wt)) +
   xlim(0, 1000)
 ```
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Gefülltes Balkendiagramm
 
@@ -60,7 +63,7 @@ ggplot(df, aes(wt, fill = sherd)) +
   xlim(0, 1000)
 ```
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Alternative Ansicht
 
@@ -72,7 +75,7 @@ ggplot(df, aes(wt, fill = sherd)) +
 ```
 
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Achsenbeschriftung
 
@@ -84,7 +87,7 @@ ggplot(df, aes(wt, fill = sherd)) +
   ylab("Anzahl")
 ```
 
-# Anwendung 1: Histogramm
+## Anwendung 1: Histogramm
 
 Titel und Position der Legende
 

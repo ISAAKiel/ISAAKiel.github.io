@@ -2,11 +2,14 @@
 title: "ggplot2 - Theoretische Einführung"
 author: "Dirk Seidensticker/Clemens Schmid"
 date: "6. Februar 2016"
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
-# Geschichte, Einordnung und Philosophie
+## Geschichte, Einordnung und Philosophie
 
-## Hadley Wickham
+#### Hadley Wickham
 
 ![Hadley Wickham](downloads/r-tut/img/HadleyWickham_small.jpg)
 
@@ -15,7 +18,7 @@ date: "6. Februar 2016"
     * Entwickler etlicher zentraler Pakete für R (dplyr, tidyr, stringr, readr, devtools, DBI, ...) 
     * http://had.co.nz/
 
-## ggplot2
+#### ggplot2
 
 * Kontinuierliche Entwicklung **seit 2005** 
 
@@ -33,7 +36,7 @@ date: "6. Februar 2016"
         * --------> ggvis (Hadley Wickham 2014) + htmlwidgets
         * ?
 
-## ggplot2
+#### ggplot2
 
 * **Philosophie**
     * Einfachere, schnellere und bessere Grafiken
@@ -50,13 +53,13 @@ date: "6. Februar 2016"
 
 
 
-# "Grammatik" und Elemente
+## "Grammatik" und Elemente
 
 ```{r, message=FALSE, echo=FALSE} 
 library(ggplot2)
 ```
 
-## data - data
+#### data - data
 
 **data**: Daten, die visualisiert werden sollen
 
@@ -71,11 +74,11 @@ R
 ```
 
 ```{r, eval = FALSE} 
-# noch nicht lauffähig
+## noch nicht lauffähig
 ggplot(data = R)
 ```
 
-## data - aes
+#### data - aes
 
 **aes**thetic mappings: Zuweisung, wie einzelne Variablen aus dem Datenbestand in der Grafik veranschaulicht werden sollen - z.B. durch Farbe, Form, Größe etc.  
 
@@ -84,11 +87,11 @@ R
 ```
 
 ```{r, eval = FALSE} 
-# immer noch nicht lauffähig
+## immer noch nicht lauffähig
 ggplot(data = R, aes(x = V1, y = V2, colour = V3))
 ```
 
-## layers - geoms
+#### layers - geoms
 
 **geom**etric objects: Elemente, aus denen sich der Plot zusammen setzt - z.B. Punkte, Balken, Linien etc. (definiert den Plottyp)
 
@@ -97,7 +100,7 @@ ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
   geom_point()
 ```
 
-## layers - stats
+#### layers - stats
 
 **stat**istical transformations: Stats fassen Daten je nach Bedarf zusammen - z.B. kann man mit ihnen einen Spline einpassen oder die Häufigkeit des Auftretens für ein Histogramm zählen
 
@@ -107,7 +110,7 @@ ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
   stat_smooth(method = "lm")
 ```
 
-## layers - stats
+#### layers - stats
 
 **stat**istical transformations: Stats fassen Daten je nach Bedarf zusammen - z.B. kann man mit ihnen einen Spline einpassen oder die Häufigkeit des Auftretens für ein Histogramm zählen
 
@@ -116,7 +119,7 @@ ggplot(data = R, aes(x = V3, fill = V3)) +
   geom_bar(stat = "count")
 ```
 
-## scales
+#### scales
 
 **scales**: Spezifizierung der Zuordnung von Daten zu grafischer Veranschaulichung (data -> aes). Scales steuert auch Legenden und Achsenskalierung
 
@@ -129,7 +132,7 @@ ggplot(data = R, aes(x = V3, fill = V3)) +
   )
 ```
 
-## faceting
+#### faceting
 
 **faceting**: Aufteilen von Daten nach Kategorien (subsets) und getrennte Visualisierung der Kategorien
 
@@ -139,7 +142,7 @@ ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
   facet_wrap(~V3)
 ```
 
-## theme
+#### theme
 
 **theme**: Steuerung der nicht oder nicht unmittelbar datenbezogenen, visuellen Qualitäten eines Plots - z.B. Hintergrundfarbe, Gridlines, Titel, Beschriftungen
 
@@ -149,7 +152,7 @@ ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
   theme_bw()
 ```
 
-## theme
+#### theme
 
 **theme**: Steuerung der nicht oder nicht unmittelbar datenbezogenen, visuellen Qualitäten eines Plots - z.B. Hintergrundfarbe, Gridlines, Titel, Beschriftungen
 
@@ -162,7 +165,7 @@ ggplot(data = R, aes(x = V1, y = V2, colour = V3)) +
   )
 ```
 
-## coord
+#### coord
 
 **coord**inate system: Beschreibt, wie Koordinaten auf die Plotfläche projiziert werden und stellt Achsen und Gridlines bereit. Neben dem normalen Karthesischen Koordinatenysstem stehen z.B. auch geographische Koordinatensysteme zur Verfügung
 
@@ -181,7 +184,7 @@ worldmap +
   geom_point(aes(x = 10, y = 53.33), colour = "red", size = 7)
 ```
 
-## coord
+#### coord
 
 ```{r, fig.width=8, fig.height=8, echo = FALSE, fig.align='center'} 
 world <- map_data("world")
@@ -194,7 +197,7 @@ worldmap +
   geom_point(aes(x = 10, y = 53.33), colour = "red", size = 7)
 ```
 
-## Zusammenfassung
+#### Zusammenfassung
 
 **data**: Ausgangsdaten  
 **aes**: Zuweisung Variablen -> Visualisierung. Spezifizierung mit **scales**  
@@ -214,9 +217,9 @@ worldmap +
 
 
 
-# Quellen und Empfehlungen
+## Quellen und Empfehlungen
 
-## Weblinks und Literatur
+#### Weblinks und Literatur
 
 **Web**  
 
