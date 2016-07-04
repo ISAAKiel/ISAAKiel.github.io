@@ -17,6 +17,7 @@ rtutfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd
 
 # change header and paths in the *.Rmd-files
 for(i in 1:length(cfiles)){
+  # adjust header
   text <- readLines(cfiles[i])
   title <- grep("title:", text)[1]
   author <- grep("author:", text)[1]
@@ -26,9 +27,19 @@ for(i in 1:length(cfiles)){
   headkeep <- c(title, author, date)
   text <- text[-head[!(head %in% headkeep)]]
   
+  hspan2 <- grep("---", text)
+  text[hspan2[2]] <- gsub(
+    "---",
+    "output:\n  html_document:\n    theme: \"spacelab\"\n---", 
+    text[hspan2[2]]
+  )
+
+  # adjust file paths and heading types
   for (tp in 1:length(text)){
     text[tp] <- gsub("../img/", "downloads/r-tut/img/", text[tp])
     text[tp] <- gsub("../data/", "downloads/r-tut/data/", text[tp])
+    text[tp] <- gsub("^## ", "#### ", text[tp])
+    text[tp] <- gsub("^# ", "## ", text[tp])
   }
   
   write(text, sep = "\n", file = cfiles[i])
@@ -68,11 +79,21 @@ write(yml2, "_site.yml", append = TRUE)
 
 for (fp in 1:length(rtutfiles)){
   rtutfiles[fp] <- gsub(".Rmd", ".html", rtutfiles[fp])
-  yml3 <- paste(
-    paste("        - text: \"", rtutfiles[fp], "\"", sep = ""), 
-    paste("          href: ", rtutfiles[fp], sep = ""), 
-    sep = "\n"
-  )
+  
+  if (fp > 1 && substr(rtutfiles[fp-1], 1, 1) == substr(rtutfiles[fp], 1, 1)){
+    yml3 <- paste(
+      paste("        - text: \"", gsub(".html", "", rtutfiles[fp]), "\"", sep = ""), 
+      paste("          href: ", rtutfiles[fp], sep = ""), 
+      sep = "\n"
+    )
+  } else {
+    yml3 <- paste(
+      paste("        - text: \"Abschnitt ", substr(rtutfiles[fp], 1, 1), "\"", sep = ""), 
+      paste("        - text: \"", gsub(".html", "", rtutfiles[fp]), "\"", sep = ""), 
+      paste("          href: ", rtutfiles[fp], sep = ""), 
+      sep = "\n"
+    )
+  }
   write(yml3, "_site.yml", append = TRUE)
 }
 
