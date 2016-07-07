@@ -9,7 +9,7 @@ system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutoria
 system("cd downloads/r-tut && svn checkout https://github.com/ISAAKiel/R-Tutorial_CAA2016/trunk/img/")
 
 # delete all non *.Rmd-files 
-system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xargs -0 rm --")
+#system("find downloads/r-tut/presentation -type f -not -name '*Rmd' -print0 | xargs -0 rm --")
 
 # get lists of the downloaded *.Rmd-files
 cfiles <- list.files(path = "downloads/r-tut/presentation/", pattern = "*.Rmd", full.names = TRUE)
@@ -99,3 +99,17 @@ for (fp in 1:length(rtutfiles)){
 
 yml4 <- "output_dir: \".\""
 write(yml4, "_site.yml", append = TRUE)
+
+
+
+#### render site ####
+
+library(rmarkdown)
+system("make")
+
+
+
+#### delete remains ####
+
+# delete R-Tutorial folder
+system("rm -r downloads/r-tut/")

@@ -9,6 +9,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+## Käsebrot
+Wir sind die besten!
+
 ## Members
 
 Currently involved are: 
