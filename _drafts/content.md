@@ -13,7 +13,13 @@
   * [More] -> About
   
 * What we **have** to offer:
-  * Themenfelder
+  * Themenfelder: 
+    * Vermessung, Fernerkundung
+    * Räumliche Analyse
+    * Rekonstruktion, Simulation
+    * Statistik, quantitative Methoden
+    * Datenbanken, Datenarchivierung
+    * Online, Publikation, Social Media
   * Packages [More] -> check project page
   * Participate?  
 
