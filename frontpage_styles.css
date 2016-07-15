@@ -1,0 +1,15 @@
+.navbar-fixed-top {
+  top: 215px;
+  position: absolute;
+}
+
+.header-jumbotron {
+  background: #446e9b; color: #FFF; margin: 0;
+  top: 0;
+  margin-bottom: 105px;
+  height: 215px; 
+}
+
+body{
+  padding-top: 0 !important;;
+}

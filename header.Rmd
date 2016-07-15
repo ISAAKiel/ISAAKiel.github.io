@@ -1,0 +1,14 @@
+---
+output: html_fragment
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+<div class="jumbotron header-jumbotron">
+<center>
+# ISAAKiel
+
+Adding number crunching to archaeology.
+</center>
+</div>
