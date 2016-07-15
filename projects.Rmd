@@ -10,11 +10,12 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 
 ```{r echo = FALSE}
-#### load api functions ####
+#### load api functions and api key ####
 source("R/github_api_conv.R")
+load("oauth.RData")
 
 #### get repos info from github api ####
-repo_info <- api_call("https://api.github.com/orgs/ISAAKiel/repos", "name")
+repo_info <- api_call("https://api.github.com/orgs/ISAAKiel/repos", "name", oauth)
 
 #### sort repos data.frame ####
 repo_info <- repo_info[order(repo_info$name), ]

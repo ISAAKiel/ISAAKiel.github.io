@@ -3,6 +3,7 @@ title: "About"
 output:
   html_document:
     theme: "spacelab"
+    self_contained: no
 ---
 
 ```{r setup, include=FALSE}
@@ -14,16 +15,22 @@ knitr::opts_chunk$set(echo = TRUE)
 Currently involved are: 
 
 ```{r echo = FALSE}
-#### load api functions ####
+#### load api functions and api key ####
 source("R/github_api_conv.R")
+load("oauth.RData")
 
 #### get org members info from github api ####
-members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", "login")
+members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", "login", oauth)
 
 #### call single users ####
 user_info <- list()
 for (i in 1:nrow(members_info)){
-  user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
+  #user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
+  user_res <- content(GET(paste(
+    "https://api.github.com/users/", members_info$login[i], 
+    "?access_token=", oauth, 
+    sep = ""
+  )))
   user_info[[i]] <- user_res
 }
 
@@ -37,8 +44,11 @@ user_info <- user_info[order(user_info$login), ]
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
 for (i in 1:nrow(user_info)){
+  
+  # show users avatar
   user_avatar_string <- paste("<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48> ")
   cat(user_avatar_string)
+  
   # show real name if available - otherwise show login
   if (!is.na(user_info$name[i])){
     name_string <- paste('[',user_info$name[i],'](',user_info$html_url[i],')',sep="")
@@ -46,6 +56,7 @@ for (i in 1:nrow(user_info)){
     name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
   }
   cat(name_string, "<br/>")
+  
 }
 ```
 

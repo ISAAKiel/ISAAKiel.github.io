@@ -3,4 +3,13 @@
 .RData
 .Ruserdata
 
+# temporarily downloaded files to include external data
 downloads/r-tut/
+
+# API access token
+oauth.RData
+R/createoauth.R
+
+#useless .html-files
+README.html
+members.html

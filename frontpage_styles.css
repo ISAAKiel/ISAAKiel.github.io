@@ -10,6 +10,19 @@
   height: 215px; 
 }
 
+.members {
+  position: fixed;
+  left: 0;
+  top: 300px;
+  width: 300px;
+}
+
+@media screen and (max-width: 1400px) {
+    .members {
+        display: none !important;
+    }
+}
+
 body{
   padding-top: 0 !important;;
 }

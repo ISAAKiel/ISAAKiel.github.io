@@ -5,6 +5,7 @@ output:
     theme: "spacelab"
     includes:
       in_header: header.html
+    self_contained: no
 ---
 
 ```{r setup, include=FALSE}
@@ -42,3 +43,5 @@ Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us,
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
   
+```{r child = 'members.Rmd'}
+```

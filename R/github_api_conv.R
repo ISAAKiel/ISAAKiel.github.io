@@ -1,11 +1,19 @@
 #### function to call github api and get back a nice data.frame ####
 ## url: github api url 
 ## col: variable of interest
-api_call <- function(url, col){
+api_call <- function(url, col, oauth = NA){
 
   # call github api
   library(httr)
-  api_ret <- content(GET(url))
+  if(is.na(oauth)){
+    api_ret <- content(GET(url))
+  } else {
+    api_ret <- content(GET(paste(
+      url, 
+      "?access_token=", oauth, 
+      sep = ""
+    )))
+  }
   
   # call function to transform the result of the api call to a clean data.frame
   api_simple <- api_trans(api_ret, col)
