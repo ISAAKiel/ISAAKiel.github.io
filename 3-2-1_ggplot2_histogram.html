@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Dirk Seidensticker/Clemens Schmid" />
+
+
+<title>Anwendung 1: Histogramm</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/default.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ISAAKiel</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="projects.html">
+    <span class="fa fa-gear"></span>
+     
+    Projects
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    R-Tutorial
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Abschnitt 1</li>
+    <li>
+      <a href="1-1_Motivation.html">1-1_Motivation</a>
+    </li>
+    <li>
+      <a href="1-2_R_Sprache.html">1-2_R_Sprache</a>
+    </li>
+    <li>
+      <a href="1-3_Einfache_Objekte.html">1-3_Einfache_Objekte</a>
+    </li>
+    <li>
+      <a href="1-4_Einfache_Funktionen.html">1-4_Einfache_Funktionen</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 2</li>
+    <li>
+      <a href="2-1_Datenhaltung.html">2-1_Datenhaltung</a>
+    </li>
+    <li>
+      <a href="2-2_Daten_laden_und_speichern.html">2-2_Daten_laden_und_speichern</a>
+    </li>
+    <li>
+      <a href="2-3_Datenverarbeitung.html">2-3_Datenverarbeitung</a>
+    </li>
+    <li>
+      <a href="2-4_Deskriptive_Statistik.html">2-4_Deskriptive_Statistik</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 3</li>
+    <li>
+      <a href="3-1_ggplot2_Theorie.html">3-1_ggplot2_Theorie</a>
+    </li>
+    <li>
+      <a href="3-2-1_ggplot2_histogram.html">3-2-1_ggplot2_histogram</a>
+    </li>
+    <li>
+      <a href="3-2-2_ggplot2_scatter.html">3-2-2_ggplot2_scatter</a>
+    </li>
+    <li>
+      <a href="3-2-3_ggplot2_barplot.html">3-2-3_ggplot2_barplot</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 4</li>
+    <li>
+      <a href="4-3-1_git_Anwendungsbeispiel.html">4-3-1_git_Anwendungsbeispiel</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Anwendung 1: Histogramm</h1>
+<h4 class="author"><em>Dirk Seidensticker/Clemens Schmid</em></h4>
+<h4 class="date"><em><ol start="6" style="list-style-type: decimal">
+<li>Februar 2016</li>
+</ol></em></h4>
+
+</div>
+
+
+<div id="anwendung-1-histogramm" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>ggplot2 und die Daten laden:</p>
+<pre class="r"><code>library(ggplot2)</code></pre>
+<pre class="r"><code>df &lt;- read.csv(&quot;downloads/r-tut/data/AtlantPottery.csv&quot;, sep = &#39;\t&#39;)</code></pre>
+</div>
+<div id="anwendung-1-histogramm-1" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Einfaches Histogramm</p>
+<pre class="r"><code>ggplot(df, aes(wt)) + 
+  geom_histogram()</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-4-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-2" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Kategoriebreite anpassen</p>
+<pre class="r"><code>ggplot(df, aes(wt)) + 
+  geom_histogram(binwidth = 100)</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-5-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-3" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Bildausschnitt anpassen</p>
+<pre class="r"><code>ggplot(df, aes(wt)) + 
+  geom_histogram(binwidth = 25) + 
+  xlim(0, 1000)</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-6-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-4" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Gefülltes Balkendiagramm</p>
+<pre class="r"><code>ggplot(df, aes(wt, fill = sherd)) + 
+  geom_histogram(binwidth = 25) + 
+  xlim(0, 1000)</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-7-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-5" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Alternative Ansicht</p>
+<pre class="r"><code>ggplot(df, aes(wt, fill = sherd)) + 
+  geom_histogram(binwidth = 25) + 
+  xlim(0, 1000) +
+  theme_bw()</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-8-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-6" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Achsenbeschriftung</p>
+<pre class="r"><code>ggplot(df, aes(wt, fill = sherd)) + 
+  geom_histogram(binwidth = 25) + 
+  xlim(0, 1000) + 
+  xlab(&quot;Gewicht [g]&quot;) +
+  ylab(&quot;Anzahl&quot;)</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-9-1.png" width="960" /></p>
+</div>
+<div id="anwendung-1-histogramm-7" class="section level2">
+<h2>Anwendung 1: Histogramm</h2>
+<p>Titel und Position der Legende</p>
+<pre class="r"><code>ggplot(df, aes(wt, fill = sherd)) + 
+  geom_histogram(binwidth = 25) + 
+  xlim(0, 1000) + 
+  xlab(&quot;Gewicht [g]&quot;) +
+  ylab(&quot;Anzahl&quot;) + 
+  theme(legend.position = c(1,1), legend.justification = c(1,1))</code></pre>
+<pre><code>## Warning: Removed 14 rows containing non-finite values (stat_bin).</code></pre>
+<p><img src="3-2-1_ggplot2_histogram_files/figure-html/unnamed-chunk-10-1.png" width="960" /></p>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>

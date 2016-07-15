@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+
+<meta charset="utf-8">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="generator" content="pandoc" />
+
+
+<meta name="author" content="Dirk Seidensticker/Clemens Schmid" />
+
+
+<title>Statistik in R</title>
+
+<script src="site_libs/jquery-1.11.3/jquery.min.js"></script>
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<link href="site_libs/bootstrap-3.3.5/css/spacelab.min.css" rel="stylesheet" />
+<script src="site_libs/bootstrap-3.3.5/js/bootstrap.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
+<script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
+<link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
+
+<style type="text/css">code{white-space: pre;}</style>
+<link rel="stylesheet"
+      href="site_libs/highlight/default.css"
+      type="text/css" />
+<script src="site_libs/highlight/highlight.js"></script>
+<style type="text/css">
+  pre:not([class]) {
+    background-color: white;
+  }
+</style>
+<script type="text/javascript">
+if (window.hljs && document.readyState && document.readyState === "complete") {
+   window.setTimeout(function() {
+      hljs.initHighlighting();
+   }, 0);
+}
+</script>
+
+
+
+<style type="text/css">
+h1 {
+  font-size: 34px;
+}
+h1.title {
+  font-size: 38px;
+}
+h2 {
+  font-size: 30px;
+}
+h3 {
+  font-size: 24px;
+}
+h4 {
+  font-size: 18px;
+}
+h5 {
+  font-size: 16px;
+}
+h6 {
+  font-size: 12px;
+}
+.table th:not([align]) {
+  text-align: left;
+}
+</style>
+
+
+</head>
+
+<body>
+
+<style type = "text/css">
+.main-container {
+  max-width: 940px;
+  margin-left: auto;
+  margin-right: auto;
+}
+code {
+  color: inherit;
+  background-color: rgba(0, 0, 0, 0.04);
+}
+img {
+  max-width:100%;
+  height: auto;
+}
+.tabbed-pane {
+  padding-top: 12px;
+}
+button.code-folding-btn:focus {
+  outline: none;
+}
+</style>
+
+<style type="text/css">
+/* padding for bootstrap navbar */
+body {
+  padding-top: 52px;
+  padding-bottom: 40px;
+}
+/* offset scroll position for anchor links (for fixed navbar)  */
+.section h1 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+
+.section h2 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h3 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h4 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h5 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+.section h6 {
+  padding-top: 57px;
+  margin-top: -57px;
+}
+</style>
+
+<script>
+// manage active state of menu based on current page
+$(document).ready(function () {
+  // active menu anchor
+  href = window.location.pathname
+  href = href.substr(href.lastIndexOf('/') + 1)
+  if (href === "")
+    href = "index.html";
+  var menuAnchor = $('a[href="' + href + '"]');
+
+  // mark it active
+  menuAnchor.parent().addClass('active');
+
+  // if it's got a parent navbar menu mark it active as well
+  menuAnchor.closest('li.dropdown').addClass('active');
+});
+</script>
+
+
+<div class="container-fluid main-container">
+
+<!-- tabsets -->
+<script src="site_libs/navigation-1.1/tabsets.js"></script>
+<script>
+$(document).ready(function () {
+  window.buildTabsets("TOC");
+});
+</script>
+
+<!-- code folding -->
+
+
+
+
+
+
+<div class="navbar navbar-inverse  navbar-fixed-top" role="navigation">
+  <div class="container">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar">
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      <a class="navbar-brand" href="index.html">ISAAKiel</a>
+    </div>
+    <div id="navbar" class="navbar-collapse collapse">
+      <ul class="nav navbar-nav">
+        <li>
+  <a href="index.html">
+    <span class="fa fa-home"></span>
+     
+    Home
+  </a>
+</li>
+<li>
+  <a href="about.html">
+    <span class="fa fa-info"></span>
+     
+    About
+  </a>
+</li>
+<li>
+  <a href="projects.html">
+    <span class="fa fa-gear"></span>
+     
+    Projects
+  </a>
+</li>
+<li class="dropdown">
+  <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">
+    <span class="fa fa-gear"></span>
+     
+    R-Tutorial
+     
+    <span class="caret"></span>
+  </a>
+  <ul class="dropdown-menu" role="menu">
+    <li class="dropdown-header">Abschnitt 1</li>
+    <li>
+      <a href="1-1_Motivation.html">1-1_Motivation</a>
+    </li>
+    <li>
+      <a href="1-2_R_Sprache.html">1-2_R_Sprache</a>
+    </li>
+    <li>
+      <a href="1-3_Einfache_Objekte.html">1-3_Einfache_Objekte</a>
+    </li>
+    <li>
+      <a href="1-4_Einfache_Funktionen.html">1-4_Einfache_Funktionen</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 2</li>
+    <li>
+      <a href="2-1_Datenhaltung.html">2-1_Datenhaltung</a>
+    </li>
+    <li>
+      <a href="2-2_Daten_laden_und_speichern.html">2-2_Daten_laden_und_speichern</a>
+    </li>
+    <li>
+      <a href="2-3_Datenverarbeitung.html">2-3_Datenverarbeitung</a>
+    </li>
+    <li>
+      <a href="2-4_Deskriptive_Statistik.html">2-4_Deskriptive_Statistik</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 3</li>
+    <li>
+      <a href="3-1_ggplot2_Theorie.html">3-1_ggplot2_Theorie</a>
+    </li>
+    <li>
+      <a href="3-2-1_ggplot2_histogram.html">3-2-1_ggplot2_histogram</a>
+    </li>
+    <li>
+      <a href="3-2-2_ggplot2_scatter.html">3-2-2_ggplot2_scatter</a>
+    </li>
+    <li>
+      <a href="3-2-3_ggplot2_barplot.html">3-2-3_ggplot2_barplot</a>
+    </li>
+    <li class="dropdown-header">Abschnitt 4</li>
+    <li>
+      <a href="4-3-1_git_Anwendungsbeispiel.html">4-3-1_git_Anwendungsbeispiel</a>
+    </li>
+  </ul>
+</li>
+      </ul>
+      <ul class="nav navbar-nav navbar-right">
+        
+      </ul>
+    </div><!--/.nav-collapse -->
+  </div><!--/.container -->
+</div><!--/.navbar -->
+
+<div class="fluid-row" id="header">
+
+
+
+<h1 class="title toc-ignore">Statistik in R</h1>
+<h4 class="author"><em>Dirk Seidensticker/Clemens Schmid</em></h4>
+<h4 class="date"><em><ol start="6" style="list-style-type: decimal">
+<li>Februar 2016</li>
+</ol></em></h4>
+
+</div>
+
+
+<div id="deskriptive-statistik" class="section level2">
+<h2>Deskriptive Statistik</h2>
+<div id="daten-laden" class="section level4">
+<h4>Daten laden</h4>
+<pre class="r"><code>atlant &lt;- read.csv(
+  &quot;downloads/r-tut/data/AtlantData1.csv&quot;, 
+  sep = &quot;\t&quot;, 
+  header = TRUE)</code></pre>
+<pre class="r"><code>head(atlant)</code></pre>
+<pre><code>##   site      X       Y archont feature      object class sherd qty   wt
+## 1    A 472564 3939619   Atlas surface                 K     G   1  524
+## 2    A 472564 3939619   Atlas       1           2     K     G   1 2000
+## 3    A 472564 3939619   Atlas       1      -1,2:2     K     R   1   67
+## 4    A 472564 3939619   Atlas       1 3, -1-3-1:3     K     R   1  642
+## 5    A 472564 3939619   Atlas       1     2, -1:2     K     G   1  991
+## 6    A 472564 3939619   Atlas       1  -1:4, -2:4     K     G   1 1997
+##   size wall muendungsD muendungsH minD minD_H maxD maxD_H bodenD
+## 1  200   NA       17.0        9.0   NA     NA   16    2.5      0
+## 2  500    6       27.5       21.0 23.5   17.0   27    8.5      0
+## 3  120    7       21.0       13.0 18.5   11.5   19   11.0     NA
+## 4  500    8       29.0       16.0 23.5   11.0   25    8.0     NA
+## 5  500    8       23.5        8.5   NA     NA   24    3.0      0
+## 6  500    7       35.0       15.5 34.0   14.0   NA     NA      0
+##   temperSize vesselShape
+## 1                    S1a
+## 2          C         S3a
+## 3          M         S2c
+## 4          C         S3b
+## 5          C         S2g
+## 6         VF         S8a</code></pre>
+</div>
+<div id="standardfunktionen" class="section level4">
+<h4>Standardfunktionen</h4>
+<pre class="r"><code>min(atlant$muendungsD)</code></pre>
+<pre><code>## [1] NA</code></pre>
+<blockquote>
+<p>Bei Variablen mit NaN muss dies R mitgeteilt werden!</p>
+</blockquote>
+<pre class="r"><code>min(atlant$muendungsD, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 5</code></pre>
+<pre class="r"><code>max(atlant$muendungsD, na.rm = TRUE)</code></pre>
+<pre><code>## [1] 35</code></pre>
+</div>
+<div id="lageparameter" class="section level4">
+<h4>Lageparameter</h4>
+<pre class="r"><code>mean(atlant$wt)</code></pre>
+<pre><code>## [1] 395.3333</code></pre>
+<pre class="r"><code>median(atlant$wt)</code></pre>
+<pre><code>## [1] 153.5</code></pre>
+<blockquote>
+<p>Eine wichtige Eigenschaft des Medians ist Robustheit gegenüber Ausreißern!</p>
+</blockquote>
+<pre class="r"><code>summary(atlant$wt)</code></pre>
+<pre><code>##    Min. 1st Qu.  Median    Mean 3rd Qu.    Max. 
+##     6.0    44.0   153.5   395.3   501.5  4500.0</code></pre>
+</div>
+<div id="streuungsparameter" class="section level4">
+<h4>Streuungsparameter</h4>
+<p><strong>Spannweite</strong></p>
+<pre class="r"><code>max(atlant$wt) - min(atlant$wt)</code></pre>
+<pre><code>## [1] 4494</code></pre>
+<p><strong>Varianz</strong></p>
+<pre class="r"><code>var(atlant$wt)</code></pre>
+<pre><code>## [1] 392716.4</code></pre>
+<p><strong>Standardabweichung</strong></p>
+<pre class="r"><code>sd(atlant$wt)</code></pre>
+<pre><code>## [1] 626.6709</code></pre>
+</div>
+<div id="streuungsparameter-1" class="section level4">
+<h4>Streuungsparameter</h4>
+<blockquote>
+<p>!!! R Funktionen beruhen auf der korrigierten Stichprobenvarianz !!!</p>
+</blockquote>
+<pre class="r"><code>var(atlant$wt)</code></pre>
+<pre><code>## [1] 392716.4</code></pre>
+<p><strong>empirische Varianz</strong></p>
+<p><span class="math display">\[ var(x) = \frac{\sum_{i = 1}^n (x_{i} - \bar{x})^2}{n}\]</span></p>
+<pre class="r"><code>(sum( (atlant$wt - mean(atlant$wt) ) ^2) )/(length(atlant$wt) )</code></pre>
+<pre><code>## [1] 389870.6</code></pre>
+</div>
+<div id="konzentrationsparameter" class="section level4">
+<h4>Konzentrationsparameter</h4>
+<p><strong>Gini-Koeffizient</strong> aus der Lorenz-Kurve (Paket: ineq)</p>
+<pre class="r"><code>ineq(atlant$wt,type=&quot;Gini&quot;)</code></pre>
+<pre><code>## [1] 0.6580198</code></pre>
+<p>0 = gleichmäßigen Verteilung, 1 = maximaler Ungleichverteilung</p>
+<pre class="r"><code>plot(Lc(atlant$wt))</code></pre>
+<p><img src="2-4_Deskriptive_Statistik_files/figure-html/unnamed-chunk-16-1.png" width="672" /></p>
+</div>
+</div>
+<div id="schlieende-statistik" class="section level2">
+<h2>Schließende Statistik</h2>
+<div id="tests-auf-lageparameter" class="section level4">
+<h4>Tests auf Lageparameter</h4>
+<pre class="r"><code>t.test(atlant$wt)</code></pre>
+<pre><code>## 
+##  One Sample t-test
+## 
+## data:  atlant$wt
+## t = 7.4108, df = 137, p-value = 1.171e-11
+## alternative hypothesis: true mean is not equal to 0
+## 95 percent confidence interval:
+##  289.8458 500.8209
+## sample estimates:
+## mean of x 
+##  395.3333</code></pre>
+</div>
+<div id="hypothesentests" class="section level4">
+<h4>Hypothesentests</h4>
+<pre class="r"><code>head(a, n = 3)</code></pre>
+<pre><code>##   30 70 120 200 500
+## A  0  0   1   2   5
+## B  0  0   0   2   2
+## C  0  1   2   0   1</code></pre>
+<pre class="r"><code>chisq.test(a)</code></pre>
+<pre><code>## Warning in chisq.test(a): Chi-squared approximation may be incorrect</code></pre>
+<pre><code>## 
+##  Pearson&#39;s Chi-squared test
+## 
+## data:  a
+## X-squared = 58.35, df = 28, p-value = 0.0006588</code></pre>
+</div>
+</div>
+
+
+
+
+</div>
+
+<script>
+
+// add bootstrap table styles to pandoc tables
+$(document).ready(function () {
+  $('tr.header').parent('thead').parent('table').addClass('table table-condensed');
+});
+
+</script>
+
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    script.src  = "https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML";
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
+
+</body>
+</html>
