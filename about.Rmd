@@ -37,19 +37,15 @@ user_info <- user_info[order(user_info$login), ]
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
 for (i in 1:nrow(user_info)){
+  user_avatar_string <- paste("<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48> ")
+  cat(user_avatar_string)
   # show real name if available - otherwise show login
   if (!is.na(user_info$name[i])){
     name_string <- paste('[',user_info$name[i],'](',user_info$html_url[i],')',sep="")
   } else {
     name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
   }
-  cat(name_string)
-  # link by "," or "and" depending on position
-  if (i == nrow(user_info)-1){
-    cat(" and ") 
-  } else if (i != nrow(user_info)){
-    cat(", ") 
-  } 
+  cat(name_string, "<br/>")
 }
 ```
 
