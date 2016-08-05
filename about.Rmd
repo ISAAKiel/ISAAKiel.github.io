@@ -24,7 +24,7 @@ members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", 
 
 #### call single users ####
 user_info <- list()
-for (i in 1:nrow(members_info)){
+for (i in 1:nrow(members_info)) {
   #user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
   user_res <- content(GET(paste(
     "https://api.github.com/users/", members_info$login[i], 
@@ -43,14 +43,14 @@ user_info <- user_info[order(user_info$login), ]
 
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
-for (i in 1:nrow(user_info)){
+for (i in 1:nrow(user_info)) {
   
   # show users avatar
   user_avatar_string <- paste("<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48> ")
   cat(user_avatar_string)
   
   # show real name if available - otherwise show login
-  if (!is.na(user_info$name[i])){
+  if (!is.na(user_info$name[i])) {
     name_string <- paste('[',user_info$name[i],'](',user_info$html_url[i],')',sep="")
   } else {
     name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
