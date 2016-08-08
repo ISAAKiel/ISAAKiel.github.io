@@ -50,6 +50,28 @@ system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -
 
 
 
+#### setup for the recexcavAAR vignette ####
+
+# create folder for the vignette *.Rmd file
+system("rm -r downloads/vignettes/ ; mkdir downloads/vignettes; mkdir downloads/vignettes/recexcavAAR")
+
+# download vignette
+system("cd downloads/vignettes/recexcavAAR && svn checkout https://github.com/ISAAKiel/recexcavAAR/trunk/vignettes")
+
+# get lists of the downloaded *.Rmd-files
+cfiles <- list.files(path = "downloads/vignettes/recexcavAAR/vignettes", pattern = "*.Rmd", full.names = TRUE)
+
+# replace devtools::load_all() in vignette
+vignette <- readLines(cfiles[1])
+loadall <- grep("devtools::load_all", vignette)
+vignette[loadall] <- "library(recexcavAAR)"
+write(vignette, sep = "\n", file = cfiles[1])
+
+# move vignette *.Rmd-files to root path 
+system("find downloads/vignettes/recexcavAAR/vignettes -type f -name '*.Rmd' -print | xargs -i mv {} .")
+
+
+
 #### construct _site.yml ####
 
 yml1 <- "
@@ -97,8 +119,17 @@ for (fp in 1:length(rtutfiles)){
   write(yml3, "_site.yml", append = TRUE)
 }
 
-yml4 <- "output_dir: \".\""
+yml4 <-"
+    - text: \"Vignettes\"
+      icon: fa-gear
+      menu: 
+        - text: \"recexcavAAR Vignette 1\"
+          href: recexcavAAR-vignette-1.html
+" 
 write(yml4, "_site.yml", append = TRUE)
+
+yml5 <- "output_dir: \".\""
+write(yml5, "_site.yml", append = TRUE)
 
 
 
@@ -113,3 +144,6 @@ system("make")
 
 # delete R-Tutorial folder
 system("rm -r downloads/r-tut/")
+
+# delete vignettes folder
+system("rm -r downloads/vignettes/")

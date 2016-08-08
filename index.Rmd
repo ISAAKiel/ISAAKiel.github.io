@@ -4,7 +4,7 @@ output:
     css: frontpage_styles.css
     theme: "spacelab"
     includes:
-      in_header: header.html
+      in_header: elements/header.html
     self_contained: no
 ---
 
@@ -43,5 +43,13 @@ Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us,
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
   
+```{r}
+system("cp elements/members.Rmd .")
+```
+  
 ```{r child = 'members.Rmd'}
+```
+
+```{r}
+system("rm members.Rmd")
 ```
