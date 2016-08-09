@@ -52,8 +52,10 @@ navbar:
 
     - text: "Vignettes"
       icon: fa-gear
-      menu: 
-        - text: "recexcavAAR Vignette 1"
-          href: recexcavAAR-vignette-1.html
+      menu:
 
+        - text: "recexcavAAR-vignette-1"
+          href: recexcavAAR-vignette-1.Rmd
+        - text: "varnastats-vignette-1"
+          href: varnastats-vignette-1.Rmd
 output_dir: "."

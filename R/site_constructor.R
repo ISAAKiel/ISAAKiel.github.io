@@ -50,25 +50,58 @@ system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -
 
 
 
-#### setup for the recexcavAAR vignette ####
+#### setup for vignettes ####
+
+# list of ISAAK packages with vignettes
+packlist <- c("recexcavAAR", "quantaar")
 
 # create folder for the vignette *.Rmd file
-system("rm -r downloads/vignettes/ ; mkdir downloads/vignettes; mkdir downloads/vignettes/recexcavAAR")
+system("rm -r downloads/vignettes/; mkdir downloads/vignettes")
 
-# download vignette
-system("cd downloads/vignettes/recexcavAAR && svn checkout https://github.com/ISAAKiel/recexcavAAR/trunk/vignettes")
+# loop to download, edit and move vignettes by package
+ymlvignettes <- list() 
+for (p1 in 1:length(packlist)) {
+  system(paste("mkdir downloads/vignettes/", packlist[p1], sep = ""))
+  system(paste(
+    "cd downloads/vignettes/", packlist[p1], 
+    " && svn checkout https://github.com/ISAAKiel/", packlist[p1], "/trunk/vignettes/",
+    sep = ""))
+  # system(paste("mv downloads/vignettes/", packlist[p1], "/vignettes/*.Rmd downloads/vignettes/",  
+  #   sep = ""))
+  
+  # get lists of the downloaded *.Rmd-files for the current package
+  cfiles <- list.files(
+    path = paste("downloads/vignettes/", packlist[p1], "/vignettes", sep = ""), 
+    pattern = "*.Rmd", 
+    full.names = TRUE
+  )
+  vignettenames <- list.files(
+    path = paste("downloads/vignettes/", packlist[p1], "/vignettes", sep = ""), 
+    pattern = "*.Rmd"
+  )
+  
+  # replace devtools::load_all() in vignettes
+  for (p2 in 1:length(cfiles)) {
+    vignette <- readLines(cfiles[p2])
+    loadall <- grep("devtools::load_all", vignette)
+    vignette[loadall] <- paste("library(", packlist[p1], ")", sep = "")
+    write(vignette, sep = "\n", file = cfiles[p2])
+  }
+  
+  # move vignette *.Rmd-files to root path 
+  system(paste("find downloads/vignettes/", packlist[p1], "/vignettes -type f -name '*.Rmd' -print | xargs -i mv {} .", sep = ""))
+  
+  # setup .yml-entries for current packages
+  for (p3 in 1:length(vignettenames)) {
+    ymlvignettes[[p1]] <- c(NA)
+    ymlvignettes[[p1]][p3] <- paste(
+      paste("        - text: \"", gsub(".Rmd", "", vignettenames[p3]), "\"", sep = ""), 
+      paste("          href: ", vignettenames[p3], sep = ""),
+      sep = "\n"
+    )
+  }
 
-# get lists of the downloaded *.Rmd-files
-cfiles <- list.files(path = "downloads/vignettes/recexcavAAR/vignettes", pattern = "*.Rmd", full.names = TRUE)
-
-# replace devtools::load_all() in vignette
-vignette <- readLines(cfiles[1])
-loadall <- grep("devtools::load_all", vignette)
-vignette[loadall] <- "library(recexcavAAR)"
-write(vignette, sep = "\n", file = cfiles[1])
-
-# move vignette *.Rmd-files to root path 
-system("find downloads/vignettes/recexcavAAR/vignettes -type f -name '*.Rmd' -print | xargs -i mv {} .")
+}
 
 
 
@@ -122,14 +155,19 @@ for (fp in 1:length(rtutfiles)){
 yml4 <-"
     - text: \"Vignettes\"
       icon: fa-gear
-      menu: 
-        - text: \"recexcavAAR Vignette 1\"
-          href: recexcavAAR-vignette-1.html
+      menu:
 " 
 write(yml4, "_site.yml", append = TRUE)
 
-yml5 <- "output_dir: \".\""
-write(yml5, "_site.yml", append = TRUE)
+for (p1 in 1:length(ymlvignettes)) {
+  for (p2 in 1:length(ymlvignettes[[p1]])) {
+    yml5 <- ymlvignettes[[p1]][p2]
+    write(yml5, "_site.yml", append = TRUE)
+  }
+} 
+
+yml6 <- "output_dir: \".\""
+write(yml6, "_site.yml", append = TRUE)
 
 
 
