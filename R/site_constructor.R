@@ -96,7 +96,7 @@ for (p1 in 1:length(packlist)) {
     ymlvignettes[[p1]] <- c(NA)
     ymlvignettes[[p1]][p3] <- paste(
       paste("        - text: \"", gsub(".Rmd", "", vignettenames[p3]), "\"", sep = ""), 
-      paste("          href: ", vignettenames[p3], sep = ""),
+      paste("          href: ", gsub(".Rmd", ".html", vignettenames[p3]), "\"", sep = ""),
       sep = "\n"
     )
   }

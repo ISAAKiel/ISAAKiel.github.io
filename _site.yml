@@ -55,7 +55,7 @@ navbar:
       menu:
 
         - text: "recexcavAAR-vignette-1"
-          href: recexcavAAR-vignette-1.Rmd
+          href: recexcavAAR-vignette-1.html"
         - text: "varnastats-vignette-1"
-          href: varnastats-vignette-1.Rmd
+          href: varnastats-vignette-1.html"
 output_dir: "."
