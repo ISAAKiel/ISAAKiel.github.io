@@ -43,13 +43,14 @@ Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us,
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
   
-```{r}
+```{r, echo=FALSE}
+# nasty workaround because knitr can't fetch childs from subdirectories
 system("cp elements/members.Rmd .")
 ```
   
 ```{r child = 'members.Rmd'}
 ```
 
-```{r}
+```{r, echo=FALSE}
 system("rm members.Rmd")
 ```
