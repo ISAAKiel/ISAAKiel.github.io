@@ -2,11 +2,9 @@
 title: "Variable contingency and affiliation prediction"
 author: "Clemens Schmid"
 date: "`r Sys.Date()`"
-output: rmarkdown::html_vignette
-vignette: >
-  %\VignetteIndexEntry{Variable contingency and affiliation prediction}
-  %\VignetteEngine{knitr::rmarkdown}
-  %\VignetteEncoding{UTF-8}
+output:
+  html_document:
+    theme: "spacelab"
 ---
 
 ```{r, echo=FALSE, message=FALSE}

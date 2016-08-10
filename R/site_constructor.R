@@ -88,6 +88,16 @@ for (p1 in 1:length(packlist)) {
     write(vignette, sep = "\n", file = cfiles[p2])
   }
   
+  # adjust header of vignettes
+  for (p4 in 1:length(cfiles)) {
+    vignette <- readLines(cfiles[p4])
+    output <- grep("output: rmarkdown::html_vignette", vignette)[1]
+    hspan <- grep("---", vignette)[2]
+    vignette <- vignette[-c(output:hspan)] 
+    vignette[output] <- paste("output:\n  html_document:\n    theme: \"spacelab\"\n---\n", sep = "")
+    write(vignette, sep = "\n", file = cfiles[p4])
+  }
+  
   # move vignette *.Rmd-files to root path 
   system(paste("find downloads/vignettes/", packlist[p1], "/vignettes -type f -name '*.Rmd' -print | xargs -i mv {} .", sep = ""))
   
