@@ -11,12 +11,12 @@ navbar:
       icon: fa-info
       href: about.html
     - text: "Projects"
-      icon: fa-gear
+      icon: fa-gears
       href: projects.html
 
 
     - text: "R-Tutorial"
-      icon: fa-gear
+      icon: fa-bar-chart
       menu: 
 
         - text: "Abschnitt 1"
@@ -51,7 +51,7 @@ navbar:
           href: 4-3-1_git_Anwendungsbeispiel.html
 
     - text: "Vignettes"
-      icon: fa-gear
+      icon: fa-eye
       menu:
 
         - text: "recexcavAAR-vignette-1"

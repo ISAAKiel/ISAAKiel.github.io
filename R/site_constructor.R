@@ -130,14 +130,14 @@ navbar:
       icon: fa-info
       href: about.html
     - text: \"Projects\"
-      icon: fa-gear
+      icon: fa-gears
       href: projects.html
 "
 writeLines(yml1, "_site.yml")
 
 yml2 <-"
     - text: \"R-Tutorial\"
-      icon: fa-gear
+      icon: fa-bar-chart
       menu: 
 " 
 write(yml2, "_site.yml", append = TRUE)
@@ -164,7 +164,7 @@ for (fp in 1:length(rtutfiles)){
 
 yml4 <-"
     - text: \"Vignettes\"
-      icon: fa-gear
+      icon: fa-eye
       menu:
 " 
 write(yml4, "_site.yml", append = TRUE)
