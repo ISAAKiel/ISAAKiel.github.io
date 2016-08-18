@@ -136,7 +136,7 @@ navbar:
 writeLines(yml1, "_site.yml")
 
 yml2 <-"
-    - text: \"R-Tutorial\"
+    - text: \"R-Tutorial CAA 2016\"
       icon: fa-bar-chart
       menu: 
 " 
@@ -161,6 +161,13 @@ for (fp in 1:length(rtutfiles)){
   }
   write(yml3, "_site.yml", append = TRUE)
 }
+
+yml7 <-"
+    - text: \"R-Tutorial Mosaic 2016\"
+      icon: fa-area-chart
+      href: https://isaakiel.github.io/Mosaic/
+" 
+write(yml7, "_site.yml", append = TRUE)
 
 yml4 <-"
     - text: \"Vignettes\"

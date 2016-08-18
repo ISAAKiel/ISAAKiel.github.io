@@ -15,7 +15,7 @@ navbar:
       href: projects.html
 
 
-    - text: "R-Tutorial"
+    - text: "R-Tutorial CAA 2016"
       icon: fa-bar-chart
       menu: 
 
@@ -49,6 +49,11 @@ navbar:
         - text: "Abschnitt 4"
         - text: "4-3-1_git_Anwendungsbeispiel"
           href: 4-3-1_git_Anwendungsbeispiel.html
+
+    - text: "R-Tutorial Mosaic 2016"
+      icon: fa-area-chart
+      href: https://isaakiel.github.io/Mosaic/
+
 
     - text: "Vignettes"
       icon: fa-eye
