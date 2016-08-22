@@ -12,8 +12,6 @@ knitr::opts_chunk$set(echo = TRUE)
 
 ## Members
 
-Currently involved are: 
-
 ```{r echo = FALSE}
 #### load api functions and api key ####
 source("R/github_api_conv.R")
@@ -41,13 +39,16 @@ user_info <- api_trans(user_info, "login")
 user_info <- user_info[order(user_info$login), ]
 ```
 
+
 ```{r results = 'asis', echo = FALSE}
+tout <- c()
+
 #### textoutput ####
 for (i in 1:nrow(user_info)) {
   
   # show users avatar
-  user_avatar_string <- paste("<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48> ")
-  cat(user_avatar_string)
+  user_avatar_string <- paste("<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 100> ")
+  #cat(user_avatar_string)
   
   # show real name if available - otherwise show login
   if (!is.na(user_info$name[i])) {
@@ -55,8 +56,15 @@ for (i in 1:nrow(user_info)) {
   } else {
     name_string <- paste('[',user_info$login[i],'](',user_info$html_url[i],')',sep="")
   }
-  cat(name_string, "<br/>")
+  #cat(name_string, "<br/>")
   
+  tout[i] <- paste(user_avatar_string, name_string, "<br/>")
 }
-```
 
+leftn <- round(length(tout)/2)
+
+outtable <- data.frame(left = tout[1:leftn], right = tout[(leftn + 1):length(tout)])
+
+library(knitr)
+knitr::kable(outtable, format = "markdown", col.names = c("Currently involved are: ", "\u200B"))
+```
