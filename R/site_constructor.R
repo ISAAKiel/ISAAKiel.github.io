@@ -59,7 +59,7 @@ packlist <- c("recexcavAAR", "quantaar")
 system("rm -r downloads/vignettes/; mkdir downloads/vignettes")
 
 # loop to download, edit and move vignettes by package
-ymlvignettes <- list() 
+ymlvignettes <- list()
 for (p1 in 1:length(packlist)) {
   system(paste("mkdir downloads/vignettes/", packlist[p1], sep = ""))
   system(paste(
@@ -75,7 +75,7 @@ for (p1 in 1:length(packlist)) {
     pattern = "*.Rmd", 
     full.names = TRUE
   )
-  vignettenames <- list.files(
+  vignettefilenames <- list.files(
     path = paste("downloads/vignettes/", packlist[p1], "/vignettes", sep = ""), 
     pattern = "*.Rmd"
   )
@@ -98,19 +98,27 @@ for (p1 in 1:length(packlist)) {
     write(vignette, sep = "\n", file = cfiles[p4])
   }
   
+  # get vignette titles
+  vignettetitles <- c()
+  for (p5 in 1:length(cfiles)) {
+    vignette <- readLines(cfiles[p5])
+    tline <- grep("^title:", vignette)[1]
+    title <- gsub("\"", "", substring(vignette[tline], 8))
+    vignettetitles[p5] <- title
+  }
+  
   # move vignette *.Rmd-files to root path 
   system(paste("find downloads/vignettes/", packlist[p1], "/vignettes -type f -name '*.Rmd' -print | xargs -i mv {} .", sep = ""))
   
   # setup .yml-entries for current packages
-  for (p3 in 1:length(vignettenames)) {
-    ymlvignettes[[p1]] <- c(NA)
+  ymlvignettes[[p1]] <- c(NA)
+  for (p3 in 1:length(vignettefilenames)) {
     ymlvignettes[[p1]][p3] <- paste(
-      paste("        - text: \"", gsub(".Rmd", "", vignettenames[p3]), "\"", sep = ""), 
-      paste("          href: ", gsub(".Rmd", ".html", vignettenames[p3]), sep = ""),
+      paste("        - text: \"", gsub(".Rmd", "", vignettetitles[p3]), "\"", sep = ""), 
+      paste("          href: ", gsub(".Rmd", ".html", vignettefilenames[p3]), sep = ""),
       sep = "\n"
     )
   }
-
 }
 
 

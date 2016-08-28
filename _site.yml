@@ -59,8 +59,10 @@ navbar:
       icon: fa-eye
       menu:
 
-        - text: "recexcavAAR-vignette-1"
+        - text: "Ifri el Baroud"
           href: recexcavAAR-vignette-1.html
-        - text: "varnastats-vignette-1"
+        - text: "Kakcus-Turján"
+          href: recexcavAAR-vignette-2.html
+        - text: "Variable contingency and affiliation prediction"
           href: varnastats-vignette-1.html
 output_dir: "."
