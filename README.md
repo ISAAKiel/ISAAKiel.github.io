@@ -1,6 +1,8 @@
+[![Website](https://img.shields.io/website/https/isaakiel.github.io.svg?maxAge=2592000)]()  [![Maintenance](https://img.shields.io/maintenance/yes/2016.svg?maxAge=2592000)]() [![GitHub contributors](https://img.shields.io/github/contributors/ISAAKiel/ISAAKiel.github.io.svg?maxAge=2592000)]()
+
 ## ISAAKiel Website
 
-To learn about ISAAKiel see https://ISAAKiel.github.io. [![Website](https://img.shields.io/website-up-down-green-red/http/ISAAKiel.github.io.svg?maxAge=2592000)]()
+To learn about ISAAKiel see https://ISAAKiel.github.io. 
 
 ***
 
