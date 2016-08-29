@@ -19,7 +19,7 @@ Archaeoinformatics, computational archaeology and quantitative methods are a con
 We are archaeologists developing IT solutions and statistical tools in and for our work activly envolved in the following institutions:
 
 * [Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel](https://www.ufg.uni-kiel.de/)
-* [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshafen](http://www.nihk.de/)
+* [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
 * [eScience-Center Tübingen](https://www.uni-tuebingen.de/einrichtungen/informations-kommunikations-und-medienzentrum-ikm/escience-center.html)
 
 ## What we do and offer:
