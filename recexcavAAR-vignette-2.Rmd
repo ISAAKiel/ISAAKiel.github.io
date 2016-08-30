@@ -1,7 +1,7 @@
 ---
-title: "Kakcus-Turján"
+title: "recexcavAAR: Vignette >>Kakcus-Turján<<"
 author: "Clemens Schmid"
-date: "`r Sys.Date()`"
+date: "August 2016"
 output:
   html_document:
     theme: "spacelab"
@@ -16,9 +16,9 @@ if (!requireNamespace("plotly", quietly = TRUE)) {
 
 First we need to load recexcavAAR and some external packages:
 
-- **kriging**: simple surface modelling tool
-- **magrittr**: introduces piping to R via %>% operator
-- **plotly**: nice, interactive plots via javascript implementation
+- **kriging:** simple surface modelling tool
+- **magrittr:** introduces piping to R via %>% operator
+- **plotly:** nice, interactive plots via javascript implementation
 
 ```{r, message=FALSE}
 library(recexcavAAR)
@@ -37,7 +37,7 @@ edges <- data.frame(
 )
 ```
 
-We can plot the corner points of this trench, but first of all we have to calculate a reasonable aspectratio. Remember: The trench is tilted in relation to the main axis. 
+We can plot the corner points of this trench with `plotly::plot_ly`, but first of all we have to calculate a reasonable aspectratio. Remember: The trench is tilted in relation to the main axis. 
 
 ```{r fig.width=7, fig.height=5}
 rangex <- abs(max(edges$x) - min(edges$x))
@@ -73,7 +73,7 @@ vis <- plot_ly(
 vis
 ```
 
-The approach for the excavation of this trench is to go deeper in squares of 1 meter by 1 meter. The spit depth is about 30 centimeters, but as we also try to follow natural layers, the individual spit depth varies a lot. Fortunately we have niveau measurements of the resulting surfaces in the dataset `recexcavAAR::KT_spits`. 
+The approach for the excavation of this trench is to go deeper in squares of 1 meter by 1 meter. The spit depth is about 30 centimeters, but as we also try to follow natural layers the individual spit depth varies a lot. Fortunately we have niveau measurements of the resulting surfaces in the dataset `recexcavAAR::KT_spits`. 
 
 ```{r}
 sp <- KT_spits
@@ -86,14 +86,14 @@ for (i in 1:length(spitnames)){
 }
 ```
 
-Let's apply kriging with `recexcavAAR::kriglist`, transform the result with `recexcavAAR::spatialwide2` and add the surfaces to the plot. 
+Let's apply kriging with `recexcavAAR::kriglist`, transform the result with `recexcavAAR::spatialwide` and add the surfaces to the plot. 
 
 ```{r fig.width=7, fig.height=5}
 maps <- kriglist(splist, x = 2, y = 3, z = 4, lags = 3, model = "spherical", pixels = 50)
 
 surf <- list()
 for (i in 1:length(maps)) {
-  surf[[i]] <- spatialwide2(maps[[i]]$x, maps[[i]]$y, maps[[i]]$pred, digits = 3)
+  surf[[i]] <- spatialwide(maps[[i]]$x, maps[[i]]$y, maps[[i]]$pred, digits = 3)
 }
 
 vis %>% 
@@ -129,7 +129,7 @@ for (i in 1:length(maps)) {
 
 surf2 <- list()
 for (i in 1:length(maps)) {
-  surf2[[i]] <- recexcavAAR::spatialwide2(maps[[i]]$x, maps[[i]]$y, maps[[i]]$pred, 3)
+  surf2[[i]] <- recexcavAAR::spatialwide(maps[[i]]$x, maps[[i]]$y, maps[[i]]$pred, 3)
 }
 
 vis2 <- vis %>% 
@@ -235,7 +235,7 @@ vis2 %>%
   )
 ```
 
-Finally we can merge the data.frame with the info about the vessel sherds with the new list of square center points. Now we can plot single find sherds and mass find sherds together.
+Finally we can merge the info about the vessel sherds in `vesselmass` with the new list of square center points `sqcdf`. Now we can plot single find sherds and mass find sherds together.
 
 ```{r fig.width=7, fig.height=5, warning=FALSE}
 vmsq <- merge(vesselmass[, 1:4], sqcdf, by = c("square", "spit"), all.x = TRUE)
