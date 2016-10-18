@@ -63,7 +63,14 @@ for (i in 1:nrow(user_info)) {
 
 leftn <- round(length(tout)/2)
 
-outtable <- data.frame(left = tout[1:leftn], right = tout[(leftn + 1):length(tout)])
+left = tout[1:leftn]
+right = tout[(leftn + 1):length(tout)]
+
+if (length(left) > length(right)) {
+  right = c(right, "")
+}
+
+outtable <- data.frame(left = left, right = right)
 
 library(knitr)
 knitr::kable(outtable, format = "markdown", col.names = c("Currently involved are: ", "\u200B"))
