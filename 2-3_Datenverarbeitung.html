@@ -534,7 +534,7 @@ group_by(R, V3)</code></pre>
 <pre class="r"><code>R &lt;- data.frame(V1 = c(4,5,1), V2 = c(3,8,5), V3 = c(&quot;B&quot;,&quot;A&quot;,&quot;A&quot;))
 R.g &lt;- group_by(R, V3)
 summarise(R.g, Mittwelwert = mean(V1), Summe = sum(V2))</code></pre>
-<pre><code>## # A tibble: 2 x 3
+<pre><code>## # A tibble: 2 × 3
 ##       V3 Mittwelwert Summe
 ##   &lt;fctr&gt;       &lt;dbl&gt; &lt;dbl&gt;
 ## 1      A           3    13
