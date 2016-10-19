@@ -28,7 +28,21 @@ body{
 }
 
 div.container-fluid.main-container > div:nth-of-type(even) {
-    background: rgba(68,110,155,.2);
+    background: #7b99b8;
+    color: #fff;
+}
+
+div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3 {color: #fff;}
+
+div.container-fluid.main-container > div:nth-of-type(even) a {color: #dddddd;}
+
+body > div.container-fluid.main-container .well {
+  background: #fff;
+  color: #7b99b8;
+}
+
+body > div.container-fluid.main-container .well a {
+  color: #7b99b8;
 }
 
 .main-container{
