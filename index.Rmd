@@ -12,8 +12,21 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+<style type = "text/css">
+.main-container {
+  max-width: none;
+}
+</style>
+
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
+
 ## Scope
 Archaeoinformatics, computational archaeology and quantitative methods are a constant and developing branch since the last decades. It comprises different aspects of archaeology and information technology in daily work as well as methodology. Both - the use of the current technology and the methodological implementation in archaeology - has to be developed. This is the aim of our working group **ISAAK** (**I**nitiative for **S**tatistical **A**nalysis in **A**rchaeology **K**iel).
+</div>
+</div>
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
 
 ## Who we are
 We are archaeologists developing IT solutions and statistical tools in and for our work activly envolved in the following institutions:
@@ -22,6 +35,21 @@ We are archaeologists developing IT solutions and statistical tools in and for o
 * [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
 * [eScience-Center Tübingen](https://www.uni-tuebingen.de/einrichtungen/informations-kommunikations-und-medienzentrum-ikm/escience-center.html)
 
+```{r, echo=FALSE}
+# nasty workaround because knitr can't fetch childs from subdirectories
+system("cp elements/members.Rmd .")
+```
+  
+```{r child = 'members.Rmd'}
+```
+
+```{r, echo=FALSE}
+system("rm members.Rmd")
+```
+</div>
+</div>
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
 ## What we do and offer:
 We offer programs, scripts and functions for data management and interoperability, develop R-packages for different tasks and present tutorials for programs and archaeological tasks. Everything in constant development and freely accessible in our github repository.
 
@@ -35,22 +63,17 @@ Currently we work on this topics:
 * open data and open publishing
 
 To see our current portfolio, visit the [projects](projects.html) page.
-
+</div>
+</div>
+<div class="row">
+<div class="col-md-8 col-md-offset-2">
 ## Would you like to participate?
 
 Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us, if you are interested to join our group.
 
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
-  
-```{r, echo=FALSE}
-# nasty workaround because knitr can't fetch childs from subdirectories
-system("cp elements/members.Rmd .")
-```
-  
-```{r child = 'members.Rmd'}
-```
+</div>  
+</div>  
 
-```{r, echo=FALSE}
-system("rm members.Rmd")
-```
+</div>

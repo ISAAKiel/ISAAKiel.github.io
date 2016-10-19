@@ -10,12 +10,12 @@
   height: 215px; 
 }
 
-.members {
+/*.members {
   position: fixed;
   left: 0;
   top: 300px;
   width: 300px;
-}
+}*/
 
 @media screen and (max-width: 1400px) {
     .members {
@@ -25,4 +25,12 @@
 
 body{
   padding-top: 0 !important;;
+}
+
+div.container-fluid.main-container > div:nth-of-type(even) {
+    background: rgba(68,110,155,.2);
+}
+
+.main-container{
+  max-width: auto;
 }
