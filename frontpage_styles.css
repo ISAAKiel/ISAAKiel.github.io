@@ -6,7 +6,7 @@
 .header-jumbotron {
   background: #446e9b; color: #FFF; margin: 0;
   top: 0;
-  margin-bottom: 105px;
+  margin-bottom: 150px;
   height: 215px; 
 }
 
@@ -27,14 +27,13 @@ body{
   padding-top: 0 !important;;
 }
 
-div.container-fluid.main-container > div:nth-of-type(even) {
-    background: #7b99b8;
-    color: #fff;
-}
+div.container-fluid.main-container > div:nth-of-type(odd)                {background: #446e9b; color: #fff;}
+div.container-fluid.main-container > div:nth-of-type(odd) p, h1, h2, h3  {color: #fff;}
+div.container-fluid.main-container > div:nth-of-type(odd) a              {color: #dddddd;}
 
-div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3 {/*color: #fff;*/}
-
-div.container-fluid.main-container > div:nth-of-type(even) a {color: #dddddd;}
+div.container-fluid.main-container > div:nth-of-type(even)                {background: #7b99b8; color: #fff;}
+div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3  {color: #fff;}
+div.container-fluid.main-container > div:nth-of-type(even) a              {color: #dddddd;}
 
 body > div.container-fluid.main-container .well {
   background: #fff;
