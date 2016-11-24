@@ -32,7 +32,7 @@ div.container-fluid.main-container > div:nth-of-type(even) {
     color: #fff;
 }
 
-div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3 {color: #fff;}
+div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3 {/*color: #fff;*/}
 
 div.container-fluid.main-container > div:nth-of-type(even) a {color: #dddddd;}
 
