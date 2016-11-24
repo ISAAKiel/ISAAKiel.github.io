@@ -1,7 +1,7 @@
 ---
 output: html_fragment
 ---
-<div class="container">
+
 <div class="row">
 ### Members
 
@@ -35,7 +35,7 @@ user_info <- user_info[order(user_info$name), ]
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
 for (i in 1:nrow(user_info)){
-  cat('<div class="col-md-2">')
+  cat('<div class="col-md-3">')
   cat('<div class="well well-sm">')
   # show users avatar
   user_avatar_string <- paste("<a href='",user_info$html_url[i],"'>","<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48></a> ")
@@ -53,5 +53,4 @@ for (i in 1:nrow(user_info)){
   
 }
 ```
-</div>
 </div>
