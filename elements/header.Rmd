@@ -9,7 +9,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <center>
 # ISAAKiel
 
-Adding number crunching to archaeology.
+Archaeology that counts
 </center>
 </div>
 
