@@ -27,13 +27,19 @@ body{
   padding-top: 0 !important;;
 }
 
-div.container-fluid.main-container > div:nth-of-type(odd)                {background: #446e9b; color: #fff;}
-div.container-fluid.main-container > div:nth-of-type(odd) p, h1, h2, h3  {color: #fff;}
-div.container-fluid.main-container > div:nth-of-type(odd) a              {color: #dddddd;}
+div.row-striped:nth-of-type(even){
+  background: #7b99b8; color: #fff;
+}
+div.row-striped:nth-of-type(even) :-webkit-any(p, h1, h2, h3)  {color: #fff;}
+div.row-striped:nth-of-type(even) :-moz-any(p, h1, h2, h3)  {color: #fff;}
+div.row-striped:nth-of-type(even) a              {color: #dddddd;}
 
-div.container-fluid.main-container > div:nth-of-type(even)                {background: #7b99b8; color: #fff;}
-div.container-fluid.main-container > div:nth-of-type(even) p, h1, h2, h3  {color: #fff;}
-div.container-fluid.main-container > div:nth-of-type(even) a              {color: #dddddd;}
+div.row-striped:nth-of-type(odd){
+  background: #fff; color: #111;
+}
+div.row-striped:nth-of-type(odd) :-webkit-any(p, h1, h2, h3)  {color: #111;}
+div.row-striped:nth-of-type(odd) :-moz-any(p, h1, h2, h3)  {color: #111;}
+div.row-striped:nth-of-type(odd) a              {color: #333;}
 
 body > div.container-fluid.main-container .well {
   background: #fff;
