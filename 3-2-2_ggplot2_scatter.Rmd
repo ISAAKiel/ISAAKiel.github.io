@@ -15,7 +15,7 @@ library(ggplot2)
 ```
 
 ```{r} 
-df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = '\t')
+df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = ',')
 ```
 
 ```{r, echo=FALSE} 
@@ -37,7 +37,7 @@ ggplot(df, aes(x = maxD, y = muendungsH)) +
 
 Gleichmäßige X- und Y-Achse 
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.75} 
+```{r, warning=FALSE, fig.width=2.5, fig.height=2.5} 
 ggplot(df, aes(x = maxD, y = muendungsH)) + 
   geom_point() + 
   coord_equal()
@@ -47,30 +47,27 @@ ggplot(df, aes(x = maxD, y = muendungsH)) +
 
 Symbolgröße manuell einstellen 
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.75} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH)) + 
-  geom_point(size = 3) + 
-  coord_equal()
+  geom_point(size = 3)
 ```
 
 ## Anwendung 2: Scatterplot
 
 Symbolgröße abhängig von Variable 
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.75} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH, size = wall)) + 
-  geom_point() + 
-  coord_equal()
+  geom_point()
 ```
 
 ## Anwendung 2: Scatterplot
 
 Grenzen für Symbolgröße 
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.5} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH, size = wall)) + 
-  geom_point() + 
-  coord_equal() + 
+  geom_point() +
   scale_size_continuous(range = c(2,15))
 ```
 
@@ -78,10 +75,9 @@ ggplot(df, aes(x = maxD, y = muendungsH, size = wall)) +
 
 Füllfarbe 
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.5} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH, size = wall, color = site)) + 
-  geom_point() + 
-  coord_equal() + 
+  geom_point() +
   scale_size_continuous(range = c(2,15))
 ```
 
@@ -89,20 +85,18 @@ ggplot(df, aes(x = maxD, y = muendungsH, size = wall, color = site)) +
 
 Symboltypen
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.755} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH, color = site, shape = vesselShape)) + 
-  geom_point(size = 4) + 
-  coord_equal()
+  geom_point(size = 4)
 ```
 
 ## Anwendung 2: Scatterplot
 
 manuelle Angabe der Symbole
 
-```{r, warning=FALSE, fig.width=10, fig.height=5.5} 
+```{r, warning=FALSE, fig.width=10, fig.height=6} 
 ggplot(df, aes(x = maxD, y = muendungsH, color = site, shape = vesselShape)) + 
-  geom_point(size = 4) + 
-  coord_equal() + 
+  geom_point(size = 4) +
   scale_shape_manual(values = 1:(1+length(unique(df$vesselShape))))
 ```
 
@@ -112,8 +106,7 @@ Facettierung der Daten
 
 ```{r, warning=FALSE, fig.width=10, fig.height=5} 
 ggplot(df, aes(x = maxD, y = muendungsH, color = site, shape = vesselShape)) + 
-  geom_point(size = 4) + 
-  coord_equal() + 
+  geom_point(size = 4) +
   scale_shape_manual(values = 1:(1+length(unique(df$vesselShape)))) + 
   facet_wrap(~ feature_simple)
 ```
@@ -124,14 +117,8 @@ ggplot(df, aes(x = maxD, y = muendungsH, color = site, shape = vesselShape)) +
 Position der Legende & fertiger Plot
 
 ```{r, warning=FALSE, fig.width=10, fig.height=5} 
-ggplot(df, aes(
-  x = maxD, 
-  y = muendungsH, 
-  color = site, 
-  shape = vesselShape)
-  ) + 
+ggplot(df, aes(x = maxD, y = muendungsH, color = site, shape = vesselShape)) + 
   geom_point(size = 4) + 
-  coord_equal() + 
   scale_shape_manual(values = 1:(1+length(unique(df$vesselShape)))) + 
   facet_wrap(~ feature_simple) + 
   theme(legend.direction ="horizontal",legend.position = "bottom")

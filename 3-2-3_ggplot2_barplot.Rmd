@@ -15,7 +15,7 @@ library(ggplot2)
 ```
 
 ```{r} 
-df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = '\t')
+df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = ',')
 ```
 
 ```{r, echo=FALSE} 

@@ -7,9 +7,6 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "About"
-      icon: fa-info
-      href: about.html
     - text: "Projects"
       icon: fa-gears
       href: projects.html
@@ -49,6 +46,9 @@ navbar:
         - text: "Abschnitt 4"
         - text: "4-3-1_git_Anwendungsbeispiel"
           href: 4-3-1_git_Anwendungsbeispiel.html
+        - text: "Abschnitt 5"
+        - text: "5-1_Paketerstellung_Interoperabilitaet"
+          href: 5-1_Paketerstellung_Interoperabilitaet.html
 
     - text: "R-Tutorial Mosaic 2016"
       icon: fa-area-chart
@@ -59,10 +59,12 @@ navbar:
       icon: fa-eye
       menu:
 
-        - text: "recexcavAAR: Vignette >>Ifri el Baroud<<"
+        - text: "recexcavAAR: Vignette >>Semiautomatic spit attribution<<"
           href: recexcavAAR-vignette-1.html
-        - text: "recexcavAAR: Vignette >>Kakcus-Turján<<"
+        - text: "recexcavAAR: Vignette >>Trench visualisation<<"
           href: recexcavAAR-vignette-2.html
+        - text: "recexcavAAR: Vignette >>Transforming coordinates<<"
+          href: recexcavAAR-vignette-3.html
         - text: "Variable contingency and affiliation prediction"
           href: varnastats-vignette-1.html
 output_dir: "."

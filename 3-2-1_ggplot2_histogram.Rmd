@@ -15,7 +15,7 @@ library(ggplot2)
 ```
 
 ```{r} 
-df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = '\t')
+df <- read.csv("downloads/r-tut/data/AtlantPottery.csv", sep = ',')
 ```
 
 ```{r, echo=FALSE} 
@@ -67,7 +67,7 @@ ggplot(df, aes(wt, fill = sherd)) +
 
 Alternative Ansicht
 
-```{r, fig.width=10, fig.height=5.5} 
+```{r, fig.width=10, fig.height=5.5, warning = FALSE} 
 ggplot(df, aes(wt, fill = sherd)) + 
   geom_histogram(binwidth = 25) + 
   xlim(0, 1000) +
@@ -79,7 +79,7 @@ ggplot(df, aes(wt, fill = sherd)) +
 
 Achsenbeschriftung
 
-```{r, fig.width=10, fig.height=5} 
+```{r, fig.width=10, fig.height=5, warning = FALSE} 
 ggplot(df, aes(wt, fill = sherd)) + 
   geom_histogram(binwidth = 25) + 
   xlim(0, 1000) + 
@@ -91,7 +91,7 @@ ggplot(df, aes(wt, fill = sherd)) +
 
 Titel und Position der Legende
 
-```{r, fig.width=10, fig.height=4.75} 
+```{r, fig.width=10, fig.height=4.75, warning = FALSE} 
 ggplot(df, aes(wt, fill = sherd)) + 
   geom_histogram(binwidth = 25) + 
   xlim(0, 1000) + 

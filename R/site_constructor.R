@@ -134,9 +134,6 @@ navbar:
     - text: \"Home\"
       icon: fa-home
       href: index.html
-    - text: \"About\"
-      icon: fa-info
-      href: about.html
     - text: \"Projects\"
       icon: fa-gears
       href: projects.html
