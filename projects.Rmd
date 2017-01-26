@@ -3,11 +3,14 @@ title: "Projects"
 output:
   html_document:
     theme: "spacelab"
+    css: other_page_styles.css
 ---
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
 ```
+
+<div class="row">
 
 ```{r echo = FALSE}
 #### load api functions and api key ####
@@ -24,14 +27,18 @@ repo_info <- repo_info[order(repo_info$name), ]
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
 for (i in 1:nrow(repo_info)){
-  title_string <- paste('## [',repo_info$name[i],'](',repo_info$html_url[i],')',sep="")
-  cat(title_string)
-  cat("\n")
+  cat('<div class="col-xs-6 col-sm-3">')
+  cat('<div class="card">')
+  cat('<div class="card-content"><h4 class="card-title">')
+  title_string <- repo_info$name[i]
+  cat('<a href="',repo_info$html_url[i],'" style="color:#345578;">',title_string, "</a></h4><br/>")
+  cat('<div class="">')
   cat(repo_info$description[i])
-  cat("\n\n")
-  cat("\n\n")
+  cat('</div>')
+  cat('</div>')
+  cat('</div>')
+  cat('</div>')
 }
 ```
 
-
-
+</div>
