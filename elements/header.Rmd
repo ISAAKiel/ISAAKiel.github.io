@@ -7,7 +7,9 @@ knitr::opts_chunk$set(echo = TRUE)
 ```
 <div class="jumbotron header-jumbotron">
 <center>
-# ISAAKiel
+<img src="logo.png"/>
+
+# **ISAAKiel**
 
 Archaeology that counts
 </center>
