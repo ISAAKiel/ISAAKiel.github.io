@@ -7,10 +7,10 @@
 
 .header-jumbotron {
   background: #446e9b; color: #FFF; margin: 0;
-/*  background-image: url("elements/header_bg.png");
+  background-image: url("elements/header_bg.png");
   background-repeat:no-repeat;
   background-position:50%;
-  */
+
   top: 0;
   margin-bottom: 150px;
   height: 350px; 
