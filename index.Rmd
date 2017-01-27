@@ -22,7 +22,7 @@ knitr::opts_chunk$set(echo = TRUE)
 <div class="col-md-8 col-md-offset-2">
 
 ## Scope
-Archaeoinformatics, computational archaeology and quantitative methods are a constant and developing branch since the last decades. It comprises different aspects of archaeology and information technology in daily work as well as methodology. Both - the use of the current technology and the methodological implementation in archaeology - has to be developed. This is the aim of our working group **ISAAK** (**I**nitiative for **S**tatistical **A**nalysis in **A**rchaeology **K**iel).
+Archaeoinformatics, computational archaeology and quantitative methods are a constant and developing branch since the last decades. It comprises different aspects of archaeology and information technology in daily work as well as methodology. Both - the use of the current technology and the methodological implementation in archaeology - have to be developed. This is the aim of our working group **ISAAK** (**I**nitiative for **S**tatistical **A**nalysis in **A**rchaeology **K**iel).
 
 </div>
 </div>
