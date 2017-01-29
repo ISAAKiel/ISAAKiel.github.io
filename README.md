@@ -12,7 +12,7 @@ This an [RMarkdown Website](http://rmarkdown.rstudio.com/rmarkdown_websites.html
 
 - To apply changes in Home, About or Projects just clone the repo, edit the files **index.Rmd**, **about.Rmd** or **projects.Rmd**, knit the files with the <kbd>Knit HTML</kbd> button of RStudio and push the changes to the .Rmd and the .html file. That's it - no more magic involved, except ...
 
-- ... first of all you need a github API key. You get one in the [github user settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use/). Set it up locally as a string in a file called **oauth.RData** in the root directory of the homepage repository. Something like this should do the trick: 
+- ... first of all you need a github API key. You get one in the [github user settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use/). It is not necessary to grant the token any scopes (on the selection page that appears once you create a token). Set it up locally as a string in a file called **oauth.RData** in the root directory of the homepage repository. Something like this should do the trick: 
     
     ```{r}
     oauth <- "your key goes here"    
