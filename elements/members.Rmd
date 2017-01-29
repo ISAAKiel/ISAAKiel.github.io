@@ -3,7 +3,6 @@ output: html_fragment
 ---
 
 <div class="row">
-### Members
 
 ```{r echo = FALSE}
 #### load api functions and api key ####
