@@ -38,7 +38,7 @@ for (i in 1:nrow(user_info)){
   cat('<div class="card">')
   # show users avatar
   #user_avatar_string <- paste("<a href='",user_info$html_url[i],"' target="_blank">","<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48></a> ")
-  user_avatar_string <- paste('<a class="img-card" href="',user_info$html_url[i],'">
+  user_avatar_string <- paste('<a class="img-card" href="',user_info$html_url[i],'" target="_blank" ">
                     <img src="', user_info$avatar_url[i], '" />
                 </a>')
   cat(user_avatar_string, "<br/>")
