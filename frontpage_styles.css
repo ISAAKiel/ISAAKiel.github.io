@@ -20,6 +20,11 @@
   height: 350px; 
 }
 
+.header-jumbotron h1 {
+  font-size: 48px;
+  letter-spacing: 8px;
+}
+
 /*.members {
   position: fixed;
   left: 0;
