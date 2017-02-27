@@ -311,15 +311,11 @@ $(document).ready(function () {
 <li><strong>rgl:</strong> nice, interactive 3D plots</li>
 </ul>
 <pre class="r"><code>library(devtools)
-library(recexcavAAR)</code></pre>
-<pre><code>## Warning: package 'recexcavAAR' was built under R version 3.4.0</code></pre>
-<pre class="r"><code>library(dplyr)
+library(recexcavAAR)
+library(dplyr)
 library(kriging)
 library(magrittr)
 library(rgl)</code></pre>
-<pre><code>## Warning in rgl.init(initValue, onlyNULL): RGL: GLX extension missing on
-## server</code></pre>
-<pre><code>## Warning: 'rgl_init' failed, running with rgl.useNULL = TRUE</code></pre>
 <p>Now let’s imagine an artificial and pretty simple excavation trench with a depth of 2 meters, a length of 3 meters and a width of 1 meter.</p>
 <pre class="r"><code>edges &lt;- data.frame(
   x = c(0, 3, 0, 3, 0, 3, 0, 3),

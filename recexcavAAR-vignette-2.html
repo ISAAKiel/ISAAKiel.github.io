@@ -309,13 +309,9 @@ $(document).ready(function () {
 <li><strong>rgl:</strong> nice, interactive 3D plots</li>
 </ul>
 <pre class="r"><code>library(devtools)
-library(recexcavAAR)</code></pre>
-<pre><code>## Warning: package 'recexcavAAR' was built under R version 3.4.0</code></pre>
-<pre class="r"><code>library(kriging)
+library(recexcavAAR)
+library(kriging)
 library(rgl)</code></pre>
-<pre><code>## Warning in rgl.init(initValue, onlyNULL): RGL: GLX extension missing on
-## server</code></pre>
-<pre><code>## Warning: 'rgl_init' failed, running with rgl.useNULL = TRUE</code></pre>
 <p>Like in the first vignette <code>Ifri el Baroud</code> we start by setting up an artificial and pretty simple excavation trench with a depth of 1.4 meters, a length of 6 meters and a width of 8 meters. This one is not parallel to the main axis of our coordinate system.</p>
 <pre class="r"><code>edges &lt;- data.frame(
   x = c(6.899, 10.658, 4.428, 0.669, 6.899, 10.658, 4.428, 0.669),
