@@ -1,3 +1,10 @@
+#### setup packages ####
+
+if(!require('devtools')) install.packages('devtools')
+if(!require('rmarkdown')) install.packages('rmarkdown')
+if(!require('magrittr')) install.packages('magrittr')
+library(magrittr)
+
 #### setup for the R-Tutorial ####
 
 # create folder for the R-Tutorial texts
@@ -53,7 +60,13 @@ system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -
 #### setup for vignettes ####
 
 # list of ISAAK packages with vignettes
-packlist <- c("recexcavAAR", "quantaar")
+packlist <- c("recexcavAAR", "quantaar", "mortAAR")
+
+sapply(packlist, function(x){
+  if(!require(paste(x), character.only = TRUE)){
+    devtools::install_github(paste0("ISAAKiel/", x))
+  }
+})
 
 # create folder for the vignette *.Rmd file
 system("rm -r downloads/vignettes/; mkdir downloads/vignettes")
@@ -140,7 +153,7 @@ navbar:
 "
 writeLines(yml1, "_site.yml")
 
-yml2 <-"
+yml2 <-"if(!require(paste(x), character.only = TRUE))
     - text: \"R-Tutorial CAA 2016\"
       icon: fa-bar-chart
       menu: 
@@ -192,10 +205,22 @@ yml6 <- "output_dir: \".\""
 write(yml6, "_site.yml", append = TRUE)
 
 
+#### setup all necessary libraries ####
+
+# search all library calls in RMD files
+liblist_raw <- system("grep -r --include \\*.Rmd \"^library(\" --no-filename", intern = TRUE)
+liblist <- liblist_raw %>% gsub("library\\(", "", .) %>% gsub("\\)", "", .) %>%
+  unique
+
+liblist %>% sapply(
+  function(x){
+    if(!require(paste(x), character.only = TRUE)){
+      install.packages(paste(x))
+    }
+  })
 
 #### render site ####
 
-library(rmarkdown)
 system("make")
 
 
