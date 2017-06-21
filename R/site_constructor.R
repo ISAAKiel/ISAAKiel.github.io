@@ -153,7 +153,7 @@ navbar:
 "
 writeLines(yml1, "_site.yml")
 
-yml2 <-"if(!require(paste(x), character.only = TRUE))
+yml2 <-"
     - text: \"R-Tutorial CAA 2016\"
       icon: fa-bar-chart
       menu: 
