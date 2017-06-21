@@ -60,7 +60,7 @@ system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -
 #### setup for vignettes ####
 
 # list of ISAAK packages with vignettes
-packlist <- c("recexcavAAR", "quantaar", "mortAAR")
+packlist <- c("recexcavAAR", "quantaar") #"mortAAR"
 
 sapply(packlist, function(x){
   if(!require(paste(x), character.only = TRUE)){
@@ -205,13 +205,14 @@ yml6 <- "output_dir: \".\""
 write(yml6, "_site.yml", append = TRUE)
 
 
-#### setup all necessary libraries ####
+#### setup all necessary libraries for rendering ####
 
 # search all library calls in RMD files
 liblist_raw <- system("grep -r --include \\*.Rmd \"^library(\" --no-filename", intern = TRUE)
 liblist <- liblist_raw %>% gsub("library\\(", "", .) %>% gsub("\\)", "", .) %>%
   unique
 
+# install packages if needed
 liblist %>% sapply(
   function(x){
     if(!require(paste(x), character.only = TRUE)){
