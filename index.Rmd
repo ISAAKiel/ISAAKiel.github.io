@@ -37,16 +37,16 @@ We are archaeologists developing IT solutions and statistical tools in and for o
 * [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
 * [eScience-Center Tübingen](https://www.uni-tuebingen.de/einrichtungen/informations-kommunikations-und-medienzentrum-ikm/escience-center.html)
 
-```{r, echo=FALSE}
+```{r, echo=FALSE, message=FALSE}
 # nasty workaround because knitr can't fetch childs from subdirectories
-system("cp elements/members.Rmd .")
+silent_bob <- file.copy("elements/members.Rmd", ".")
 ```
   
 ```{r child = 'members.Rmd'}
 ```
 
-```{r, echo=FALSE}
-system("rm members.Rmd")
+```{r, echo=FALSE, message=FALSE}
+silent_bob <- file.remove("members.Rmd")
 ```
 </div>
 </div>
