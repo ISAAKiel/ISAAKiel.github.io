@@ -31,11 +31,13 @@ Archaeoinformatics, computational archaeology and quantitative methods have been
 <div class="col-md-8 col-md-offset-2">
 
 ## Who we are
-We are archaeologists developing IT solutions and statistical tools in and for our work activly involved in the following institutions:
+We are archaeologists developing IT solutions and statistical tools in and for our work actively involved in the following institutions:
 
 * [Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel](https://www.ufg.uni-kiel.de/)
 * [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
 * [eScience-Center Tübingen](https://www.uni-tuebingen.de/einrichtungen/informations-kommunikations-und-medienzentrum-ikm/escience-center.html)
+* [Institut für Ur- und Frühgeschichte, Universität zu Köln](http://ufg.phil-fak.uni-koeln.de)
+* [Department of Anthropology, University of Washington](https://anthropology.washington.edu/fields/archaeology)
 
 ```{r, echo=FALSE, message=FALSE}
 # nasty workaround because knitr can't fetch childs from subdirectories
