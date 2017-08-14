@@ -15,4 +15,6 @@ Archaeology that counts
 </center>
 </div>
 
+<div class="github-link">
 <a href="https://github.com/ISAAKiel"><img style="position: absolute; top: 0; left: 0; border: 0;" src="https://raw.githubusercontent.com/ISAAKiel/ISAAKiel.github.io/master/elements/githublink.png" alt="ISAAK on Github"></a>
+</div>

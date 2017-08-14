@@ -123,3 +123,16 @@ body > div.container-fluid.main-container .well a {
   font-weight:600;
   text-transform: uppercase
 }
+
+/* grayscale images */
+.card img, .github-link img{
+  filter: gray; /* IE6-9 */
+  -webkit-filter: grayscale(1); /* Google Chrome, Safari 6+ & Opera 15+ */
+  filter: grayscale(1); /* Microsoft Edge and Firefox 35+ */
+}
+
+/* disable grayscale on hover */
+.card img:hover, .github-link img:hover{
+  -webkit-filter: grayscale(0);
+  filter: none;
+}
