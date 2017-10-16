@@ -6,13 +6,17 @@ output: html_fragment
 knitr::opts_chunk$set(echo = TRUE)
 ```
 <div class="jumbotron header-jumbotron">
-<center>
+<div class="logo">
+<center> 
+
 <img src="logo.png"/>
 
 # **ISAAKiel**
 
 Archaeology that counts
-</center>
+
+</center>  
+</div>
 </div>
 
 <div class="github-link">

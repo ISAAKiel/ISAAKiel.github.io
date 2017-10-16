@@ -5,19 +5,25 @@
 }
 
 .navbar-fixed-top {
-  top: 350px;
+  top: 299px;
   position: absolute;
 }
 
 .header-jumbotron {
   background: #446e9b; color: #FFF; margin: 0;
-  background-image: url("elements/header_bg.jpg");
+  background-image: url("elements/header_bg_2.jpg");
   background-repeat:no-repeat;
   background-position:50%;
-
   top: 0;
-  margin-bottom: 150px;
-  height: 350px; 
+  margin-bottom: 100px;
+  height: 299px; 
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-top: -20px;
 }
 
 .header-jumbotron h1 {
