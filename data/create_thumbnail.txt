@@ -1,0 +1,7 @@
+# not a script: just useful commands to create thumbnails of pdf documents
+
+# extract first page
+# pdftk input.pdf cat 1 output page-1-of-input.pdf
+
+# create png from pdf
+# gs -o output.png -sDEVICE=pngalpha -dLastPage=1 page-1-of-input.pdf
