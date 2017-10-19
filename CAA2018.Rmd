@@ -10,6 +10,9 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+- [S24 Computational classification in archaeology](https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/Classification-session.pdf)
+- [S34 R as an archaeological tool: current state and directions](https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/R-session.pdf)
+
 |   |   |   |
 |---|---|---|
 |<a href="https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/Classification-session.pdf"><img src="https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/Classification-session.png" /></a>|&nbsp;|<a href="https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/R-session.pdf"><img src="https://github.com/ISAAKiel/ISAAKiel.github.io/raw/master/data/R-session.png" /></a>|
