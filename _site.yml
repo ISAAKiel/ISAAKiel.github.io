@@ -7,6 +7,9 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
+    - text: "CAA2018"
+      icon: fa-users
+      href: CAA2018.html
     - text: "Projects"
       icon: fa-gears
       href: projects.html
@@ -67,4 +70,8 @@ navbar:
           href: recexcavAAR-vignette-3.html
         - text: "Variable contingency and affiliation prediction"
           href: varnastats-vignette-1.html
+        - text: "mortAAR: Vignette >>Extended discussion<<"
+          href: mortAAR_vignette_extended.html
+        - text: "mortAAR: Vignette >>Create a lifetable from an ordinary burial dataset<<"
+          href: mortAAR_vignette-1.html
 output_dir: "."

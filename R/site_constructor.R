@@ -60,7 +60,7 @@ system("find downloads/r-tut/presentation -type f -name '*.Rmd' -print | xargs -
 #### setup for vignettes ####
 
 # list of ISAAK packages with vignettes
-packlist <- c("recexcavAAR", "quantaar") #"mortAAR"
+packlist <- c("recexcavAAR", "quantAAR", "mortAAR") #"mortAAR"
 
 sapply(packlist, function(x){
   if(!require(paste(x), character.only = TRUE)){
@@ -147,6 +147,9 @@ navbar:
     - text: \"Home\"
       icon: fa-home
       href: index.html
+    - text: \"CAA2018\"
+      icon: fa-users
+      href: CAA2018.html
     - text: \"Projects\"
       icon: fa-gears
       href: projects.html

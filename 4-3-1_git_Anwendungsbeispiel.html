@@ -185,6 +185,13 @@ $(document).ready(function () {
   </a>
 </li>
 <li>
+  <a href="CAA2018.html">
+    <span class="fa fa-users"></span>
+     
+    CAA2018
+  </a>
+</li>
+<li>
   <a href="projects.html">
     <span class="fa fa-gears"></span>
      
@@ -276,6 +283,12 @@ $(document).ready(function () {
     </li>
     <li>
       <a href="varnastats-vignette-1.html">Variable contingency and affiliation prediction</a>
+    </li>
+    <li>
+      <a href="mortAAR_vignette_extended.html">mortAAR: Vignette &gt;&gt;Extended discussion&lt;&lt;</a>
+    </li>
+    <li>
+      <a href="mortAAR_vignette-1.html">mortAAR: Vignette &gt;&gt;Create a lifetable from an ordinary burial dataset&lt;&lt;</a>
     </li>
   </ul>
 </li>
@@ -486,10 +499,8 @@ To git@github.com:nevrome/somethings.git
 <pre><code>## Warning in nnet.formula(sex ~ ., data = graves.training, size = 1, decay =
 ## 0): group 'unknown' is empty</code></pre>
 <pre><code>## # weights:  17
-## initial  value 12.862515 
-## iter  10 value 6.801072
-## iter  20 value 6.730129
-## final  value 6.730117 
+## initial  value 19.527449 
+## final  value 0.000000 
 ## converged</code></pre>
 <p>Wichtig: Der Algorithmus ist <strong>nondeterministisch</strong>.</p>
 </div>
@@ -498,14 +509,14 @@ To git@github.com:nevrome/somethings.git
 <pre class="r"><code>summary(sex.nnet)</code></pre>
 <pre><code>## a 12-1-2 network with 17 weights
 ## options were - softmax modelling 
-##   b-&gt;h1  i1-&gt;h1  i2-&gt;h1  i3-&gt;h1  i4-&gt;h1  i5-&gt;h1  i6-&gt;h1  i7-&gt;h1  i8-&gt;h1 
-##    5.20    1.55    5.63    2.22   -1.60    1.36   -2.58   -8.03   -0.31 
-##  i9-&gt;h1 i10-&gt;h1 i11-&gt;h1 i12-&gt;h1 
-##   -4.75   -7.39   -4.25   -4.58 
-##  b-&gt;o1 h1-&gt;o1 
-##  -0.36   9.23 
-##  b-&gt;o2 h1-&gt;o2 
-##   0.05 -10.19</code></pre>
+##    b-&gt;h1   i1-&gt;h1   i2-&gt;h1   i3-&gt;h1   i4-&gt;h1   i5-&gt;h1   i6-&gt;h1   i7-&gt;h1 
+##  -160.17  -544.24 -1059.32 -1495.33  -255.75   536.04   320.03  1349.96 
+##   i8-&gt;h1   i9-&gt;h1  i10-&gt;h1  i11-&gt;h1  i12-&gt;h1 
+##   242.53   754.22 -1166.46   875.19   237.75 
+##    b-&gt;o1   h1-&gt;o1 
+##  1172.49 -2103.58 
+##    b-&gt;o2   h1-&gt;o2 
+## -1172.26  2103.21</code></pre>
 </div>
 <div id="validierung" class="section level4">
 <h4>Validierung</h4>
@@ -516,8 +527,8 @@ To git@github.com:nevrome/somethings.git
 )</code></pre>
 <pre><code>##          predict
 ## actual    female male
-##   male         7   13
-##   female      19    1
+##   male         1   19
+##   female      15    5
 ##   unknown      0    0</code></pre>
 </div>
 <div id="export-1" class="section level4">
@@ -546,16 +557,11 @@ data_prep.R  graves.RData  graves-training.RData  model.R  model.RData</code></p
 <pre><code>## Warning in nnet.formula(sex ~ ., data = graves.training, size = 10, decay =
 ## 0.1): group 'unknown' is empty</code></pre>
 <pre><code>## # weights:  152
-## initial  value 16.769791 
-## iter  10 value 3.989646
-## iter  20 value 1.908458
-## iter  30 value 1.841566
-## iter  40 value 1.829254
-## iter  50 value 1.828930
-## iter  60 value 1.828907
-## iter  60 value 1.828907
-## iter  60 value 1.828907
-## final  value 1.828907 
+## initial  value 12.055601 
+## iter  10 value 1.741380
+## iter  20 value 1.626328
+## iter  30 value 1.625433
+## final  value 1.625429 
 ## converged</code></pre>
 <p>Da die potentielle Komplexität des Neuronalen Netzes gegenüber dem ersten Versuch oben vergrößert wurde, ist das Ergebnismodell wahrscheinlich etwas besser. Aber: Nondeterminismus!</p>
 </div>
@@ -565,53 +571,53 @@ data_prep.R  graves.RData  graves-training.RData  model.R  model.RData</code></p
 <pre><code>## a 12-10-2 network with 152 weights
 ## options were - softmax modelling  decay=0.1
 ##   b-&gt;h1  i1-&gt;h1  i2-&gt;h1  i3-&gt;h1  i4-&gt;h1  i5-&gt;h1  i6-&gt;h1  i7-&gt;h1  i8-&gt;h1 
-##    0.28    0.14    0.31    0.10   -0.24    0.12   -0.08   -0.37    0.00 
+##   -0.17   -0.01   -0.17   -0.33    0.00    0.14    0.09    0.26    0.09 
 ##  i9-&gt;h1 i10-&gt;h1 i11-&gt;h1 i12-&gt;h1 
-##   -0.15    0.03   -0.25   -0.33 
+##    0.17   -0.10    0.15    0.07 
 ##   b-&gt;h2  i1-&gt;h2  i2-&gt;h2  i3-&gt;h2  i4-&gt;h2  i5-&gt;h2  i6-&gt;h2  i7-&gt;h2  i8-&gt;h2 
-##    0.28    0.14    0.31    0.10   -0.24    0.12   -0.08   -0.37    0.00 
+##   -0.17   -0.01   -0.17   -0.33    0.00    0.14    0.09    0.26    0.09 
 ##  i9-&gt;h2 i10-&gt;h2 i11-&gt;h2 i12-&gt;h2 
-##   -0.15    0.03   -0.25   -0.33 
+##    0.17   -0.10    0.15    0.07 
 ##   b-&gt;h3  i1-&gt;h3  i2-&gt;h3  i3-&gt;h3  i4-&gt;h3  i5-&gt;h3  i6-&gt;h3  i7-&gt;h3  i8-&gt;h3 
-##    0.28    0.14    0.31    0.10   -0.24    0.12   -0.08   -0.37    0.00 
+##    0.23    0.01    0.20    0.41    0.00   -0.16   -0.10   -0.29   -0.11 
 ##  i9-&gt;h3 i10-&gt;h3 i11-&gt;h3 i12-&gt;h3 
-##   -0.15    0.03   -0.25   -0.33 
+##   -0.19    0.11   -0.17   -0.08 
 ##   b-&gt;h4  i1-&gt;h4  i2-&gt;h4  i3-&gt;h4  i4-&gt;h4  i5-&gt;h4  i6-&gt;h4  i7-&gt;h4  i8-&gt;h4 
-##   -0.18   -0.11   -0.24   -0.09    0.19   -0.09    0.08    0.29    0.00 
+##   -0.17   -0.01   -0.17   -0.33    0.00    0.14    0.09    0.26    0.09 
 ##  i9-&gt;h4 i10-&gt;h4 i11-&gt;h4 i12-&gt;h4 
-##    0.13   -0.01    0.20    0.26 
+##    0.17   -0.10    0.15    0.07 
 ##   b-&gt;h5  i1-&gt;h5  i2-&gt;h5  i3-&gt;h5  i4-&gt;h5  i5-&gt;h5  i6-&gt;h5  i7-&gt;h5  i8-&gt;h5 
-##    0.28    0.14    0.31    0.10   -0.24    0.12   -0.08   -0.37    0.00 
+##    0.23    0.01    0.20    0.41    0.00   -0.16   -0.10   -0.29   -0.11 
 ##  i9-&gt;h5 i10-&gt;h5 i11-&gt;h5 i12-&gt;h5 
-##   -0.15    0.03   -0.25   -0.33 
+##   -0.19    0.11   -0.17   -0.08 
 ##   b-&gt;h6  i1-&gt;h6  i2-&gt;h6  i3-&gt;h6  i4-&gt;h6  i5-&gt;h6  i6-&gt;h6  i7-&gt;h6  i8-&gt;h6 
-##   -0.18   -0.11   -0.24   -0.09    0.19   -0.09    0.08    0.29    0.00 
+##   -0.17   -0.01   -0.17   -0.33    0.00    0.14    0.09    0.26    0.09 
 ##  i9-&gt;h6 i10-&gt;h6 i11-&gt;h6 i12-&gt;h6 
-##    0.13   -0.01    0.20    0.26 
+##    0.17   -0.10    0.15    0.07 
 ##   b-&gt;h7  i1-&gt;h7  i2-&gt;h7  i3-&gt;h7  i4-&gt;h7  i5-&gt;h7  i6-&gt;h7  i7-&gt;h7  i8-&gt;h7 
-##    0.28    0.14    0.31    0.10   -0.24    0.12   -0.08   -0.37    0.00 
+##   -0.17   -0.01   -0.17   -0.33    0.00    0.14    0.09    0.26    0.09 
 ##  i9-&gt;h7 i10-&gt;h7 i11-&gt;h7 i12-&gt;h7 
-##   -0.15    0.03   -0.25   -0.33 
+##    0.17   -0.10    0.15    0.07 
 ##   b-&gt;h8  i1-&gt;h8  i2-&gt;h8  i3-&gt;h8  i4-&gt;h8  i5-&gt;h8  i6-&gt;h8  i7-&gt;h8  i8-&gt;h8 
-##   -0.18   -0.11   -0.24   -0.09    0.19   -0.09    0.08    0.29    0.00 
+##    0.23    0.01    0.20    0.41    0.00   -0.16   -0.10   -0.29   -0.11 
 ##  i9-&gt;h8 i10-&gt;h8 i11-&gt;h8 i12-&gt;h8 
-##    0.13   -0.01    0.20    0.26 
+##   -0.19    0.11   -0.17   -0.08 
 ##   b-&gt;h9  i1-&gt;h9  i2-&gt;h9  i3-&gt;h9  i4-&gt;h9  i5-&gt;h9  i6-&gt;h9  i7-&gt;h9  i8-&gt;h9 
-##   -0.18   -0.11   -0.24   -0.09    0.19   -0.09    0.08    0.29    0.00 
+##    0.23    0.01    0.20    0.41    0.00   -0.16   -0.10   -0.29   -0.11 
 ##  i9-&gt;h9 i10-&gt;h9 i11-&gt;h9 i12-&gt;h9 
-##    0.13   -0.01    0.20    0.26 
+##   -0.19    0.11   -0.17   -0.08 
 ##   b-&gt;h10  i1-&gt;h10  i2-&gt;h10  i3-&gt;h10  i4-&gt;h10  i5-&gt;h10  i6-&gt;h10  i7-&gt;h10 
-##    -0.18    -0.11    -0.24    -0.09     0.19    -0.09     0.08     0.29 
+##     0.23     0.01     0.20     0.41     0.00    -0.16    -0.10    -0.29 
 ##  i8-&gt;h10  i9-&gt;h10 i10-&gt;h10 i11-&gt;h10 i12-&gt;h10 
-##     0.00     0.13    -0.01     0.20     0.26 
+##    -0.11    -0.19     0.11    -0.17    -0.08 
 ##   b-&gt;o1  h1-&gt;o1  h2-&gt;o1  h3-&gt;o1  h4-&gt;o1  h5-&gt;o1  h6-&gt;o1  h7-&gt;o1  h8-&gt;o1 
-##    0.16    0.75    0.75    0.75   -0.49    0.74   -0.49    0.74   -0.49 
+##    0.12   -0.50   -0.50    0.68   -0.50    0.68   -0.50   -0.50    0.68 
 ##  h9-&gt;o1 h10-&gt;o1 
-##   -0.49   -0.49 
+##    0.68    0.68 
 ##   b-&gt;o2  h1-&gt;o2  h2-&gt;o2  h3-&gt;o2  h4-&gt;o2  h5-&gt;o2  h6-&gt;o2  h7-&gt;o2  h8-&gt;o2 
-##   -0.16   -0.75   -0.75   -0.75    0.49   -0.74    0.49   -0.74    0.49 
+##   -0.12    0.50    0.50   -0.68    0.50   -0.68    0.50    0.50   -0.68 
 ##  h9-&gt;o2 h10-&gt;o2 
-##    0.49    0.49</code></pre>
+##   -0.68   -0.68</code></pre>
 </div>
 <div id="validierung-1" class="section level4">
 <h4>Validierung</h4>
