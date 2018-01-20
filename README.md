@@ -4,6 +4,8 @@
 
 To learn about ISAAKiel see https://ISAAKiel.github.io. 
 
+This website can also be reached via [isaakiel.de](http://www.isaakiel.de).
+
 ***
 
 #### For members of ISAAKiel: **How it works** 
