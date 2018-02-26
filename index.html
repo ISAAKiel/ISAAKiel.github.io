@@ -20,8 +20,8 @@
 <script src="site_libs/bootstrap-3.3.5/shim/html5shiv.min.js"></script>
 <script src="site_libs/bootstrap-3.3.5/shim/respond.min.js"></script>
 <script src="site_libs/navigation-1.1/tabsets.js"></script>
-<link href="site_libs/highlightjs-1.1/default.css" rel="stylesheet" />
-<script src="site_libs/highlightjs-1.1/highlight.js"></script>
+<link href="site_libs/highlightjs-9.12.0/default.css" rel="stylesheet" />
+<script src="site_libs/highlightjs-9.12.0/highlight.js"></script>
 <link href="site_libs/font-awesome-4.5.0/css/font-awesome.min.css" rel="stylesheet" />
 
 
@@ -46,10 +46,12 @@
   }
 </style>
 <script type="text/javascript">
-if (window.hljs && document.readyState && document.readyState === "complete") {
-   window.setTimeout(function() {
-      hljs.initHighlighting();
-   }, 0);
+if (window.hljs) {
+  hljs.configure({languages: []});
+  hljs.initHighlightingOnLoad();
+  if (document.readyState && document.readyState === "complete") {
+    window.setTimeout(function() { hljs.initHighlighting(); }, 0);
+  }
 }
 </script>
 
@@ -82,7 +84,7 @@ h6 {
 }
 </style>
 
-<link rel="stylesheet" href="frontpage_styles.css" />
+<link rel="stylesheet" href="frontpage_styles.css" type="text/css" />
 
 </head>
 
@@ -342,7 +344,7 @@ $(document).ready(function () {
 <ul>
 <li><a href="https://www.ufg.uni-kiel.de/">Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel</a></li>
 <li><a href="http://www.nihk.de/">Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven</a></li>
-<li><a href="https://www.uni-tuebingen.de/einrichtungen/informations-kommunikations-und-medienzentrum-ikm/escience-center.html">eScience-Center Tübingen</a></li>
+<li><a href="http://research.flw.ugent.be/en/bantugent">BantUGent - UGent Centre for Bantu Studies, University Ghent</a></li>
 <li><a href="http://ufg.phil-fak.uni-koeln.de">Institut für Ur- und Frühgeschichte, Universität zu Köln</a></li>
 <li><a href="https://anthropology.washington.edu/fields/archaeology">Department of Anthropology, University of Washington</a></li>
 </ul>
