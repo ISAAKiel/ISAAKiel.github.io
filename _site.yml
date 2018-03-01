@@ -74,4 +74,9 @@ navbar:
           href: mortAAR_vignette_extended.html
         - text: "mortAAR: Vignette >>Create a lifetable from an ordinary burial dataset<<"
           href: mortAAR_vignette-1.html
+          
+          
+    - text: "Screencasts"
+      icon: fa-film
+      href: screencasts.html
 output_dir: "."
