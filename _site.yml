@@ -13,5 +13,8 @@ navbar:
       href: https://www.facebook.com/ISAAKiel-1998036960414490
     - icon: fa-twitter
       href: https://twitter.com/ISAA_Kiel
+    - text: "Screencasts"
+      icon: fa-film
+      href: screencasts.html
 
 output_dir: "."
