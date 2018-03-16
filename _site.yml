@@ -1,4 +1,3 @@
-
 name: "ISAAKiel"
 navbar:
   title: "ISAAKiel"
@@ -7,76 +6,15 @@ navbar:
     - text: "Home"
       icon: fa-home
       href: index.html
-    - text: "CAA2018"
-      icon: fa-users
-      href: CAA2018.html
     - text: "Projects"
       icon: fa-gears
       href: projects.html
-
-
-    - text: "R-Tutorial CAA 2016"
-      icon: fa-bar-chart
-      menu: 
-
-        - text: "Abschnitt 1"
-        - text: "1-1_Motivation"
-          href: 1-1_Motivation.html
-        - text: "1-2_R_Sprache"
-          href: 1-2_R_Sprache.html
-        - text: "1-3_Einfache_Objekte"
-          href: 1-3_Einfache_Objekte.html
-        - text: "1-4_Einfache_Funktionen"
-          href: 1-4_Einfache_Funktionen.html
-        - text: "Abschnitt 2"
-        - text: "2-1_Datenhaltung"
-          href: 2-1_Datenhaltung.html
-        - text: "2-2_Daten_laden_und_speichern"
-          href: 2-2_Daten_laden_und_speichern.html
-        - text: "2-3_Datenverarbeitung"
-          href: 2-3_Datenverarbeitung.html
-        - text: "2-4_Deskriptive_Statistik"
-          href: 2-4_Deskriptive_Statistik.html
-        - text: "Abschnitt 3"
-        - text: "3-1_ggplot2_Theorie"
-          href: 3-1_ggplot2_Theorie.html
-        - text: "3-2-1_ggplot2_histogram"
-          href: 3-2-1_ggplot2_histogram.html
-        - text: "3-2-2_ggplot2_scatter"
-          href: 3-2-2_ggplot2_scatter.html
-        - text: "3-2-3_ggplot2_barplot"
-          href: 3-2-3_ggplot2_barplot.html
-        - text: "Abschnitt 4"
-        - text: "4-3-1_git_Anwendungsbeispiel"
-          href: 4-3-1_git_Anwendungsbeispiel.html
-        - text: "Abschnitt 5"
-        - text: "5-1_Paketerstellung_Interoperabilitaet"
-          href: 5-1_Paketerstellung_Interoperabilitaet.html
-
-    - text: "R-Tutorial Mosaic 2016"
-      icon: fa-area-chart
-      href: https://isaakiel.github.io/Mosaic/
-
-
-    - text: "Vignettes"
-      icon: fa-eye
-      menu:
-
-        - text: "recexcavAAR: Vignette >>Semiautomatic spit attribution<<"
-          href: recexcavAAR-vignette-1.html
-        - text: "recexcavAAR: Vignette >>Trench visualisation<<"
-          href: recexcavAAR-vignette-2.html
-        - text: "recexcavAAR: Vignette >>Transforming coordinates<<"
-          href: recexcavAAR-vignette-3.html
-        - text: "Variable contingency and affiliation prediction"
-          href: varnastats-vignette-1.html
-        - text: "mortAAR: Vignette >>Extended discussion<<"
-          href: mortAAR_vignette_extended.html
-        - text: "mortAAR: Vignette >>Create a lifetable from an ordinary burial dataset<<"
-          href: mortAAR_vignette-1.html
-          
-          
+    - icon: fa-facebook
+      href: https://www.facebook.com/ISAAKiel-1998036960414490
+    - icon: fa-twitter
+      href: https://twitter.com/ISAA_Kiel
     - text: "Screencasts"
       icon: fa-film
       href: screencasts.html
+
 output_dir: "."
