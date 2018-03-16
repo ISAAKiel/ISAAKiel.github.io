@@ -1,4 +1,4 @@
-[![Website](https://img.shields.io/website/https/isaakiel.github.io.svg?maxAge=2592000)](https://isaakiel.github.io/)  [![Maintenance](https://img.shields.io/maintenance/yes/2017.svg?maxAge=2592000)](https://github.com/ISAAKiel/ISAAKiel.github.io) [![GitHub contributors](https://img.shields.io/github/contributors/ISAAKiel/ISAAKiel.github.io.svg?maxAge=2592000)](https://github.com/ISAAKiel/ISAAKiel.github.io)
+[![Website](https://img.shields.io/website/https/isaakiel.github.io.svg?maxAge=2592000)](https://isaakiel.github.io/) [![GitHub contributors](https://img.shields.io/github/contributors/ISAAKiel/ISAAKiel.github.io.svg?maxAge=2592000)](https://github.com/ISAAKiel/ISAAKiel.github.io)
 
 ## ISAAKiel Website
 
@@ -20,6 +20,8 @@ This an [RMarkdown Website](http://rmarkdown.rstudio.com/rmarkdown_websites.html
 oauth <- "your key goes here"    
 save(oauth, file = "oauth.RData")
 ```
+
+- The same applies for the **screencasts.Rmd** where you need a youtube data API key.
 
 - If you want to create a new subpage you also have to add it to the static part of the **_site.yml** file.
 
