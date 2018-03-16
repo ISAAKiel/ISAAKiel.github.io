@@ -9,12 +9,15 @@ navbar:
     - text: "Projects"
       icon: fa-gears
       href: projects.html
-    - icon: fa-facebook
-      href: https://www.facebook.com/ISAAKiel-1998036960414490
-    - icon: fa-twitter
-      href: https://twitter.com/ISAA_Kiel
     - text: "Screencasts"
       icon: fa-film
       href: screencasts.html
+  right:
+    - icon: fa-facebook-square
+      href: https://www.facebook.com/ISAAKiel-1998036960414490
+    - icon: fa-twitter-square
+      href: https://twitter.com/ISAA_Kiel
+    - icon: fa-youtube-square
+      href: https://www.youtube.com/channel/UCNhj3I--Xhm1plgLpR2V2Cw
 
 output_dir: "."
