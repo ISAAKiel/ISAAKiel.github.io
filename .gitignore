@@ -9,6 +9,7 @@ downloads/r-tut/
 # API access token
 oauth.RData
 R/createoauth.R
+youtube_api_key.RData
 
 #useless .html-files
 README.html
