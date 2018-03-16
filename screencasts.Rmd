@@ -16,9 +16,13 @@ require(jsonlite)
 ```
 
 ```{r prepare_data, echo=FALSE}
- 
-# Your API key obtained via https://console.developers.google.com/ 
-API_key='<insert_your_google_api_key_here>'
+# Set up your API key obtained via https://console.developers.google.com/ 
+# youtube_api_key <- '<insert_your_google_api_key_here>'  
+# save(youtube_api_key, file = "youtube_api_key.RData")
+
+# load your API key
+load("youtube_api_key.RData")
+API_key <- youtube_api_key
  
 # Base URL for Google API's services and YouTube specific API's
 Base_URL='https://www.googleapis.com/youtube/v3'
