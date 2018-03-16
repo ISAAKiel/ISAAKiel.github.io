@@ -1,1 +1,0 @@
-this directory serves as a container for preparing external resources
