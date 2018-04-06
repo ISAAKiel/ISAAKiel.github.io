@@ -23,6 +23,8 @@ save(oauth, file = "oauth.RData")
 
 - The same applies for the **screencasts.Rmd** where you need a youtube data API key.
 
+- To add an event to the *Events* tab you only have to add it to the [event list](https://github.com/ISAAKiel/ISAAKiel.github.io/blob/master/data/events_list.csv) and rerender the **events.Rmd**.
+
 - If you want to create a new subpage you also have to add it to the static part of the **_site.yml** file.
 
 - To update everything after a change you can press the <kbd>Build All</kbd> button of RStudio or use `rmarkdown::render_site()`. This will trigger the attempt to rebuild **index.Rmd**, **projects.Rmd** and all the other .Rmd files in the repository.
