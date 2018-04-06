@@ -9,6 +9,9 @@ navbar:
     - text: "Projects"
       icon: fa-gears
       href: projects.html
+    - text: "Events"
+      icon: fa-calendar
+      href: events.html
     - text: "Screencasts"
       icon: fa-film
       href: screencasts.html

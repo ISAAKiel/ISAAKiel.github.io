@@ -1,0 +1,44 @@
+---
+title: "Events"
+output:
+  html_document:
+    theme: "spacelab"
+    css: other_page_styles.css
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+<div class="row">
+
+```{r echo = FALSE}
+#### load api functions and api key ####
+source("R/github_api_conv.R")
+load("oauth.RData")
+
+#### get repos info from github api ####
+repo_info <- api_call("https://api.github.com/orgs/ISAAKiel/repos", "name", oauth)
+
+#### sort repos data.frame ####
+repo_info <- repo_info[order(repo_info$name), ]
+```
+
+```{r results = 'asis', echo = FALSE}
+#### textoutput ####
+for (i in 1:nrow(repo_info)){
+  cat('<div class="col-xs-6 col-sm-3">')
+  cat('<div class="card">')
+  cat('<div class="card-content"><h4 class="card-title">')
+  title_string <- repo_info$name[i]
+  cat('<a href="',repo_info$html_url[i],'" style="color:#345578;">',title_string, "</a></h4><br/>")
+  cat('<div class="">')
+  cat(repo_info$description[i])
+  cat('</div>')
+  cat('</div>')
+  cat('</div>')
+  cat('</div>')
+}
+```
+
+</div>
