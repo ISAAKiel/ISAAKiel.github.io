@@ -13,27 +13,24 @@ knitr::opts_chunk$set(echo = TRUE)
 <div class="row">
 
 ```{r echo = FALSE}
-#### load api functions and api key ####
-source("R/github_api_conv.R")
-load("oauth.RData")
-
-#### get repos info from github api ####
-repo_info <- api_call("https://api.github.com/orgs/ISAAKiel/repos", "name", oauth)
-
-#### sort repos data.frame ####
-repo_info <- repo_info[order(repo_info$name), ]
+#### read events list ####
+events <- read.csv("data/events_list.csv", header = TRUE, stringsAsFactors = FALSE)
+events <- events[order(events$year, events$month, decreasing = TRUE), ]
+events$month <- month.name[events$month]
 ```
 
 ```{r results = 'asis', echo = FALSE}
 #### textoutput ####
-for (i in 1:nrow(repo_info)){
+for (i in 1:nrow(events)){
   cat('<div class="col-xs-6 col-sm-3">')
   cat('<div class="card">')
   cat('<div class="card-content"><h4 class="card-title">')
-  title_string <- repo_info$name[i]
-  cat('<a href="',repo_info$html_url[i],'" style="color:#345578;">',title_string, "</a></h4><br/>")
+  title_string <- events$title[i]
+  cat('<a href="', events$url[i], '" style="color:#345578;">', title_string, "</a></h4><br/>")
   cat('<div class="">')
-  cat(repo_info$description[i])
+  cat(events$month[i], events$year[i])
+  cat("<br><br>")
+  cat(events$description[i])
   cat('</div>')
   cat('</div>')
   cat('</div>')
