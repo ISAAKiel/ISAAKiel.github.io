@@ -10,6 +10,8 @@ output:
 knitr::opts_chunk$set(echo = TRUE)
 ```
 
+Events by and with members of ISAAK
+
 <div class="row">
 
 ```{r echo = FALSE}
