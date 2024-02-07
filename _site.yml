@@ -12,9 +12,9 @@ navbar:
     - text: "Events"
       icon: fa-calendar
       href: events.html
-    - text: "Screencasts"
-      icon: fa-film
-      href: screencasts.html
+    # - text: "Screencasts"
+    #   icon: fa-film
+    #   href: screencasts.html
   right:
     - icon: fa-facebook-square
       href: https://www.facebook.com/ISAAKiel-1998036960414490
