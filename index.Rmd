@@ -59,14 +59,6 @@ silent_bob <- file.remove("members.Rmd")
 
 <div>
 
-<div class="whatwedo_left">
-
-<iframe class="iframe" sandbox="allow-forms allow-scripts" width="490px" height="490px" frameborder="0" scrolling="yes" allowtransparency="true" seamless="seamless" src="https://cdoyle.me/gh-activity/gh-activity.html?user=ISAAKiel&type=user"></iframe>
-
-</div>
-
-<div class="whatwedo_rigth">
-
 ## What we do and offer:
 
 We offer programs, scripts and functions for data management and interoperability, develop R-packages for different tasks and present tutorials for programs and archaeological tasks. Everything in constant development and freely accessible in our github repository.
@@ -81,8 +73,6 @@ Currently we work on this topics:
 * open data and open publishing
 
 To see our current portfolio, visit the [projects](projects.html) page.
-
-</div>
 
 </div>
 

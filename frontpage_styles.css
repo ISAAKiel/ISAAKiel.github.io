@@ -142,16 +142,3 @@ body > div.container-fluid.main-container .well a {
   -webkit-filter: grayscale(0);
   filter: none;
 }
-
-/* what we do section */
-.whatwedo_left {
-  height: 500px;
-  width: 500px;
-  float:left;
-  margin-right: 40px;
-}
-
-.whatwedo_right {
-  float:left;
-  height: 500px;
-}

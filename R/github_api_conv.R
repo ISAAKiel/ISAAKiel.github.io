@@ -8,11 +8,10 @@ api_call <- function(url, col, oauth = NA){
   if(is.na(oauth)){
     api_ret <- content(GET(url))
   } else {
-    api_ret <- content(GET(paste(
+    api_ret <- content(GET(
       url, 
-      "?access_token=", oauth, 
-      sep = ""
-    )))
+      add_headers(Authorization = paste("token", oauth))
+    ))
   }
   
   # call function to transform the result of the api call to a clean data.frame

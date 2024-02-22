@@ -17,10 +17,9 @@ user_info <- list()
 for (i in 1:nrow(members_info)){
   #user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
   user_res <- content(GET(paste(
-    "https://api.github.com/users/", members_info$login[i], 
-    "?access_token=", oauth, 
+    "https://api.github.com/users/", members_info$login[i],
     sep = ""
-  )))
+  ), add_headers(Authorization = paste("token", oauth))))
   user_info[[i]] <- user_res
 }
 
