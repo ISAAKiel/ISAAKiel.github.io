@@ -53,6 +53,11 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     font-family: 'Raleway', sans-serif;
 }
 
+h2, h3, h4, h5, h6, .h2, .h3, .h4, .h5, .h6 {
+    margin-top: -40px !important;
+    font-family: 'Raleway', sans-serif;
+}
+
 div.row-striped:nth-of-type(even){
   background: #7b99b8; color: #fff;
 }
