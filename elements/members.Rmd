@@ -2,9 +2,7 @@
 output: html_fragment
 ---
 
-<div class="row">
-
-```{r echo = FALSE}
+```{r echo = FALSE, message = FALSE}
 #### load api functions and api key ####
 source("R/github_api_conv.R")
 load("oauth.RData")
@@ -28,31 +26,54 @@ user_info <- api_trans(user_info, "login")
 
 #### sort users data.frame ####
 user_info <- user_info[order(user_info$name), ]
-```
 
-```{r results = 'asis', echo = FALSE}
-#### textoutput ####
-for (i in 1:nrow(user_info)){
-  cat('<div class="col-xs-6 col-sm-2">')
-  cat('<div class="card">')
-  # show users avatar
-  #user_avatar_string <- paste("<a href='",user_info$html_url[i],"' target="_blank">","<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48></a> ")
-  user_avatar_string <- paste('<a class="img-card" href="',user_info$html_url[i],'" target="_blank" >
-                    <img src="', user_info$avatar_url[i], '" />
-                </a>')
-  cat(user_avatar_string, "<br/>")
-  cat('<div class="card-content"><h4 class="card-title">')
-  # show real name if available - otherwise show login
-  if (!is.na(user_info$name[i])){
-    name_string <- user_info$name[i]
-  } else {
-    name_string <- user_info$login[i]
+#### get list of active members to split user list ####
+active_members <- readr::read_csv("data/active_members_list.csv")
+user_info_active <- dplyr::semi_join(user_info, active_members, by = c("login" = "github_login"))
+user_info_alumni <- dplyr::anti_join(user_info, active_members, by = c("login" = "github_login"))
+
+#### function to prepare html for user files ####
+prepare_user_tiles <- function(user_info, col_setting) {
+  for (i in 1:nrow(user_info)){
+    cat('<div class="col-xs-6 col-sm-2">')
+    cat('<div class="card">')
+    # show users avatar
+    user_avatar_string <- paste(
+      '<a class="img-card" href="', user_info$html_url[i], '" target="_blank" >
+       <img src="', user_info$avatar_url[i], '" />
+       </a>'
+    )
+    cat(user_avatar_string, "<br/>")
+    cat('<div class="card-content"><h4 class="card-title">')
+    # show real name if available - otherwise show login
+    if (!is.na(user_info$name[i])){
+      name_string <- user_info$name[i]
+    } else {
+      name_string <- user_info$login[i]
+    }
+    cat(
+      '<a href="', user_info$html_url[i],'" style="color:#345578;" target="_blank">',
+      name_string,
+      "</a></h4><br/>"
+    )
+    cat('</div>')
+    cat('</div>')
+    cat('</div>')
   }
-  cat('<a href="',user_info$html_url[i],'" style="color:#345578;" target="_blank">',name_string, "</a></h4><br/>")
-  cat('</div>')
-  cat('</div>')
-  cat('</div>')
-  
 }
 ```
+
+<div class="row">
+
+```{r results = 'asis', echo = FALSE}
+prepare_user_tiles(user_info_active)
+```
+
+### Alumni
+
+```{r results = 'asis', echo = FALSE}
+prepare_user_tiles(user_info_alumni)
+```
+
 </div>
+

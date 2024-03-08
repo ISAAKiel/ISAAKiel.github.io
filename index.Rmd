@@ -36,10 +36,8 @@ We are archaeologists developing IT solutions and statistical tools in and for o
 
 * [Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel](https://www.ufg.uni-kiel.de/)
 * [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
-* [BantUGent - UGent Centre for Bantu Studies, University Ghent](http://research.flw.ugent.be/en/bantugent)
-* [Institut für Ur- und Frühgeschichte, Universität zu Köln](http://ufg.phil-fak.uni-koeln.de)
-* [Department of Anthropology, University of Washington](https://anthropology.washington.edu/fields/archaeology)
 * [Institut für Archäologische Wissenschaften Bern](http://www.iaw.unibe.ch)
+* [Max Planck Institute for Evolutionary Anthropology](https://www.eva.mpg.de)
 
 ```{r, echo=FALSE, message=FALSE}
 # nasty workaround because knitr can't fetch childs from subdirectories
