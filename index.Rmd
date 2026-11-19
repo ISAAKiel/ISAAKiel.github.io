@@ -1,3 +1,4 @@
+
 ---
 title: "ISAAKiel"
 output:
@@ -11,10 +12,17 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+
+project_root <- normalizePath(getwd())
+knitr::opts_knit$set(root.dir = project_root)
 ```
 
-<style type = "text/css">
+<style type="text/css">
 .main-container {
   max-width: none;
 }
@@ -29,6 +37,7 @@ Archaeoinformatics, computational archaeology and quantitative methods have been
 
 </div>
 </div>
+
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
 
@@ -38,78 +47,18 @@ We are archaeologists developing IT solutions and statistical tools in and for o
 
 * [Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel](https://www.ufg.uni-kiel.de/)
 * [Niedersächsisches Institut für historische Küstenforschung, Wilhelmshaven](http://www.nihk.de/)
+* [BantUGent - UGent Centre for Bantu Studies, University Ghent](http://research.flw.ugent.be/en/bantugent)
+* [Institut für Ur- und Frühgeschichte, Universität zu Köln](http://ufg.phil-fak.uni-koeln.de)
+* [Department of Anthropology, University of Washington](https://anthropology.washington.edu/fields/archaeology)
 * [Institut für Archäologische Wissenschaften Bern](http://www.iaw.unibe.ch)
-* [Max Planck Institute for Evolutionary Anthropology](https://www.eva.mpg.de)
+* [Max Planck Institute for Evolutionary Anthropology](https://www.eva.mpg.de/)
 
-```{r echo = FALSE, message = FALSE}
-#### load api functions and api key ####
-source("R/github_api_conv.R")
-load("oauth.RData")
-
-#### get org members info from github api ####
-members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", "login", oauth)
-
-#### call single users ####
-user_info <- list()
-for (i in 1:nrow(members_info)){
-  #user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
-  user_res <- content(GET(paste(
-    "https://api.github.com/users/", members_info$login[i],
-    sep = ""
-  ), add_headers(Authorization = paste("token", oauth))))
-  user_info[[i]] <- user_res
-}
-
-#### transform single users list to a nice data.frame ####
-user_info <- api_trans(user_info, "login")
-
-#### sort users data.frame ####
-user_info <- user_info[order(user_info$name), ]
-
-#### get list of active members to split user list ####
-active_members <- readr::read_csv("data/active_members_list.csv")
-user_info_active <- dplyr::semi_join(user_info, active_members, by = c("login" = "github_login"))
-user_info_alumni <- dplyr::anti_join(user_info, active_members, by = c("login" = "github_login"))
-
-#### function to prepare html for user files ####
-prepare_user_tiles <- function(user_info, col_setting) {
-  for (i in 1:nrow(user_info)){
-    cat('<div class="col-xs-6 col-sm-2">')
-    cat('<div class="card">')
-    # show users avatar
-    user_avatar_string <- paste(
-      '<a class="img-card" href="', user_info$html_url[i], '" target="_blank" >
-       <img src="', user_info$avatar_url[i], '" />
-       </a>'
-    )
-    cat(user_avatar_string, "<br/>")
-    cat('<div class="card-content"><h4 class="card-title">')
-    # show real name if available - otherwise show login
-    if (!is.na(user_info$name[i])){
-      name_string <- user_info$name[i]
-    } else {
-      name_string <- user_info$login[i]
-    }
-    cat(
-      '<a href="', user_info$html_url[i],'" style="color:#345578;" target="_blank">',
-      name_string,
-      "</a></h4><br/>"
-    )
-    cat('</div>')
-    cat('</div>')
-    cat('</div>')
-  }
-}
+```{r members, child='elements/members.Rmd'}
 ```
 
-<div class="row">
-```{r results = 'asis', echo = FALSE}
-prepare_user_tiles(user_info_active)
-```
+</div>
 </div>
 
-</div>
-</div>
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
 
@@ -130,6 +79,7 @@ To see our current portfolio, visit the [projects](projects.html) page.
 
 </div>
 </div>
+
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
 
@@ -140,15 +90,21 @@ Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us,
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
 
-</div>  
-</div>  
+</div>
+</div>
+
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
 
 ## Alumni
 
-```{r results = 'asis', echo = FALSE}
-prepare_user_tiles(user_info_alumni)
+<div class="row">
+
+```{r alumni, results='asis'}
+render_member_cards(alumni_info)
 ```
+
+</div>
+
 </div>
 </div>
