@@ -1,32 +1,28 @@
-[![Website](https://img.shields.io/website/https/isaakiel.github.io.svg?maxAge=2592000)](https://isaakiel.github.io/) [![GitHub contributors](https://img.shields.io/github/contributors/ISAAKiel/ISAAKiel.github.io.svg?maxAge=2592000)](https://github.com/ISAAKiel/ISAAKiel.github.io)
+[![Website](https://img.shields.io/website/https/isaakiel.github.io.svg?maxAge=2592000)](https://isaakiel.github.io/) [![GitHub contributors](https://img.shields.io/github/contributors/ISAAKiel/ISAAKiel.github.io.svg?maxAge=2592000)](https://github.com/ISAAKiel/ISAAKiel.github.io) [![Build and deploy](https://github.com/ISAAKiel/ISAAKiel.github.io/actions/workflows/build.yml/badge.svg)](https://github.com/ISAAKiel/ISAAKiel.github.io/actions/workflows/build.yml)
 
 ## ISAAKiel Website
 
-To learn about ISAAKiel see https://ISAAKiel.github.io. 
+Website of the **Initiative for Statistical Analysis in Archaeology Kiel (ISAAK)**.
 
-This website can also be reached via [isaakiel.de](http://www.isaakiel.de).
+Visit [isaakiel.github.io](https://isaakiel.github.io/) or [isaakiel.de](http://www.isaakiel.de).
 
-***
+### Contributing
 
-#### For members of ISAAKiel: **How it works** 
+The website is built with [R Markdown](https://bookdown.org/yihui/rmarkdown/rmarkdown-site.html) and automatically rendered and published through GitHub Actions.
 
-This an [RMarkdown Website](http://rmarkdown.rstudio.com/rmarkdown_websites.html) based on [this](https://github.com/rstudio/rmarkdown-website) example.
+To make changes, edit the relevant files and open a pull request against `master`. The website is rebuilt automatically after merging.
 
-- To apply changes just clone the repo, edit the relevant .Rmd files, knit the files with the <kbd>Knit HTML</kbd> button of RStudio and push the changes to the .Rmd and the .html file. That's it - no more magic involved, except ...
+- **Members:** Edit [`active_members.csv`](active_members.csv) to add or remove active members. All other public members of the [ISAAKiel GitHub organization](https://github.com/orgs/ISAAKiel/people) are listed as alumni. Names and avatars are retrieved from GitHub. Organization membership must be public to appear on the website.
+- **Projects:** Repository information is retrieved automatically from GitHub.
+- **Events:** Edit [`data/events_list.csv`](data/events_list.csv).
+- **New pages:** Add an `.Rmd` file and update [`_site.yml`](_site.yml).
 
-- ... to update the **index.Rmd** and **projects.Rmd** you need a github API key. You get one in the [github user settings](https://help.github.com/articles/creating-an-access-token-for-command-line-use/). It is not necessary to grant the token any scopes (on the selection page that appears once you create a token). Set it up locally as a string in a file called **oauth.RData** in the root directory of the homepage repository. Something like this should do the trick: 
-    
-```{r}
-oauth <- "your key goes here"    
-save(oauth, file = "oauth.RData")
+### Building locally
+
+The website can also be rendered locally using RStudio or:
+
+```r
+rmarkdown::render_site(".")
 ```
 
-- The same applies for the **screencasts.Rmd** where you need a youtube data API key.
-
-- To add an event to the *Events* tab you only have to add it to the [event list](https://github.com/ISAAKiel/ISAAKiel.github.io/blob/master/data/events_list.csv) and rerender the **events.Rmd**.
-
-- If you want to create a new subpage you also have to add it to the static part of the **_site.yml** file.
-
-- To update everything after a change you can press the <kbd>Build All</kbd> button of RStudio or use `rmarkdown::render_site()`. This will trigger the attempt to rebuild **index.Rmd**, **projects.Rmd** and all the other .Rmd files in the repository.
-
-- If a change doesn't appear online try to clear your browser cache.
+The automated build uses a [Rocker](https://rocker-project.org/) container and is configured in [`.github/workflows/build.yml`](.github/workflows/build.yml). It runs on changes to `master` and weekly to update GitHub-derived information.
