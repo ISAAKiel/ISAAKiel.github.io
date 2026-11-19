@@ -14,26 +14,25 @@ jobs:
   build:
     runs-on: ubuntu-24.04
 
+    container:
+      image: rocker/verse:4.5.3
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v4
 
-      - name: Set up R
-        uses: r-lib/actions/setup-r@v2
-        with:
-          use-public-rspm: true
-
-      - name: Set up Pandoc
-        uses: r-lib/actions/setup-pandoc@v2
-        
-      - name: Install R dependencies
-        uses: r-lib/actions/setup-r-dependencies@v2
-        with:
-          packages: |
-            any::rmarkdown
-            any::knitr
-            any::httr
-            any::htmltools
+      - name: Verify R environment
+        run: |
+          Rscript -e 'stopifnot(all(
+            vapply(
+              c("rmarkdown", "knitr", "httr", "htmltools"),
+              requireNamespace,
+              logical(1),
+              quietly = TRUE
+            )
+          ))'
+          Rscript -e 'print(R.version.string)'
+          pandoc --version
 
       - name: Render website
         env:
@@ -47,7 +46,7 @@ jobs:
           test -f projects.html
           test -f events.html
 
-      - name: Upload rendered website for inspection
+      - name: Upload rendered website
         uses: actions/upload-artifact@v4
         with:
           name: isaakiel-website
