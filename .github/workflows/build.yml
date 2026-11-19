@@ -25,15 +25,15 @@ jobs:
 
       - name: Set up Pandoc
         uses: r-lib/actions/setup-pandoc@v2
-
+        
       - name: Install R dependencies
-        run: |
-          Rscript -e 'install.packages(c(
-            "rmarkdown",
-            "knitr",
-            "httr",
-            "htmltools"
-          ))'
+        uses: r-lib/actions/setup-r-dependencies@v2
+        with:
+          packages: |
+            any::rmarkdown
+            any::knitr
+            any::httr
+            any::htmltools
 
       - name: Render website
         env:
