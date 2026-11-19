@@ -17,3 +17,14 @@ members.html
 
 # GitHub API cache
 cache/*.rds
+
+# Local R Markdown build artifacts
+_site_publish/
+site_libs/font-awesome-6.5.2/
+site_libs/header-attrs-2.30/
+
+# Generated website
+/index.html
+/events.html
+/projects.html
+/_site_publish/
