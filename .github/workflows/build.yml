@@ -5,6 +5,7 @@ on:
   push:
     branches:
       - resurrection
+      - master
   workflow_dispatch:
 
 permissions:
