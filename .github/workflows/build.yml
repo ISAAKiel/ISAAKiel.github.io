@@ -1,0 +1,62 @@
+
+name: Build ISAAKiel website
+
+on:
+  push:
+    branches:
+      - resurrection
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Set up R
+        uses: r-lib/actions/setup-r@v2
+        with:
+          use-public-rspm: true
+
+      - name: Set up Pandoc
+        uses: r-lib/actions/setup-pandoc@v2
+
+      - name: Install R dependencies
+        run: |
+          Rscript -e 'install.packages(c(
+            "rmarkdown",
+            "knitr",
+            "httr",
+            "htmltools"
+          ))'
+
+      - name: Render website
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          Rscript -e 'rmarkdown::render_site(".")'
+
+      - name: Verify generated pages
+        run: |
+          test -f index.html
+          test -f projects.html
+          test -f events.html
+
+      - name: Upload rendered website for inspection
+        uses: actions/upload-artifact@v4
+        with:
+          name: isaakiel-website
+          path: |
+            *.html
+            *.css
+            site_libs/
+            images/
+            figures/
+            assets/
+            .nojekyll
+          if-no-files-found: warn

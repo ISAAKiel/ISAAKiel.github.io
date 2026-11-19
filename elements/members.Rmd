@@ -1,58 +1,446 @@
----
-output: html_fragment
----
 
 <div class="row">
 
-```{r echo = FALSE}
-#### load api functions and api key ####
-source("R/github_api_conv.R")
-load("oauth.RData")
+```{r members-data, echo=FALSE, message=FALSE}
+library(httr)
 
-#### get org members info from github api ####
-members_info <- api_call("https://api.github.com/orgs/ISAAKiel/public_members", "login", oauth)
+# --------------------------------------------------
+# Configuration
+# --------------------------------------------------
 
-#### call single users ####
-user_info <- list()
-for (i in 1:nrow(members_info)){
-  #user_res <- content(GET(paste("https://api.github.com/users/", members_info$login[i], sep = "")))
-  user_res <- content(GET(paste(
-    "https://api.github.com/users/", members_info$login[i],
-    sep = ""
-  ), add_headers(Authorization = paste("token", oauth))))
-  user_info[[i]] <- user_res
+org <- "ISAAKiel"
+
+# project_root is defined in index.Rmd
+if (!exists("project_root")) {
+  stop("project_root must be defined in index.Rmd")
 }
 
-#### transform single users list to a nice data.frame ####
-user_info <- api_trans(user_info, "login")
+cache_file <- file.path(
+  project_root,
+  "cache",
+  "github_members.rds"
+)
 
-#### sort users data.frame ####
-user_info <- user_info[order(user_info$name), ]
-```
+cache_max_age <- 24 * 60 * 60  # 24 hours
 
-```{r results = 'asis', echo = FALSE}
-#### textoutput ####
-for (i in 1:nrow(user_info)){
-  cat('<div class="col-xs-6 col-sm-2">')
-  cat('<div class="card">')
-  # show users avatar
-  #user_avatar_string <- paste("<a href='",user_info$html_url[i],"' target="_blank">","<img src='", user_info$avatar_url[i], "' alt='", user_info$login[i], "' width = 48></a> ")
-  user_avatar_string <- paste('<a class="img-card" href="',user_info$html_url[i],'" target="_blank" >
-                    <img src="', user_info$avatar_url[i], '" />
-                </a>')
-  cat(user_avatar_string, "<br/>")
-  cat('<div class="card-content"><h4 class="card-title">')
-  # show real name if available - otherwise show login
-  if (!is.na(user_info$name[i])){
-    name_string <- user_info$name[i]
-  } else {
-    name_string <- user_info$login[i]
+active_file <- file.path(
+  project_root,
+  "active_members.csv"
+)
+
+
+# --------------------------------------------------
+# GitHub API
+# --------------------------------------------------
+
+github_get <- function(url, query = NULL) {
+
+  token <- Sys.getenv("GITHUB_TOKEN", "")
+
+  args <- list(
+    url = url,
+    user_agent("ISAAKiel website"),
+    timeout(20)
+  )
+
+  # GitHub Actions provides GITHUB_TOKEN automatically
+  # when passed through the workflow environment.
+  # Local rendering works without authentication.
+  if (nzchar(token)) {
+    args <- c(
+      args,
+      list(add_headers(
+        Authorization = paste("Bearer", token)
+      ))
+    )
   }
-  cat('<a href="',user_info$html_url[i],'" style="color:#345578;" target="_blank">',name_string, "</a></h4><br/>")
-  cat('</div>')
-  cat('</div>')
-  cat('</div>')
-  
+
+  if (!is.null(query)) {
+    args <- c(args, list(query = query))
+  }
+
+  response <- do.call(GET, args)
+
+  # Include useful information when an API call fails.
+  if (http_error(response)) {
+
+    remaining <- headers(response)[[
+      "x-ratelimit-remaining"
+    ]]
+
+    stop(
+      sprintf(
+        "GitHub API request failed (%s): %s%s",
+        status_code(response),
+        url,
+        if (!is.null(remaining)) {
+          paste0(" [rate limit remaining: ", remaining, "]")
+        } else {
+          ""
+        }
+      )
+    )
+  }
+
+  content(response, as = "parsed")
+}
+
+
+# --------------------------------------------------
+# Fetch organization members
+# --------------------------------------------------
+
+fetch_public_members <- function() {
+
+  url <- sprintf(
+    "https://api.github.com/orgs/%s/public_members",
+    org
+  )
+
+  members <- list()
+  page <- 1
+
+  repeat {
+
+    result <- github_get(
+      url,
+      query = list(
+        per_page = 100,
+        page = page
+      )
+    )
+
+    if (length(result) == 0) {
+      break
+    }
+
+    members <- c(members, result)
+
+    if (length(result) < 100) {
+      break
+    }
+
+    page <- page + 1
+
+    if (page > 100) {
+      stop("Unexpectedly large GitHub membership list.")
+    }
+  }
+
+  if (length(members) == 0) {
+    stop("GitHub returned no public members.")
+  }
+
+  members
+}
+
+
+# --------------------------------------------------
+# Fetch full member profiles
+# --------------------------------------------------
+
+fetch_github_members <- function() {
+
+  members <- fetch_public_members()
+
+  profiles <- lapply(members, function(member) {
+
+    user <- github_get(
+      paste0(
+        "https://api.github.com/users/",
+        member$login
+      )
+    )
+
+    name <- user$name
+
+    if (is.null(name) ||
+        length(name) == 0 ||
+        is.na(name) ||
+        !nzchar(trimws(name))) {
+
+      name <- user$login
+    }
+
+    data.frame(
+      login = user$login,
+      name = name,
+      html_url = user$html_url,
+      avatar_url = user$avatar_url,
+      stringsAsFactors = FALSE
+    )
+  })
+
+  result <- do.call(rbind, profiles)
+  rownames(result) <- NULL
+
+  result
+}
+
+
+# --------------------------------------------------
+# Persistent cache
+# --------------------------------------------------
+
+load_members <- function() {
+
+  cached <- NULL
+
+  if (file.exists(cache_file)) {
+
+    cached <- tryCatch(
+      readRDS(cache_file),
+      error = function(e) {
+        warning(
+          "Could not read GitHub cache: ",
+          conditionMessage(e)
+        )
+        NULL
+      }
+    )
+  }
+
+  # Validate cached data
+  required_columns <- c(
+    "login",
+    "name",
+    "html_url",
+    "avatar_url"
+  )
+
+  if (!is.null(cached)) {
+
+    if (!is.data.frame(cached) ||
+        !all(required_columns %in% names(cached)) ||
+        nrow(cached) == 0) {
+
+      warning("Invalid GitHub cache; refreshing.")
+      cached <- NULL
+    }
+  }
+
+  # Check cache age
+  cache_fresh <- FALSE
+
+  if (!is.null(cached)) {
+
+    age <- as.numeric(
+      difftime(
+        Sys.time(),
+        file.info(cache_file)$mtime,
+        units = "secs"
+      )
+    )
+
+    cache_fresh <- is.finite(age) &&
+      age >= 0 &&
+      age < cache_max_age
+  }
+
+  if (cache_fresh) {
+    return(cached)
+  }
+
+  # Fetch fresh data.
+  # If the API fails, preserve the existing cache.
+  fresh <- tryCatch(
+    fetch_github_members(),
+    error = function(e) {
+      warning(
+        "GitHub refresh failed: ",
+        conditionMessage(e)
+      )
+      NULL
+    }
+  )
+
+  if (!is.null(fresh)) {
+
+    dir.create(
+      dirname(cache_file),
+      recursive = TRUE,
+      showWarnings = FALSE
+    )
+
+    # Write to a temporary file first
+    tmp <- tempfile(
+      pattern = "github_members_",
+      tmpdir = dirname(cache_file),
+      fileext = ".rds"
+    )
+
+    tryCatch({
+
+      saveRDS(fresh, tmp)
+
+      if (!file.rename(tmp, cache_file)) {
+
+        if (!file.copy(
+          tmp,
+          cache_file,
+          overwrite = TRUE
+        )) {
+          stop("Could not update cache file.")
+        }
+      }
+
+    }, error = function(e) {
+
+      warning(
+        "Could not save GitHub cache: ",
+        conditionMessage(e)
+      )
+
+    }, finally = {
+
+      if (file.exists(tmp)) {
+        unlink(tmp)
+      }
+
+    })
+
+    return(fresh)
+  }
+
+  # Fall back to stale cache
+  if (!is.null(cached)) {
+
+    warning(
+      "GitHub API unavailable; using cached member data."
+    )
+
+    return(cached)
+  }
+
+  stop(
+    "Cannot obtain GitHub members: ",
+    "API unavailable and no cache exists."
+  )
+}
+
+
+# --------------------------------------------------
+# Load data and classify membership
+# --------------------------------------------------
+
+user_info <- load_members()
+
+# Read the manually maintained list of active members
+if (!file.exists(active_file)) {
+  stop(
+    "Missing active member configuration: ",
+    active_file
+  )
+}
+
+active_members <- read.csv(
+  active_file,
+  stringsAsFactors = FALSE,
+  fileEncoding = "UTF-8"
+)
+
+stopifnot("login" %in% names(active_members))
+
+active_logins <- tolower(
+  trimws(active_members$login)
+)
+
+stopifnot(
+  !anyNA(active_logins),
+  all(nzchar(active_logins)),
+  !anyDuplicated(active_logins)
+)
+
+# Match GitHub accounts against the active member list
+user_info$status <- ifelse(
+  tolower(user_info$login) %in% active_logins,
+  "active",
+  "alumni"
+)
+
+# Warn about active members whose organization
+# membership is not publicly visible
+missing <- setdiff(
+  active_logins,
+  tolower(user_info$login)
+)
+
+if (length(missing) > 0) {
+
+  warning(
+    "Active members missing from public GitHub listing: ",
+    paste(missing, collapse = ", ")
+  )
+}
+
+# Sort alphabetically by display name
+user_info <- user_info[
+  order(tolower(user_info$name)),
+  ,
+  drop = FALSE
+]
+
+# Separate active members and alumni
+active_info <- subset(
+  user_info,
+  status == "active"
+)
+
+alumni_info <- subset(
+  user_info,
+  status == "alumni"
+)
+
+
+# --------------------------------------------------
+# Render Bootstrap member cards
+# --------------------------------------------------
+
+render_member_cards <- function(users) {
+
+  esc <- htmltools::htmlEscape
+
+  for (i in seq_len(nrow(users))) {
+
+    name <- esc(users$name[i])
+    url <- esc(users$html_url[i])
+    avatar <- esc(users$avatar_url[i])
+
+    cat('<div class="col-xs-6 col-sm-2">')
+    cat('<div class="card">')
+
+    cat(sprintf(
+      '<a class="img-card" href="%s"
+          target="_blank" rel="noopener noreferrer">
+         <img src="%s" alt="%s" />
+       </a>',
+      url, avatar, name
+    ))
+
+    cat('<br/>')
+
+    cat('<div class="card-content">')
+    cat('<h4 class="card-title">')
+
+    cat(sprintf(
+      '<a href="%s"
+          style="color:#345578;"
+          target="_blank" rel="noopener noreferrer">
+         %s
+       </a>',
+      url, name
+    ))
+
+    cat('</h4><br/>')
+    cat('</div>')
+    cat('</div>')
+    cat('</div>')
+  }
 }
 ```
+
+```{r active-members, results='asis', echo=FALSE}
+render_member_cards(active_info)
+```
+
 </div>

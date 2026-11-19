@@ -1,3 +1,4 @@
+
 ---
 title: "ISAAKiel"
 output:
@@ -11,10 +12,17 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = TRUE)
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE
+)
+
+project_root <- normalizePath(getwd())
+knitr::opts_knit$set(root.dir = project_root)
 ```
 
-<style type = "text/css">
+<style type="text/css">
 .main-container {
   max-width: none;
 }
@@ -24,14 +32,17 @@ knitr::opts_chunk$set(echo = TRUE)
 <div class="col-md-8 col-md-offset-2">
 
 ## Scope
+
 Archaeoinformatics, computational archaeology and quantitative methods have been a constant and developing branch for the last decades. It comprises different aspects of archaeology and information technology in daily work as well as methodology. Both - the use of the current technology and the methodological implementation in archaeology - have to be developed. This is the aim of our working group **ISAAK** (**I**nitiative for **S**tatistical **A**nalysis in **A**rchaeology **K**iel).
 
 </div>
 </div>
+
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
 
 ## Who we are
+
 We are archaeologists developing IT solutions and statistical tools in and for our work actively involved in the following institutions:
 
 * [Institut für Ur- und Frühgeschichte, Christian-Albrechts-Universität zu Kiel](https://www.ufg.uni-kiel.de/)
@@ -41,23 +52,14 @@ We are archaeologists developing IT solutions and statistical tools in and for o
 * [Department of Anthropology, University of Washington](https://anthropology.washington.edu/fields/archaeology)
 * [Institut für Archäologische Wissenschaften Bern](http://www.iaw.unibe.ch)
 
-```{r, echo=FALSE, message=FALSE}
-# nasty workaround because knitr can't fetch childs from subdirectories
-silent_bob <- file.copy("elements/members.Rmd", ".")
-```
-  
-```{r child = 'members.Rmd'}
+```{r members, child='elements/members.Rmd'}
 ```
 
-```{r, echo=FALSE, message=FALSE}
-silent_bob <- file.remove("members.Rmd")
-```
 </div>
 </div>
+
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
-
-<div>
 
 ## What we do and offer:
 
@@ -75,18 +77,33 @@ Currently we work on this topics:
 To see our current portfolio, visit the [projects](projects.html) page.
 
 </div>
+</div>
 
-</div>
-</div>
 <div class="row row-striped">
 <div class="col-md-8 col-md-offset-2">
+
 ## Would you like to participate?
 
 Feel free to [fork][fork] a repository, submit an [issue][issue], or contact us, if you are interested to join our group.
 
 [fork]: http://help.github.com/fork-a-repo/
 [issue]: https://help.github.com/articles/creating-an-issue/
-</div>  
-</div>  
 
+</div>
+</div>
+
+<div class="row row-striped">
+<div class="col-md-8 col-md-offset-2">
+
+## Alumni
+
+<div class="row">
+
+```{r alumni, results='asis'}
+render_member_cards(alumni_info)
+```
+
+</div>
+
+</div>
 </div>
