@@ -51,12 +51,12 @@ jobs:
 
       - name: Verify generated pages
         run: |
-          test -f index.html
-          test -f projects.html
-          test -f events.html
+          test -s index.html
+          test -s projects.html
+          test -s events.html
 
-      # Keep the regular build artifact for inspecting
-      # the generated website in pull requests.
+      # Keep a regular artifact for inspecting
+      # the rendered website in pull requests.
       - name: Upload rendered website
         uses: actions/upload-artifact@v4
         with:
@@ -68,11 +68,12 @@ jobs:
             images/
             figures/
             assets/
+            elements/header_bg_2.jpg
             .nojekyll
           if-no-files-found: warn
 
       # Assemble a clean directory containing only
-      # files that should be published.
+      # the rendered website and required static assets.
       - name: Prepare Pages directory
         shell: bash
         run: |
@@ -97,6 +98,10 @@ jobs:
             fi
           done
 
+          # Hero background image
+          mkdir -p _site_publish/elements
+          cp elements/header_bg_2.jpg _site_publish/elements/
+
           # Optional custom domain
           if [ -f CNAME ]; then
             cp CNAME _site_publish/
@@ -105,10 +110,11 @@ jobs:
           # Disable Jekyll processing
           touch _site_publish/.nojekyll
 
-          # Verify pages
+          # Verify generated pages and hero image
           test -s _site_publish/index.html
           test -s _site_publish/projects.html
           test -s _site_publish/events.html
+          test -s _site_publish/elements/header_bg_2.jpg
 
           echo "Prepared website files:"
           find _site_publish -type f | sort
@@ -118,7 +124,6 @@ jobs:
         uses: actions/upload-pages-artifact@v3
         with:
           path: _site_publish
-          include-hidden-files: true
 
   deploy:
     name: Deploy to GitHub Pages
