@@ -406,7 +406,7 @@ render_member_cards <- function(users) {
     url <- esc(users$html_url[i])
     avatar <- esc(users$avatar_url[i])
 
-    cat('<div class="col-xs-6 col-sm-2">')
+    cat('<div class="col-xs-6 col-sm-3">')
     cat('<div class="card">')
 
     cat(sprintf(
