@@ -1,15 +1,23 @@
 
-name: Build ISAAKiel website
+name: Build and deploy ISAAKiel website
 
 on:
   push:
     branches:
-      - modernize-website
       - master
+  pull_request:
+    branches:
+      - master
+  schedule:
+    - cron: '0 6 * * 1'
   workflow_dispatch:
 
 permissions:
   contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: false
 
 jobs:
   build:
@@ -47,6 +55,8 @@ jobs:
           test -f projects.html
           test -f events.html
 
+      # Keep the regular build artifact for inspecting
+      # the generated website in pull requests.
       - name: Upload rendered website
         uses: actions/upload-artifact@v4
         with:
@@ -60,3 +70,73 @@ jobs:
             assets/
             .nojekyll
           if-no-files-found: warn
+
+      # Assemble a clean directory containing only
+      # files that should be published.
+      - name: Prepare Pages directory
+        shell: bash
+        run: |
+          set -euo pipefail
+
+          mkdir -p _site_publish
+
+          # Rendered HTML pages
+          cp index.html projects.html events.html _site_publish/
+
+          # Stylesheets and root-level static files
+          for file in *.css *.js *.png *.jpg *.jpeg *.svg *.gif *.ico *.webp; do
+            if [ -f "$file" ]; then
+              cp "$file" _site_publish/
+            fi
+          done
+
+          # Static resource directories
+          for dir in site_libs images img figures assets css js fonts media; do
+            if [ -d "$dir" ]; then
+              cp -R "$dir" _site_publish/
+            fi
+          done
+
+          # Optional custom domain
+          if [ -f CNAME ]; then
+            cp CNAME _site_publish/
+          fi
+
+          # Disable Jekyll processing
+          touch _site_publish/.nojekyll
+
+          # Verify pages
+          test -s _site_publish/index.html
+          test -s _site_publish/projects.html
+          test -s _site_publish/events.html
+
+          echo "Prepared website files:"
+          find _site_publish -type f | sort
+
+      # Artifact used by the GitHub Pages deployment job
+      - name: Upload GitHub Pages artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: _site_publish
+          include-hidden-files: true
+
+  deploy:
+    name: Deploy to GitHub Pages
+
+    if: github.ref == 'refs/heads/master' && github.event_name != 'pull_request'
+
+    needs: build
+    runs-on: ubuntu-24.04
+
+    permissions:
+      pages: write
+      id-token: write
+
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+
+    steps:
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
