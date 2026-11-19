@@ -1,0 +1,62 @@
+
+name: Build ISAAKiel website
+
+on:
+  push:
+    branches:
+      - modernize-website
+      - master
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-24.04
+
+    container:
+      image: rocker/verse:4.5.3
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Verify R environment
+        run: |
+          Rscript -e 'stopifnot(all(
+            vapply(
+              c("rmarkdown", "knitr", "httr", "htmltools"),
+              requireNamespace,
+              logical(1),
+              quietly = TRUE
+            )
+          ))'
+          Rscript -e 'print(R.version.string)'
+          pandoc --version
+
+      - name: Render website
+        env:
+          GITHUB_TOKEN: ${{ github.token }}
+        run: |
+          Rscript -e 'rmarkdown::render_site(".")'
+
+      - name: Verify generated pages
+        run: |
+          test -f index.html
+          test -f projects.html
+          test -f events.html
+
+      - name: Upload rendered website
+        uses: actions/upload-artifact@v4
+        with:
+          name: isaakiel-website
+          path: |
+            *.html
+            *.css
+            site_libs/
+            images/
+            figures/
+            assets/
+            .nojekyll
+          if-no-files-found: warn
